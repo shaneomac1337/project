@@ -112,46 +112,71 @@ document.addEventListener('DOMContentLoaded', function() {
     // Variables for auto-hide functionality
     let isMouseOverWidget = false;
     let traxHideTimer = null;
+    let isTraxVisible = false;
     
     // Player state
     let currentTrack = 0;
     let isPlaying = false;
     
-    // Function to show the Trax widget (no auto-hide)
-    function showTraxWidget() {
+    // Function to show the Trax widget with optional auto-hide after 5 seconds
+    function showTraxWidget(autoHide = false) {
         console.log('Showing Trax widget');
-        // Make widget visible
-        if (traxWidget) {
-            traxWidget.classList.add('active');
+        if (traxWidget && traxMiniIcon) {
+            // Show the widget
+            traxWidget.style.opacity = '1';
+            traxWidget.style.transform = 'translateY(0)';
+            traxWidget.style.pointerEvents = 'auto';
+            traxWidget.style.visibility = 'visible';
+            isTraxVisible = true;
             
-            // Hide the mini icon when the main widget is shown
-            if (traxMiniIcon) {
-                traxMiniIcon.style.opacity = '0';
-                traxMiniIcon.style.pointerEvents = 'none';
-                console.log('Mini icon hidden');
+            // Hide the mini icon
+            traxMiniIcon.style.opacity = '0';
+            traxMiniIcon.style.pointerEvents = 'none';
+            
+            // Clear any existing hide timer
+            if (traxHideTimer) {
+                clearTimeout(traxHideTimer);
+                traxHideTimer = null;
+            }
+            
+            // Set auto-hide timer if requested
+            if (autoHide) {
+                console.log('Setting auto-hide timer for 5 seconds');
+                traxHideTimer = setTimeout(() => {
+                    // Only hide if not being interacted with
+                    if (!isMouseOverWidget) {
+                        console.log('Auto-hiding Trax widget');
+                        hideTraxWidget();
+                    }
+                }, 5000); // 5 seconds
             }
         }
-        
-        // Clear any existing hide timer
-        if (traxHideTimer) {
-            clearTimeout(traxHideTimer);
-        }
-        
-        // No auto-hide timer - widget stays visible until manually closed
     }
     
     // Function to hide the Trax widget and show the mini icon
     function hideTraxWidget() {
         console.log('Hiding Trax widget');
         // Hide the widget
-        if (traxWidget) {
-            traxWidget.classList.remove('active');
+        if (traxWidget && traxMiniIcon) {
+            // Hide the widget
+            traxWidget.style.opacity = '0';
+            traxWidget.style.transform = 'translateY(20px)';
+            traxWidget.style.pointerEvents = 'none';
+            // Add a small delay before setting visibility to hidden
+            setTimeout(() => {
+                traxWidget.style.visibility = 'hidden';
+            }, 300); // Match the transition duration
+            isTraxVisible = false;
             
-            // Show the mini icon when the main widget is hidden
-            if (traxMiniIcon) {
-                traxMiniIcon.style.opacity = '1';
-                traxMiniIcon.style.pointerEvents = 'auto';
-                console.log('Mini icon shown');
+            // Show the mini icon
+            traxMiniIcon.style.opacity = '1';
+            traxMiniIcon.style.pointerEvents = 'auto';
+            console.log('Mini icon shown');
+            
+            // Clear any existing hide timer
+            if (traxHideTimer) {
+                clearTimeout(traxHideTimer);
+                traxHideTimer = null;
             }
         }
     }
@@ -350,19 +375,23 @@ document.addEventListener('DOMContentLoaded', function() {
         // Move to the previous track in the playlist
         currentTrack--;
         
-        // If we're at the beginning, loop to the end of the playlist
+        // If we're at the beginning, loop to the end
         if (currentTrack < 0) {
             currentTrack = playlist.length - 1;
         }
         
         console.log('Switching to track index:', currentTrack);
         
-        // Load and play the new track
+        // Load the new track
         loadTrack(currentTrack);
-        if (isPlaying) {
-            musicPlayer.play()
-                .catch(e => console.error('Error playing previous track:', e));
-        }
+        
+        // Always play the previous track automatically when skipping
+        isPlaying = true;
+        updatePlayButton(); // Update the play button to show pause icon
+        
+        // Play the track
+        musicPlayer.play()
+            .catch(e => console.error('Error playing previous track:', e));
         
         // Show the widget and animation when changing tracks
         showTraxWidget();
@@ -383,12 +412,16 @@ document.addEventListener('DOMContentLoaded', function() {
         
         console.log('Switching to track index:', currentTrack);
         
-        // Load and play the new track
+        // Load the new track
         loadTrack(currentTrack);
-        if (isPlaying) {
-            musicPlayer.play()
-                .catch(e => console.error('Error playing next track:', e));
-        }
+        
+        // Always play the next track automatically when skipping
+        isPlaying = true;
+        updatePlayButton(); // Update the play button to show pause icon
+        
+        // Play the track
+        musicPlayer.play()
+            .catch(e => console.error('Error playing next track:', e));
         
         // Show the widget and animation when changing tracks
         showTraxWidget();
@@ -423,6 +456,17 @@ document.addEventListener('DOMContentLoaded', function() {
     if (playButton) playButton.addEventListener('click', togglePlay);
     if (prevButton) prevButton.addEventListener('click', prevTrack);
     if (nextButton) nextButton.addEventListener('click', nextTrack);
+    
+    // Add mouse enter/leave events for the widget to prevent auto-hiding while interacting
+    if (traxWidget) {
+        traxWidget.addEventListener('mouseenter', function() {
+            isMouseOverWidget = true;
+        });
+        
+        traxWidget.addEventListener('mouseleave', function() {
+            isMouseOverWidget = false;
+        });
+    }
     
     // Mini icon click event to show the main widget
     if (traxMiniIcon) {
@@ -497,9 +541,22 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Add manual click handler to support mobile playback
         traxWidget.addEventListener('click', function(e) {
-            // Only handle clicks on the main widget, not on buttons
-            if (e.target === traxWidget || e.target.closest('.trax-content') || 
-                e.target === trackName || e.target === trackArtist) {
+            // Only handle clicks on specific areas, not on buttons or controls
+            
+            // Don't trigger if clicking on any button or control element
+            if (e.target.closest('.trax-button') || 
+                e.target.closest('.trax-buttons') || 
+                e.target.closest('.trax-close-button') ||
+                e.target.closest('.volume-control')) {
+                return; // Do nothing when clicking on controls
+            }
+            
+            // Only toggle play when clicking on the main content areas
+            if (e.target === traxWidget || 
+                e.target.closest('.trax-logo') || 
+                e.target === trackName || 
+                e.target === trackArtist ||
+                e.target.closest('.trax-track-info')) {
                 togglePlay();
             }
         });
@@ -524,6 +581,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Hide the widget by default, show only the mini icon
                     hideTraxWidget();
+                    
+                    // Make sure the mini icon is visible
+                    if (traxMiniIcon) {
+                        traxMiniIcon.style.opacity = '1';
+                        traxMiniIcon.style.pointerEvents = 'auto';
+                        traxMiniIcon.style.visibility = 'visible';
+                    }
                     
                     // Ensure the mini icon is visible and clickable
                     if (traxMiniIcon) {
@@ -576,6 +640,17 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // No need for wrappers - directly modify the original functions to include animation
     // Already added the showTrackChangeAnimation call inside the nextTrack and prevTrack functions
+    
+    // Add document-wide click event to show the player for 5 seconds
+    document.addEventListener('click', function(e) {
+        // Don't trigger if clicking on the player itself or its controls
+        if (!e.target.closest('.trax-widget') && !e.target.closest('.trax-mini-icon')) {
+            // If player is not already visible, show it with auto-hide
+            if (!isTraxVisible) {
+                showTraxWidget(true); // true enables auto-hide after 5 seconds
+            }
+        }
+    });
     
     // Initialize player if all elements exist
     if (traxWidget && musicPlayer) {
