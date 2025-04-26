@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Scroll event listener to update active nav link based on scroll position
+    // Scroll event listener to update active nav link and handle Trax widget
     window.addEventListener('scroll', function() {
         const scrollPosition = window.scrollY;
         
@@ -43,6 +43,21 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             header.style.background = 'rgba(10, 10, 10, 0.9)';
             header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.3)';
+        }
+        
+        // Hide the widget with a 2-second delay if it's visible
+        if (isTraxVisible && hasFirstInteractionOccurred) {
+            // Clear any existing timeout
+            if (scrollHideTimeout) {
+                clearTimeout(scrollHideTimeout);
+            }
+            
+            // Set a new timeout to hide the widget after 2 seconds
+            scrollHideTimeout = setTimeout(() => {
+                console.log('Hiding Trax widget after scroll (2s delay)');
+                hideTraxWidget();
+                scrollHideTimeout = null;
+            }, 2000);
         }
         
         // Update active nav link on scroll
@@ -72,14 +87,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Using default values that will be used if metadata extraction fails
     const playlist = [
         {
-            title: "Komplexáci Anthem",  // Default title for track1
-            artist: "Komplexáci Gaming Clan", // Default artist
+            title: "She Loves Me Not",  // Default title for track1
+            artist: "Papa Roach", // Default artist
             file: "audio/track1.mp3"
         },
         {
-            title: "Komplexáci Track 2",  // Default title for track2
-            artist: "Komplexáci Gaming Clan", // Default artist
+            title: "Keep On Moving",  // Default title for track2
+            artist: "Jordiz", // Default artist
             file: "audio/track2.mp3"
+        },
+        {
+            title: "Forgive Me",  // Default title for track3
+            artist: "Versus the World", // Default artist
+            file: "audio/track3.mp3"
         }
         // Add more tracks here as needed
         // {
@@ -115,11 +135,17 @@ document.addEventListener('DOMContentLoaded', function() {
     let isTraxVisible = false;
     
     // Flag to track if first click has occurred
-    let hasFirstClickOccurred = false;
+    let hasFirstInteractionOccurred = false;
+    let scrollHideTimeout = null; // For delayed hiding on scroll
     
     // Player state
     let currentTrack = 0;
     let isPlaying = false;
+    
+    // Shuffle state
+    let isShuffleOn = true; // Shuffle on by default
+    let shuffledPlaylist = [];
+    let currentShuffleIndex = 0;
     
     // Function to show the Trax widget with optional auto-hide after 5 seconds
     function showTraxWidget(autoHide = false) {
@@ -184,27 +210,48 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Simplified function to handle track info display
+    // Simple function to handle track info display with hardcoded values
     function extractMetadata(audioFile) {
         console.log('Setting track info for:', audioFile);
         
-        // Just use the default values from the playlist
-        if (trackName) trackName.textContent = playlist[currentTrack].title;
-        if (trackArtist) trackArtist.textContent = playlist[currentTrack].artist;
+        // Get the debug element
+        const trackDebug = document.querySelector('.track-debug');
+        
+        // Get the hardcoded values from the playlist
+        const trackTitle = playlist[currentTrack].title;
+        const trackArtist = playlist[currentTrack].artist;
+        
+        // Update the UI with the track info
+        if (trackName) trackName.textContent = trackTitle;
+        if (trackArtist) trackArtist.textContent = trackArtist;
+        
+        // Update debug info
+        if (trackDebug) {
+            let debugText = `Track: ${currentTrack + 1}/${playlist.length}`;
+            trackDebug.textContent = debugText;
+            trackDebug.style.color = '#4caf50';
+            
+            // Log the info to console
+            console.log(`Playing track ${currentTrack + 1}/${playlist.length}: "${trackTitle}" by "${trackArtist}"`);
+        }
         
         // Set media session metadata if available
         if ('mediaSession' in navigator) {
             try {
                 navigator.mediaSession.metadata = new MediaMetadata({
-                    title: playlist[currentTrack].title,
-                    artist: playlist[currentTrack].artist,
+                    title: trackTitle,
+                    artist: trackArtist,
                     album: "Komplexáci Gaming Clan",
                     artwork: [
                         { src: 'img/logo.png', sizes: '96x96', type: 'image/png' }
                     ]
                 });
+                
+                // MediaSession was set successfully (no need to show in UI)
+                console.log('MediaSession set successfully');
             } catch (e) {
                 console.error('Error setting MediaSession metadata:', e);
+                console.log('Error setting MediaSession');
             }
         }
     }
@@ -375,13 +422,17 @@ document.addEventListener('DOMContentLoaded', function() {
     function prevTrack() {
         console.log('Previous track called');
         
-        // Move to the previous track in the playlist
+        // Always use sequential playback when manually navigating
+        // Only the first track is shuffled
         currentTrack--;
         
         // If we're at the beginning, loop to the end
         if (currentTrack < 0) {
             currentTrack = playlist.length - 1;
         }
+        
+        // Turn off shuffle after first track
+        isShuffleOn = false;
         
         console.log('Switching to track index:', currentTrack);
         
@@ -405,13 +456,17 @@ document.addEventListener('DOMContentLoaded', function() {
     function nextTrack() {
         console.log('Next track called');
         
-        // Move to the next track in the playlist
+        // Always use sequential playback when manually navigating
+        // Only the first track is shuffled
         currentTrack++;
         
         // If we're at the end, loop back to the beginning
         if (currentTrack >= playlist.length) {
             currentTrack = 0;
         }
+        
+        // Turn off shuffle after first track
+        isShuffleOn = false;
         
         console.log('Switching to track index:', currentTrack);
         
@@ -504,7 +559,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update progress as audio plays
     musicPlayer?.addEventListener('timeupdate', updateProgress);
     
-    // When track ends, play next track
+    // When track ends, play next track (using shuffle if enabled)
     musicPlayer?.addEventListener('ended', nextTrack);
     
     // Error handling for audio
@@ -516,6 +571,39 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show error in track name
         if (trackName) trackName.textContent = "Audio unavailable";
     });
+    
+    // Function to shuffle the playlist
+    function shufflePlaylist() {
+        // Create an array of indices
+        shuffledPlaylist = [];
+        for (let i = 0; i < playlist.length; i++) {
+            shuffledPlaylist.push(i);
+        }
+        
+        // Shuffle the array using Fisher-Yates algorithm
+        for (let i = shuffledPlaylist.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledPlaylist[i], shuffledPlaylist[j]] = [shuffledPlaylist[j], shuffledPlaylist[i]];
+        }
+        
+        // Log the shuffle results for debugging
+        console.log('Playlist shuffled:', shuffledPlaylist);
+        
+        // Count occurrences of each track in first position (for debugging)
+        let firstTrackCounts = {};
+        for (let i = 0; i < playlist.length; i++) {
+            firstTrackCounts[i] = 0;
+        }
+        firstTrackCounts[shuffledPlaylist[0]]++;
+        console.log('First track distribution:', firstTrackCounts);
+        
+        currentShuffleIndex = 0;
+        
+        // Set the current track to the first in the shuffled list
+        if (isShuffleOn && shuffledPlaylist.length > 0) {
+            currentTrack = shuffledPlaylist[currentShuffleIndex];
+        }
+    }
     
     // Initialize player function
     function initPlayer() {
@@ -530,7 +618,11 @@ document.addEventListener('DOMContentLoaded', function() {
         musicPlayer.crossOrigin = 'anonymous';
         musicPlayer.preload = 'auto';
         
-        // Load first track
+        // Initialize shuffle mode FIRST - before loading any tracks
+        // This ensures the first track played is already shuffled
+        shufflePlaylist();
+        
+        // Now load the first track (which will be from the shuffled playlist)
         loadTrack(currentTrack);
         
         // Set initial volume slider value
@@ -541,6 +633,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Show the animation when initialized
         showTrackChangeAnimation();
+        
+        console.log('Player initialized with shuffle. First track index:', currentTrack);
         
         // Add manual click handler to support mobile playback
         traxWidget.addEventListener('click', function(e) {
@@ -564,98 +658,49 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Check if the audio file exists and can be played
-        const audioPath = 'audio/track1.mp3';
-        console.log('Checking audio file:', audioPath);
+        // Hide the widget by default, show only the mini icon
+        hideTraxWidget();
         
-        // First check if file exists
-        fetch(audioPath, { method: 'HEAD' })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Audio file exists, ready for playback');
-                    
-                    // Set up the audio for playback
-                    musicPlayer.src = audioPath;
-                    musicPlayer.load();
-                    musicPlayer.volume = 0.7;
-                    
-                    // Setup for autoplay
-                    console.log('Setting up autoplay...');
-                    
-                    // Hide the widget by default, show only the mini icon
-                    hideTraxWidget();
-                    
-                    // Make sure the mini icon is visible
-                    if (traxMiniIcon) {
-                        traxMiniIcon.style.opacity = '1';
-                        traxMiniIcon.style.pointerEvents = 'auto';
-                        traxMiniIcon.style.visibility = 'visible';
-                    }
-                    
-                    // Ensure the mini icon is visible and clickable
-                    if (traxMiniIcon) {
-                        traxMiniIcon.style.opacity = '1';
-                        traxMiniIcon.style.pointerEvents = 'auto';
-                    }
-                    
-                    // Update track info display and try to extract metadata
-                    loadTrack(0); // This will also extract metadata
-                    
-                    // Set initial volume
-                    musicPlayer.volume = 0.7;
-                    
-                    // Add a click handler to the entire document to enable audio
-                    const unlockAudio = function() {
-                        console.log('User interaction detected, enabling audio');
-                        
-                        // Try to play
-                        if (!isPlaying) {
-                            isPlaying = true;
-                            updatePlayButton();
-                            tryToPlayAudio();
-                        }
-                        
-                        // Remove event listeners after first interaction
-                        document.removeEventListener('click', unlockAudio);
-                        document.removeEventListener('touchstart', unlockAudio);
-                        document.removeEventListener('keydown', unlockAudio);
-                    };
-                    
-                    // Add event listeners for user interaction
-                    document.addEventListener('click', unlockAudio);
-                    document.addEventListener('touchstart', unlockAudio);
-                    document.addEventListener('keydown', unlockAudio);
-                    
-                } else {
-                    throw new Error('Audio file not found');
-                }
-            })
-            .catch(error => {
-                console.error('Audio file check failed:', error);
-                // Just show the widget without playing
-                setTimeout(() => {
-                    showTraxWidget();
-                    // Update track name to show error
-                    if (trackName) trackName.textContent = "Audio unavailable";
-                }, 1000);
-            });
+        // Make sure the mini icon is visible
+        if (traxMiniIcon) {
+            traxMiniIcon.style.opacity = '1';
+            traxMiniIcon.style.pointerEvents = 'auto';
+            traxMiniIcon.style.visibility = 'visible';
+        }
+        
+        // Add a handler to enable audio on user interaction
+        const unlockAudio = function(e) {
+            console.log('User interaction detected, enabling audio', e.type);
+            
+            // Show the widget
+            showTraxWidget(true); // Auto-hide after 5 seconds
+            
+            // Set first interaction flag
+            hasFirstInteractionOccurred = true;
+            
+            // Try to play
+            if (!isPlaying) {
+                isPlaying = true;
+                updatePlayButton();
+                tryToPlayAudio();
+            }
+            
+            // Remove event listeners after first interaction
+            document.removeEventListener('click', unlockAudio);
+            document.removeEventListener('touchstart', unlockAudio);
+            document.removeEventListener('keydown', unlockAudio);
+        };
+        
+        // Add event listeners for user interaction (click only - scroll will simulate a click)
+        document.addEventListener('click', unlockAudio);
+        document.addEventListener('touchstart', unlockAudio);
+        document.addEventListener('keydown', unlockAudio);
     }
     
     // No need for wrappers - directly modify the original functions to include animation
     // Already added the showTrackChangeAnimation call inside the nextTrack and prevTrack functions
     
-    // Add document-wide click event to show the player ONLY on the first click
-    document.addEventListener('click', function(e) {
-        // Only show the widget on the first click
-        if (!hasFirstClickOccurred) {
-            // Don't trigger if clicking on the player itself or its controls
-            if (!e.target.closest('.trax-widget') && !e.target.closest('.trax-mini-icon')) {
-                console.log('First click detected, showing Trax widget');
-                showTraxWidget(true); // true enables auto-hide after 5 seconds
-                hasFirstClickOccurred = true; // Set flag to true after first click
-            }
-        }
-    });
+    // This functionality is now handled by the unlockAudio function above
     
     // Initialize player if all elements exist
     if (traxWidget && musicPlayer) {
