@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="League of Legends - MOBA hra od Riot Games, ve které se specializuje klan Komplexáci">
+    <title>League of Legends | Komplexáci</title>
+    
+    <!-- Favicon -->    
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="apple-touch-icon" href="img/logo.png">
+    <meta name="theme-color" content="#6e4ff6">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Game Page Specific Styles */
+        .game-hero {
+            position: relative;
+            height: 60vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/lol.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--light-text);
+            overflow: hidden;
+        }
+        
+        .game-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(110, 79, 246, 0.3), rgba(0, 210, 255, 0.3));
+            z-index: 1;
+        }
+        
+        .game-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .game-hero-title {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(110, 79, 246, 0.8);
+        }
+        
+        .game-hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .game-info-section {
+            padding: 80px 0;
+        }
+        
+        .game-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .game-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .game-info-card {
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.8) 0%, rgba(30, 30, 30, 0.8) 100%);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(110, 79, 246, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .game-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .game-info-card h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(110, 79, 246, 0.3);
+            padding-bottom: 10px;
+        }
+        
+        .game-map-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 992px) {
+            .game-map-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .game-map-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .game-map-card {
+            background: rgba(18, 18, 18, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .game-map-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .game-map-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .game-map-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .game-map-card:hover .game-map-image img {
+            transform: scale(1.1);
+        }
+        
+        .game-map-content {
+            padding: 20px;
+        }
+        
+        .game-map-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--light-text);
+        }
+        
+        .game-map-desc {
+            font-size: 0.9rem;
+            color: var(--medium-text);
+        }
+        
+        .champions-section {
+            background-color: var(--darker-bg);
+            padding: 80px 0;
+        }
+        
+        .champion-roles {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .champion-role {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: rgba(110, 79, 246, 0.1);
+            border-radius: 30px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+            cursor: pointer !important;
+            user-select: none;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: none;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        
+        .champion-role::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid rgba(110, 79, 246, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .champion-role:hover, .champion-role.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .champion-role:hover::after, .champion-role.active::after {
+            opacity: 1;
+            border-top-color: var(--primary-color);
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .back-button:hover {
+            background-color: #5d3dd3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(110, 79, 246, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="img/logo.png" alt="Komplexáci Logo" class="site-logo">
+                <h1>Komplexáci</h1>
+            </div>
+            <nav class="main-nav">
+                <button class="mobile-menu-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Domů</a></li>
+                    <li><a href="index.html#o-nas" class="nav-link">O nás</a></li>
+                    <li><a href="index.html#clenove" class="nav-link">Členové</a></li>
+                    <li><a href="index.html#hry" class="nav-link active">Hry</a></li>
+                    <li><a href="index.html#discord" class="nav-link">Discord</a></li>
+                    <li><a href="index.html#kontakt" class="nav-link">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="game-hero">
+        <div class="game-hero-content">
+            <h1 class="game-hero-title">League of Legends</h1>
+            <p class="game-hero-subtitle">Nejpopulárnější MOBA hra na světě od Riot Games</p>
+        </div>
+    </section>
+
+    <section class="game-info-section">
+        <div class="container">
+            <h2 class="section-title">O hře League of Legends</h2>
+            <p>League of Legends (LoL) je týmová strategická hra, ve které dva týmy po pěti hráčích bojují proti sobě s cílem zničit nepřátelskou základnu. Každý hráč ovládá jedinečného šampiona s unikátními schopnostmi a rolí v týmu. Hra kombinuje prvky real-time strategie, RPG a akce.</p>
+            
+            <div class="game-info-grid">
+                <div class="game-info-card">
+                    <h3>Základní informace</h3>
+                    <ul>
+                        <li><strong>Vývojář:</strong> Riot Games</li>
+                        <li><strong>Vydáno:</strong> 27. října 2009</li>
+                        <li><strong>Žánr:</strong> MOBA (Multiplayer Online Battle Arena)</li>
+                        <li><strong>Platforma:</strong> PC, Mac</li>
+                        <li><strong>Model:</strong> Free-to-play s mikrotransakcemi</li>
+                        <li><strong>Počet šampionů:</strong> Více než 160</li>
+                        <li><strong>Esport:</strong> Jedna z největších esportových her na světě</li>
+                    </ul>
+                </div>
+                
+                <div class="game-info-card">
+                    <h3>Herní mechaniky</h3>
+                    <p>V League of Legends se hráči snaží zničit nepřátelský Nexus, který je chráněn věžemi a inhibitory. Během hry hráči:</p>
+                    <ul>
+                        <li>Získávají zlato zabíjením minionů a nepřátelských šampionů</li>
+                        <li>Nakupují předměty pro vylepšení svých šampionů</li>
+                        <li>Získávají úrovně a odemykají silnější schopnosti</li>
+                        <li>Spolupracují na získání kontroly nad mapou a důležitými objekty</li>
+                        <li>Využívají strategii a týmovou spolupráci k poražení nepřátelského týmu</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Mapy v League of Legends</h2>
+            <p>League of Legends nabízí několik různých map, každá s jedinečnými herními mechanismy a strategickými výzvami.</p>
+            
+            <div class="game-map-grid">
+                <div class="game-map-card">
+                    <div class="game-map-image">
+                        <img src="img/lol.jpg" alt="Summoner's Rift">
+                    </div>
+                    <div class="game-map-content">
+                        <h3 class="game-map-title">Summoner's Rift</h3>
+                        <p class="game-map-desc">Hlavní a nejpopulárnější mapa v League of Legends. Dva týmy po pěti hráčích bojují na třech linkách s cílem zničit nepřátelský Nexus.</p>
+                    </div>
+                </div>
+                
+                <div class="game-map-card">
+                    <div class="game-map-image">
+                        <img src="img/lol.jpg" alt="Howling Abyss">
+                    </div>
+                    <div class="game-map-content">
+                        <h3 class="game-map-title">Howling Abyss</h3>
+                        <p class="game-map-desc">Mapa pro ARAM (All Random All Mid) režim. Jednolinkový most, kde hráči dostanou náhodné šampiony a bojují v intenzivních týmových soubojích.</p>
+                    </div>
+                </div>
+                
+                <div class="game-map-card">
+                    <div class="game-map-image">
+                        <img src="img/lol.jpg" alt="Convergence">
+                    </div>
+                    <div class="game-map-content">
+                        <h3 class="game-map-title">Convergence</h3>
+                        <p class="game-map-desc">Mapa pro Teamfight Tactics, auto-battler režim v League of Legends, kde hráči staví týmy šampionů a bojují proti sedmi soupeřům.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="champions-section">
+        <div class="container">
+            <h2 class="section-title">Šampioni a role</h2>
+            <p>V League of Legends existuje více než 160 hratelných šampionů, každý s unikátními schopnostmi a herním stylem. Šampioni jsou rozděleni do různých rolí podle jejich funkcí v týmu.</p>
+            
+            <div class="champion-roles">
+                <button type="button" class="champion-role active" onclick="showRole('Top')">Top</button>
+                <button type="button" class="champion-role" onclick="showRole('Jungle')">Jungle</button>
+                <button type="button" class="champion-role" onclick="showRole('Mid')">Mid</button>
+                <button type="button" class="champion-role" onclick="showRole('ADC')">ADC</button>
+                <button type="button" class="champion-role" onclick="showRole('Support')">Support</button>
+            </div>
+            
+            <div class="game-info-card">
+                <h3>Top Lane</h3>
+                <p>Top laneři jsou obvykle tanky nebo bojovníci, kteří mohou samostatně fungovat v horní části mapy. Jejich úkolem je získat výhodu nad soupeřem, vytvářet tlak a později se účastnit týmových bojů.</p>
+                <p><strong>Populární šampioni:</strong> Darius, Fiora, Camille, Jax, Shen, Garen</p>
+                <p><strong>Herní styl:</strong> Samostatnost, splitpushing, tankování poškození v týmových bojích</p>
+                <p><strong>Klíčové schopnosti:</strong> Teleport, dobrá výdrž, schopnost 1v1 soubojů</p>
+                <p><strong>Typické předměty:</strong> Divine Sunderer, Sterak's Gage, Thornmail</p>
+            </div>
+            
+            <a href="index.html#hry" class="back-button">Zpět na přehled her</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Komplexáci | Všechna práva vyhrazena</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="js/main.js"></script>
+    
+    <!-- Page-specific JavaScript -->
+    <script>
+        // Role data available globally
+        const roleData = {
+                'Top': {
+                    title: 'Top Lane',
+                    description: 'Top laneři jsou obvykle tanky nebo bojovníci, kteří mohou samostatně fungovat v horní části mapy. Jejich úkolem je získat výhodu nad soupeřem, vytvářet tlak a později se účastnit týmových bojů.',
+                    champions: 'Darius, Fiora, Camille, Jax, Shen, Garen',
+                    style: 'Samostatnost, splitpushing, tankování poškození v týmových bojích',
+                    abilities: 'Teleport, dobrá výdrž, schopnost 1v1 soubojů',
+                    items: 'Divine Sunderer, Sterak\'s Gage, Thornmail'
+                },
+                'Jungle': {
+                    title: 'Jungle',
+                    description: 'Jungleři se pohybují mezi linkami a zabíjejí neutrální monstra. Jejich úkolem je pomáhat svým spoluhráčům získat výhodu a kontrolovat důležité objekty na mapě.',
+                    champions: 'Lee Sin, Elise, Graves, Hecarim, Vi, Kha\'Zix',
+                    style: 'Ganking, kontrola objektů, invaze do nepřátelské džungle',
+                    abilities: 'Smite, mobilita, schopnost překvapit nepřátele',
+                    items: 'Eclipse, Dead Man\'s Plate, Guardian Angel'
+                },
+                'Mid': {
+                    title: 'Mid Lane',
+                    description: 'Mid laneři jsou obvykle mágové nebo asasíni s vysokým poškozením. Díky své centrální pozici mohou rychle rotovat a pomáhat ostatním linkám.',
+                    champions: 'Ahri, Zed, Syndra, Yasuo, LeBlanc, Viktor',
+                    style: 'Vysoké poškození, roaming, kontrola mapy',
+                    abilities: 'Burst damage, mobilita, CC schopnosti',
+                    items: 'Luden\'s Echo, Rabadon\'s Deathcap, Zhonya\'s Hourglass'
+                },
+                'ADC': {
+                    title: 'ADC (Bot Lane Carry)',
+                    description: 'ADC jsou ranged carry postavy, které způsobují vysoké stabilní poškození pomocí základních útoků. Jsou velmi silné v pozdní fázi hry, ale potřebují ochranu.',
+                    champions: 'Jinx, Caitlyn, Ezreal, Jhin, Kai\'Sa, Vayne',
+                    style: 'Vysoké stabilní poškození, farmení, positioning',
+                    abilities: 'Auto-attack damage, kritické zásahy, lifesteal',
+                    items: 'Infinity Edge, Bloodthirster, Guardian Angel'
+                },
+                'Support': {
+                    title: 'Support',
+                    description: 'Supporti pomáhají svému ADC přežít a prosperovat. Poskytují užitečné efekty jako štíty, léčení, crowd control nebo vizi.',
+                    champions: 'Thresh, Lulu, Leona, Nami, Pyke, Soraka',
+                    style: 'Ochrana ADC, crowd control, poskytování vize',
+                    abilities: 'Heal, shield, engage/disengage, CC',
+                    items: 'Moonstone Renewer, Locket of the Iron Solari, Redemption'
+                }
+            };
+            
+        // Super simple global function to change role content
+        function showRole(roleName) {
+            console.log('Showing role:', roleName);
+
+            // Get role data
+            const role = roleData[roleName];
+            if (!role) {
+                console.error('Role data not found for:', roleName);
+                return;
+            }
+            
+            // Get the correct element in the champions section
+            const roleContent = document.querySelector('.champions-section .game-info-card');
+            if (!roleContent) {
+                console.error('Role content element not found');
+                return;
+            }
+            
+            // Direct HTML replacement - most reliable approach
+            roleContent.innerHTML = `
+                <h3>${role.title}</h3>
+                <p>${role.description}</p>
+                <p><strong>Populární šampioni:</strong> ${role.champions}</p>
+                <p><strong>Herní styl:</strong> ${role.style}</p>
+                <p><strong>Klíčové schopnosti:</strong> ${role.abilities}</p>
+                <p><strong>Typické předměty:</strong> ${role.items}</p>
+            `;
+            
+            // Update active tab state
+            const tabs = document.querySelectorAll('.champion-role');
+            tabs.forEach(t => t.classList.remove('active'));
+            
+            // Find and activate the clicked tab
+            const clickedTab = Array.from(tabs).find(t => t.textContent === roleName);
+            if (clickedTab) clickedTab.classList.add('active');
+        }
+    
+    </script>
+</body>
+</html>

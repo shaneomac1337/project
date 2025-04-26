@@ -50,6 +50,77 @@ p {
     color: var(--medium-text);
 }
 
+/* Game Cards Styling */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.game-card {
+    background: linear-gradient(135deg, rgba(18, 18, 18, 0.8) 0%, rgba(30, 30, 30, 0.8) 100%);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    display: block;
+    position: relative;
+    border: 1px solid rgba(110, 79, 246, 0.1);
+}
+
+.game-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    border-color: rgba(110, 79, 246, 0.3);
+}
+
+.game-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.game-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.game-card:hover .game-image img {
+    transform: scale(1.1);
+}
+
+.game-title {
+    padding: 20px 20px 10px;
+    font-size: 1.5rem;
+    color: var(--light-text);
+}
+
+.game-desc {
+    padding: 0 20px 20px;
+    font-size: 0.9rem;
+    color: var(--medium-text);
+}
+
+.game-link-btn {
+    display: inline-block;
+    margin: 0 20px 20px;
+    padding: 8px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.game-card:hover .game-link-btn {
+    background-color: var(--secondary-color);
+    box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+}
+
 a {
     text-decoration: none;
     color: var(--accent-color);
@@ -621,7 +692,6 @@ a:hover {
 
 .member-podri .member-role {
     background: linear-gradient(135deg, #ffcc00, #ffd966);
-    color: #333;
 }
 
 /* Games Section */
