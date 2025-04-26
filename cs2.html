@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Counter-Strike 2 - FPS střílečka od Valve, ve které se specializuje klan Komplexáci">
+    <title>Counter-Strike 2 | Komplexáci</title>
+    
+    <!-- Favicon -->    
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="apple-touch-icon" href="img/logo.png">
+    <meta name="theme-color" content="#6e4ff6">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Game Page Specific Styles */
+        .weapon-details {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+        }
+        
+        .weapon-details p {
+            margin: 5px 0;
+        }
+        
+        .weapon-details strong {
+            color: var(--secondary-color);
+        }
+        .game-hero {
+            position: relative;
+            height: 60vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/cs2.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--light-text);
+            overflow: hidden;
+        }
+        
+        .game-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 71, 87, 0.3), rgba(110, 79, 246, 0.3));
+            z-index: 1;
+        }
+        
+        .game-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .game-hero-title {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(255, 71, 87, 0.8);
+        }
+        
+        .game-hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .game-info-section {
+            padding: 80px 0;
+        }
+        
+        .game-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .game-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .game-info-card {
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.8) 0%, rgba(30, 30, 30, 0.8) 100%);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .game-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .game-info-card h3 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 71, 87, 0.3);
+            padding-bottom: 10px;
+        }
+        
+        .game-map-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 992px) {
+            .game-map-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .game-map-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .game-map-card {
+            background: rgba(18, 18, 18, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .game-map-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .game-map-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .game-map-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .game-map-card:hover .game-map-image img {
+            transform: scale(1.1);
+        }
+        
+        .game-map-content {
+            padding: 20px;
+        }
+        
+        .game-map-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--light-text);
+        }
+        
+        .game-map-desc {
+            font-size: 0.9rem;
+            color: var(--medium-text);
+        }
+        
+        .weapons-section {
+            background-color: var(--darker-bg);
+            padding: 80px 0;
+        }
+        
+        .weapon-categories {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .weapon-category {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: rgba(110, 79, 246, 0.1);
+            border-radius: 30px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+            cursor: pointer !important;
+            user-select: none;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border: none;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        
+        .weapon-category::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid rgba(110, 79, 246, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .weapon-category:hover, .weapon-category.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .weapon-category:hover::after, .weapon-category.active::after {
+            opacity: 1;
+            border-top-color: var(--primary-color);
+        }
+        
+        .weapons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .weapon-card {
+            background: rgba(18, 18, 18, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 71, 87, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .weapon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .weapon-image {
+            height: 100px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .weapon-image img {
+            max-height: 100%;
+            max-width: 100%;
+        }
+        
+        .weapon-name {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--light-text);
+        }
+        
+        .weapon-price {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .weapon-stats {
+            font-size: 0.9rem;
+            color: var(--medium-text);
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 12px 30px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .back-button:hover {
+            background-color: #e63347;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="img/logo.png" alt="Komplexáci Logo" class="site-logo">
+                <h1>Komplexáci</h1>
+            </div>
+            <nav class="main-nav">
+                <button class="mobile-menu-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Domů</a></li>
+                    <li><a href="index.html#o-nas" class="nav-link">O nás</a></li>
+                    <li><a href="index.html#clenove" class="nav-link">Členové</a></li>
+                    <li><a href="index.html#hry" class="nav-link active">Hry</a></li>
+                    <li><a href="index.html#discord" class="nav-link">Discord</a></li>
+                    <li><a href="index.html#kontakt" class="nav-link">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="game-hero">
+        <div class="game-hero-content">
+            <h1 class="game-hero-title">Counter-Strike 2</h1>
+            <p class="game-hero-subtitle">Legendární taktická FPS střílečka od Valve</p>
+        </div>
+    </section>
+
+    <section class="game-info-section">
+        <div class="container">
+            <h2 class="section-title">O hře Counter-Strike 2</h2>
+            <p>Counter-Strike 2 (CS2) je taktická střílečka z pohledu první osoby, která je pokračováním legendárního Counter-Strike: Global Offensive. Hra staví proti sobě dva týmy - teroristy a protiteroristickou jednotku - v různých herních režimech. CS2 přináší vylepšenou grafiku, fyziku, zvuky a nový systém kouřových granátů díky přechodu na Source 2 engine.</p>
+            
+            <div class="game-info-grid">
+                <div class="game-info-card">
+                    <h3>Základní informace</h3>
+                    <ul>
+                        <li><strong>Vývojář:</strong> Valve Corporation</li>
+                        <li><strong>Vydáno:</strong> 27. září 2023</li>
+                        <li><strong>Žánr:</strong> FPS (First-Person Shooter), Taktická střílečka</li>
+                        <li><strong>Platforma:</strong> PC (Steam)</li>
+                        <li><strong>Model:</strong> Free-to-play</li>
+                        <li><strong>Engine:</strong> Source 2</li>
+                        <li><strong>Esport:</strong> Jedna z největších esportových her na světě</li>
+                    </ul>
+                </div>
+                
+                <div class="game-info-card">
+                    <h3>Herní mechaniky</h3>
+                    <p>Counter-Strike 2 je známý svou hloubkou a vysokým stropem dovedností. Klíčové herní mechaniky zahrnují:</p>
+                    <ul>
+                        <li>Ekonomický systém - nakupování zbraní a vybavení na začátku každého kola</li>
+                        <li>Přesná střelba a kontrola zpětného rázu</li>
+                        <li>Taktické využití granátů (kouřové, zábleskové, výbušné, molotovy)</li>
+                        <li>Týmová komunikace a strategie</li>
+                        <li>Map control a informační hra</li>
+                        <li>Sub-tick aktualizace - přesnější registrace zásahů a pohybu</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Mapy v Counter-Strike 2</h2>
+            <p>CS2 obsahuje řadu ikonických map, které byly vylepšeny pro Source 2 engine. Každá mapa má své unikátní rozvržení a vyžaduje specifické strategie.</p>
+            
+            <div class="game-map-grid">
+                <div class="game-map-card">
+                    <div class="game-map-image">
+                        <img src="img/cs2.jpg" alt="Dust II">
+                    </div>
+                    <div class="game-map-content">
+                        <h3 class="game-map-title">Dust II</h3>
+                        <p class="game-map-desc">Nejpopulárnější mapa v historii Counter-Strike. Pouštní prostředí s dvěma bombsity, známé pro své dlouhé linie pohledu a vyváženost pro obě strany.</p>
+                    </div>
+                </div>
+                
+                <div class="game-map-card">
+                    <div class="game-map-image">
+                        <img src="img/cs2.jpg" alt="Mirage">
+                    </div>
+                    <div class="game-map-content">
+                        <h3 class="game-map-title">Mirage</h3>
+                        <p class="game-map-desc">Mapa inspirovaná marockým městem s otevřeným středem a dvěma bombsity. Nabízí mnoho možností pro kreativní využití kouřových granátů a flashek.</p>
+                    </div>
+                </div>
+                
+                <div class="game-map-card">
+                    <div class="game-map-image">
+                        <img src="img/cs2.jpg" alt="Inferno">
+                    </div>
+                    <div class="game-map-content">
+                        <h3 class="game-map-title">Inferno</h3>
+                        <p class="game-map-desc">Mapa zasazená v italském městečku s úzkými uličkami a dvěma bombsity. Známá pro svou "banana" a intenzivní boje o kontrolu klíčových bodů.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="weapons-section">
+        <div class="container">
+            <h2 class="section-title">Zbraně a vybavení</h2>
+            <p>CS2 nabízí širokou škálu zbraní a vybavení, které si hráči mohou zakoupit na začátku každého kola podle své ekonomické situace a strategie.</p>
+            
+            <div class="weapon-categories">
+                <button type="button" class="weapon-category active" onclick="showWeapon('Pistole')">Pistole</button>
+                <button type="button" class="weapon-category" onclick="showWeapon('SMG')">SMG</button>
+                <button type="button" class="weapon-category" onclick="showWeapon('Pušky')">Pušky</button>
+                <button type="button" class="weapon-category" onclick="showWeapon('Těžké zbraně')">Těžké zbraně</button>
+                <button type="button" class="weapon-category" onclick="showWeapon('Odstřelovačky')">Odstřelovačky</button>
+                <button type="button" class="weapon-category" onclick="showWeapon('Granáty')">Granáty</button>
+            </div>
+            
+            <div class="game-info-card">
+                <h3>Pistole</h3>
+                <p>Pistole jsou základní zbraně, které každý hráč dostane na začátku hry. Jsou také důležité pro eco kola, kdy tým nemá dostatek peněz na plný nákup.</p>
+                
+                <div class="weapons-grid">
+                    <div class="weapon-card">
+                        <div class="weapon-image">
+                            <img src="img/cs2.jpg" alt="Desert Eagle" style="object-fit: contain;">
+                        </div>
+                        <h4 class="weapon-name">Desert Eagle</h4>
+                        <p class="weapon-price">$700</p>
+                        <p class="weapon-stats">Vysoké poškození, přesná na první ránu</p>
+                        <div class="weapon-details">
+                            <p><strong>Poškození:</strong> 73 (hlava), 35 (tělo)</p>
+                            <p><strong>Přesnost:</strong> Vysoká u prvé střely, velký zpětný ráz</p>
+                            <p><strong>Tým:</strong> CT i T</p>
+                        </div>
+                    </div>
+                    
+                    <div class="weapon-card">
+                        <div class="weapon-image">
+                            <img src="img/cs2.jpg" alt="USP-S" style="object-fit: contain;">
+                        </div>
+                        <h4 class="weapon-name">USP-S</h4>
+                        <p class="weapon-price">CT Startovní</p>
+                        <p class="weapon-stats">Tichá, přesná na střední vzdálenost</p>
+                        <div class="weapon-details">
+                            <p><strong>Poškození:</strong> 70 (hlava), 35 (tělo)</p>
+                            <p><strong>Přesnost:</strong> Vysoká, malý zpětný ráz</p>
+                            <p><strong>Tým:</strong> CT</p>
+                        </div>
+                    </div>
+                    
+                    <div class="weapon-card">
+                        <div class="weapon-image">
+                            <img src="img/cs2.jpg" alt="Glock-18" style="object-fit: contain;">
+                        </div>
+                        <h4 class="weapon-name">Glock-18</h4>
+                        <p class="weapon-price">T Startovní</p>
+                        <p class="weapon-stats">Rychlá kadence, nízký zpětný ráz</p>
+                        <div class="weapon-details">
+                            <p><strong>Poškození:</strong> 40 (hlava), 20 (tělo)</p>
+                            <p><strong>Přesnost:</strong> Střední, velmi nízký zpětný ráz</p>
+                            <p><strong>Tým:</strong> T</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="index.html#hry" class="back-button">Zpět na přehled her</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Komplexáci | Všechna práva vyhrazena</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="js/main.js"></script>
+    
+    <!-- Page-specific JavaScript -->
+    <script>
+        // Weapon content data - global scope
+        const weaponData = {
+                'Pistole': {
+                    title: 'Pistole',
+                    description: 'Pistole jsou základní zbraně, které každý hráč dostane na začátku hry. Jsou také důležité pro eco kola, kdy tým nemá dostatek peněz na plný nákup.',
+                    weapons: [
+                        {
+                            name: 'Desert Eagle',
+                            price: '$700',
+                            stats: 'Vysoké poškození, přesná na první ránu',
+                            damage: '73 (hlava), 47 (tělo)',
+                            accuracy: 'Vysoká na první ránu, následně klesá',
+                            team: 'CT i T'
+                        },
+                        {
+                            name: 'USP-S',
+                            price: 'CT Startovní',
+                            stats: 'Tichá, přesná na střední vzdálenost',
+                            damage: '70 (hlava), 35 (tělo)',
+                            accuracy: 'Vysoká přesnost, malý zpětný ráz',
+                            team: 'CT'
+                        },
+                        {
+                            name: 'Glock-18',
+                            price: 'T Startovní',
+                            stats: 'Rychlá kadence, nízký zpětný ráz',
+                            damage: '30 (hlava), 12 (tělo)',
+                            accuracy: 'Střední přesnost, dobrá na blízko',
+                            team: 'T'
+                        },
+                        {
+                            name: 'P250',
+                            price: '$300',
+                            stats: 'Dobrý poměr cena/výkon, dobrá proti neprátelům s helmou',
+                            damage: '66 (hlava), 26 (tělo)',
+                            accuracy: 'Střední přesnost, mírný zpětný ráz',
+                            team: 'CT i T'
+                        },
+                        {
+                            name: 'Five-SeveN',
+                            price: '$500',
+                            stats: 'Vysoká kapacita zásobníku, dobrá proti neprátelům s vestou',
+                            damage: '68 (hlava), 24 (tělo)',
+                            accuracy: 'Vysoká přesnost, nízký zpětný ráz',
+                            team: 'CT'
+                        },
+                        {
+                            name: 'Tec-9',
+                            price: '$500',
+                            stats: 'Vysoká kadence, dobrá na běh a střelbu',
+                            damage: '62 (hlava), 26 (tělo)',
+                            accuracy: 'Nízká přesnost, střední zpětný ráz',
+                            team: 'T'
+                        }
+                    ]
+                },
+                'SMG': {
+                    title: 'SMG (Samopal)',
+                    description: 'SMG jsou levnější zbraně s vysokou kadencí střelby, které jsou efektivní na blízkou až střední vzdálenost. Jsou dobrou volbou po výhře pistolkového kola.',
+                    weapons: [
+                        {
+                            name: 'MP9',
+                            price: '$1250',
+                            stats: 'Vysoká kadence, dobrá mobilita, pouze pro CT',
+                            damage: '26 (hlava), 13 (tělo)',
+                            accuracy: 'Přesná na blízko, střední zpětný ráz',
+                            team: 'CT'
+                        },
+                        {
+                            name: 'MAC-10',
+                            price: '$1050',
+                            stats: 'Levný, vysoká kadence, pouze pro T',
+                            damage: '29 (hlava), 15 (tělo)',
+                            accuracy: 'Nízká přesnost, vysoký zpětný ráz',
+                            team: 'T'
+                        },
+                        {
+                            name: 'MP7',
+                            price: '$1500',
+                            stats: 'Vyvážený samopal s dobrou přesností',
+                            damage: '29 (hlava), 14 (tělo)',
+                            accuracy: 'Dobrá přesnost, nízký zpětný ráz',
+                            team: 'CT i T'
+                        },
+                        {
+                            name: 'MP5-SD',
+                            price: '$1500',
+                            stats: 'Tichá alternativa k MP7 s podobnými statistikami',
+                            damage: '27 (hlava), 13 (tělo)',
+                            accuracy: 'Dobrá přesnost, nízký zpětný ráz',
+                            team: 'CT i T'
+                        },
+                        {
+                            name: 'UMP-45',
+                            price: '$1200',
+                            stats: 'Silný samopal s dobrým poškozením na střední vzdálenost',
+                            damage: '35 (hlava), 17 (tělo)',
+                            accuracy: 'Střední přesnost, střední zpětný ráz',
+                            team: 'CT i T'
+                        },
+                        {
+                            name: 'P90',
+                            price: '$2350',
+                            stats: '50 nábojů v zásobníku, dobrá pro začátečníky',
+                            damage: '26 (hlava), 13 (tělo)',
+                            accuracy: 'Střední přesnost, nízký zpětný ráz',
+                            team: 'CT i T'
+                        },
+                        {
+                            name: 'PP-Bizon',
+                            price: '$1400',
+                            stats: 'Zásobník na 64 nábojů, ideální proti nepřátelům bez vesty',
+                            damage: '27 (hlava), 13 (tělo)',
+                            accuracy: 'Nízká přesnost, nízký zpětný ráz',
+                            team: 'CT i T'
+                        }
+                    ]
+                },
+                'Pušky': {
+                    title: 'Pušky (Rifles)',
+                    description: 'Pušky jsou hlavní zbraně v CS2, které poskytují dobrý poměr mezi cenou a výkonem. Jsou efektivní na všechny vzdálenosti a tvoří základ většiny nákupů.',
+                    weapons: [
+                        {
+                            name: 'AK-47',
+                            price: '$2700',
+                            stats: 'Vysoké poškození, zabijí na jednu ránu do hlavy, pouze pro T',
+                            damage: '143 (hlava), 35 (tělo)',
+                            accuracy: 'Střední přesnost, vysoký zpětný ráz',
+                            team: 'T'
+                        },
+                        {
+                            name: 'M4A4',
+                            price: '$3100',
+                            stats: 'Vyvážená puška s nízkým zpětným rázem, pouze pro CT',
+                            damage: '92 (hlava), 28 (tělo)',
+                            accuracy: 'Vysoká přesnost, střední zpětný ráz',
+                            team: 'CT'
+                        },
+                        {
+                            name: 'M4A1-S',
+                            price: '$2900',
+                            stats: 'Tichá alternativa k M4A4 s menším zásobníkem, pouze pro CT',
+                            damage: '92 (hlava), 28 (tělo)',
+                            accuracy: 'Velmi vysoká přesnost, nízký zpětný ráz',
+                            team: 'CT'
+                        },
+                        {
+                            name: 'FAMAS',
+                            price: '$1050',
+                            stats: 'Levnější CT automatická puška, má režim dávkové střelby',
+                            damage: '78 (hlava), 24 (tělo)',
+                            accuracy: 'Střední přesnost, střední zpětný ráz',
+                            team: 'CT'
+                        },
+                        {
+                            name: 'Galil AR',
+                            price: '$1800',
+                            stats: 'Levnější T automatická puška s velkou kapacitou zásobníku',
+                            damage: '85 (hlava), 25 (tělo)',
+                            accuracy: 'Nízká přesnost, vysoký zpětný ráz',
+                            team: 'T'
+                        },
+                        {
+                            name: 'AUG',
+                            price: '$3300',
+                            stats: 'CT puška s optickým hledí pro střelbu na větší vzdálenost',
+                            damage: '95 (hlava), 28 (tělo)',
+                            accuracy: 'Velmi vysoká přesnost s hledím, nízký zpětný ráz',
+                            team: 'CT'
+                        },
+                        {
+                            name: 'SG 553',
+                            price: '$3000',
+                            stats: 'T puška s optickým hledím, vyšší poškození než AUG',
+                            damage: '100 (hlava), 30 (tělo)',
+                            accuracy: 'Vysoká přesnost s hledím, střední zpětný ráz',
+                            team: 'T'
+                        }
+                    ]
+                },
+                'Odstřelovačky': {
+                    title: 'Odstřelovačky (Sniper Rifles)',
+                    description: 'Odstřelovačky jsou specializované zbraně pro boj na dlouhé vzdálenosti. Jsou drahé, ale mohou změnit průběh hry jediným zásahem.',
+                    weapons: [
+                        {
+                            name: 'AWP',
+                            price: '$4750',
+                            stats: 'Nejsilnější zbraň ve hře, zabijí na jednu ránu do těla',
+                            damage: '459 (hlava), 115 (tělo)',
+                            accuracy: 'Velmi vysoká přesnost, silný zpětný ráz',
+                            team: 'CT i T'
+                        },
+                        {
+                            name: 'SSG 08',
+                            price: '$1700',
+                            stats: 'Levná odstřelovačka, zabijí na jednu ránu do hlavy',
+                            damage: '88 (hlava), 30 (tělo)',
+                            accuracy: 'Vysoká přesnost, nízký zpětný ráz',
+                            team: 'CT i T'
+                        },
+                        {
+                            name: 'SCAR-20/G3SG1',
+                            price: '$5000',
+                            stats: 'Poloautomatická odstřelovačka s vysokou kadencí',
+                            damage: '80 (hlava), 30 (tělo)',
+                            accuracy: 'Vysoká přesnost, střední zpětný ráz',
+                            team: 'SCAR-20 (CT), G3SG1 (T)'
+                        }
+                    ]
+                },
+                'Těžké zbraně': {
+                    title: 'Těžké zbraně (Shotguns & Machine Guns)',
+                    description: 'Těžké zbraně zahrnují brokovnice a kulomety. Brokovnice jsou devastující na blízkou vzdálenost, zatímco kulomety poskytují masivní pal při potlačení nepřátele.',
+                    weapons: [
+                        {
+                            name: 'Nova',
+                            price: '$1050',
+                            stats: 'Brokovnice s dobrým poměrem cena/výkon, vysoké poškození na blízko',
+                            damage: '234 (hlava), 26 (tělo) na blízko',
+                            accuracy: 'Rozptyl kulí, účinná pouze na krátkou vzdálenost',
+                            team: 'CT i T'
+                        },
+                        {
+                            name: 'XM1014',
+                            price: '$2000',
+                            stats: 'Poloautomatická brokovnice s vysokou kadencí',
+                            damage: '120 (hlava), 20 (tělo) na blízko',
+                            accuracy: 'Větší rozptyl kulí, vysoká kadence střelby',
+                            team: 'CT i T'
+                        },
+                        {
+                            name: 'MAG-7',
+                            price: '$1300',
+                            stats: 'Silná CT brokovnice s kompaktním designem',
+                            damage: '240 (hlava), 30 (tělo) na blízko',
+                            accuracy: 'Dobrý rozptyl, vyšší přesnost než ostatní brokovnice',
+                            team: 'CT'
+                        },
+                        {
+                            name: 'Sawed-Off',
+                            price: '$1100',
+                            stats: 'T brokovnice s extrémním poškozením na velmi krátkou vzdálenost',
+                            damage: '256 (hlava), 32 (tělo) na blízko',
+                            accuracy: 'Velmi větví rozptyl, účinná pouze na velmi krátkou vzdálenost',
+                            team: 'T'
+                        },
+                        {
+                            name: 'Negev',
+                            price: '$1700',
+                            stats: 'Kulomet s obrovskou kapacitou zásobníku (150 nábojů)',
+                            damage: '35 (hlava), 13 (tělo)',
+                            accuracy: 'Zpočátku nepřesná, po chvíli střelby velmi přesná',
+                            team: 'CT i T'
+                        },
+                        {
+                            name: 'M249',
+                            price: '$5200',
+                            stats: 'Těžký kulomet s vysokou kadencí a dobrou střední vzdáleností',
+                            damage: '32 (hlava), 11 (tělo)',
+                            accuracy: 'Střední přesnost, vysoký zpětný ráz',
+                            team: 'CT i T'
+                        }
+                    ]
+                },
+                'Granáty': {
+                    title: 'Granáty a vybavení',
+                    description: 'Granáty a další vybavení jsou klíčové pro taktický boj v CS2. Správné použití granátů může rozhodnout o výsledku kola.',
+                    weapons: [
+                        {
+                            name: 'Smoke Grenade',
+                            price: '$300',
+                            stats: 'Vytvoří kouřovou clonu, která blokuje výhled',
+                            damage: '0',
+                            duration: '18 sekund',
+                            team: 'CT i T'
+                        },
+                        {
+                            name: 'Flashbang',
+                            price: '$200',
+                            stats: 'Oslní nepřátele, kteří se dívají jejím směrem',
+                            damage: '0-5',
+                            duration: 'Až 5 sekund oslnění',
+                            team: 'CT i T'
+                        },
+                        {
+                            name: 'Molotov/Incendiary',
+                            price: '$400/$600',
+                            stats: 'Vytvoří oblast s ohněm, která způsobuje poškození',
+                            damage: '40/s',
+                            duration: '7 sekund',
+                            team: 'Molotov (T), Incendiary (CT)'
+                        },
+                        {
+                            name: 'HE Grenade',
+                            price: '$300',
+                            stats: 'Výbušný granát způsobující poškození v oblasti',
+                            damage: 'Až 98, závisí na vzdálenosti',
+                            duration: 'Okamžitý účinek',
+                            team: 'CT i T'
+                        },
+                        {
+                            name: 'Decoy Grenade',
+                            price: '$50',
+                            stats: 'Napodoba výstřely zbraní za účelem odlákání nepřátel',
+                            damage: '5 při výbuchu',
+                            duration: '15 sekund',
+                            team: 'CT i T'
+                        },
+                        {
+                            name: 'Zeus x27',
+                            price: '$200',
+                            stats: 'Elektrifikovaný paralyzér, jeden výstřel, okamžitá smrt na blízkou vzdálenost',
+                            damage: '500 (instantání smrt)',
+                            accuracy: 'Krátký dosah, jedno použití',
+                            team: 'CT i T'
+                        }
+                    ]
+                }
+            };
+            
+            // Function to create weapon cards HTML
+            function createWeaponCardsHTML(weapons) {
+                let html = '';
+                
+                weapons.forEach(weapon => {
+                    html += `
+                        <div class="weapon-card">
+                            <div class="weapon-image">
+                                <img src="img/cs2.jpg" alt="${weapon.name}" style="object-fit: contain;">
+                            </div>
+                            <h4 class="weapon-name">${weapon.name}</h4>
+                            <p class="weapon-price">${weapon.price}</p>
+                            <p class="weapon-stats">${weapon.stats}</p>
+                            <div class="weapon-details">
+                                <p><strong>Poškození:</strong> ${weapon.damage}</p>
+                                <p><strong>Přesnost:</strong> ${weapon.accuracy}</p>
+                                <p><strong>Tým:</strong> ${weapon.team}</p>
+                                ${weapon.duration ? `<p><strong>Trvání:</strong> ${weapon.duration}</p>` : ''}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                return html;
+            }
+            
+        // Function to create weapon cards HTML
+        function createWeaponCardsHTML(weapons) {
+            let html = '';
+            
+            weapons.forEach(weapon => {
+                html += `
+                    <div class="weapon-card">
+                        <div class="weapon-image">
+                            <img src="img/cs2.jpg" alt="${weapon.name}" style="object-fit: contain;">
+                        </div>
+                        <h4 class="weapon-name">${weapon.name}</h4>
+                        <p class="weapon-price">${weapon.price}</p>
+                        <p class="weapon-stats">${weapon.stats}</p>
+                        <div class="weapon-details">
+                            <p><strong>Poškození:</strong> ${weapon.damage}</p>
+                            <p><strong>Přesnost:</strong> ${weapon.accuracy}</p>
+                            <p><strong>Tým:</strong> ${weapon.team}</p>
+                            ${weapon.duration ? `<p><strong>Trvání:</strong> ${weapon.duration}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            return html;
+        }
+        
+        // Super simple global function to change weapon category content
+        function showWeapon(categoryName) {
+            console.log('Showing weapon category:', categoryName);
+            
+            // Get weapon data
+            const category = weaponData[categoryName];
+            if (!category) {
+                console.error('Weapon data not found for:', categoryName);
+                return;
+            }
+            
+            // Get the correct element in the weapons section
+            const weaponContent = document.querySelector('.weapons-section .game-info-card');
+            if (!weaponContent) {
+                console.error('Weapon content element not found');
+                return;
+            }
+            
+            // Direct HTML replacement - most reliable approach
+            weaponContent.innerHTML = `
+                <h3>${category.title}</h3>
+                <p>${category.description}</p>
+                <div class="weapons-grid">
+                    ${createWeaponCardsHTML(category.weapons)}
+                </div>
+            `;
+            
+            // Update active tab state
+            const tabs = document.querySelectorAll('.weapon-category');
+            tabs.forEach(t => t.classList.remove('active'));
+            
+            // Find and activate the clicked tab
+            const clickedTab = Array.from(tabs).find(t => t.textContent === categoryName);
+            if (clickedTab) clickedTab.classList.add('active');
+        }
+    </script>
+</body>
+</html>

@@ -16,6 +16,180 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Member Bio Modal Styles -->
+    <style>
+        /* Basic member card styling */
+        .member-card {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            padding-bottom: 20px;
+        }
+        
+        .member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Bio Modal Styling */
+        .bio-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .bio-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .bio-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        
+        .bio-content {
+            position: relative;
+            width: 90%;
+            max-width: 500px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d3c 100%);
+            border-radius: 15px;
+            padding: 30px;
+            color: white;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 70, 85, 0.2);
+            transform: translateY(30px) scale(0.95);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.4s;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 70, 85, 0.3);
+        }
+        
+        .bio-modal.active .bio-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        
+        .bio-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .bio-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 20px;
+            border: 3px solid #ff4655;
+            box-shadow: 0 0 15px rgba(255, 70, 85, 0.5);
+        }
+        
+        .bio-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .bio-title h2 {
+            font-size: 1.8rem;
+            margin: 0 0 5px 0;
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 70, 85, 0.5);
+        }
+        
+        .bio-title h3 {
+            font-size: 1rem;
+            color: #bababa;
+            margin: 0;
+            font-weight: normal;
+        }
+        
+        .bio-role {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        
+        .bio-description {
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #e0e0e0;
+        }
+        
+        .bio-stats {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+        }
+        
+        .bio-stats ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .bio-stats li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .bio-stats li:last-child {
+            border-bottom: none;
+        }
+        
+        .bio-stats strong {
+            color: #ff4655;
+            font-weight: normal;
+            margin-right: 5px;
+        }
+        
+        .close-bio {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            color: #ff4655;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .close-bio:hover {
+            background-color: rgba(0, 0, 0, 0.6);
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -69,69 +243,133 @@
         <div class="container">
             <h2 class="section-title">Naši členové</h2>
             <div class="members-grid">
-                <div class="member-card member-barber">
+                <div class="member-card member-barber" data-member="barber" data-role="CS2 Specialista">
                     <div class="member-avatar">
                         <img src="img/barber.gif" alt="Barber">
                     </div>
                     <h3 class="member-name">Barber</h3>
                     <p class="member-real-name">Lukáš Čechura</p>
                     <p class="member-role">CS2 Specialista</p>
+                    <div class="bio-data" hidden>
+                        <p>CS2 expert s neuvěřitelnou přesností a reflexy. Když není na serveru, trénuje své dovednosti v aim lab.</p>
+                        <ul>
+                            <li><strong>Oblíbená zbraň:</strong> AWP</li>
+                            <li><strong>Oblíbená mapa:</strong> Mirage</li>
+                            <li><strong>KD Ratio:</strong> 1.8</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="member-card member-zander">
+                <div class="member-card member-zander" data-member="zander" data-role="Stratég">
                     <div class="member-avatar">
                         <img src="img/zander.gif" alt="Zander">
                     </div>
                     <h3 class="member-name">Zander</h3>
                     <p class="member-real-name">Petr Jakša</p>
                     <p class="member-role">Stratég</p>
+                    <div class="bio-data" hidden>
+                        <p>Mozek týmu s nekonečnou zásobou taktik a strategií. Vždy ví, kde nepřítel udělá chybu.</p>
+                        <ul>
+                            <li><strong>Herní role:</strong> IGL</li>
+                            <li><strong>Oblíbená hra:</strong> League of Legends</li>
+                            <li><strong>Hlavní champion:</strong> Thresh</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="member-card member-shane">
+                <div class="member-card member-shane" data-member="shane" data-role="WebMaster">
                     <div class="member-avatar">
                         <img src="img/shane.gif" alt="shaneomac">
                     </div>
                     <h3 class="member-name">shaneomac</h3>
                     <p class="member-real-name">Martin Pěnkava</p>
                     <p class="member-role">WebMaster</p>
+                    <div class="bio-data" hidden>
+                        <p>Digitální mág zodpovědný za webové stránky klanu. Když zrovna nekóduje, dominuje na bojišti.</p>
+                        <ul>
+                            <li><strong>Tech stack:</strong> HTML, CSS, JavaScript</li>
+                            <li><strong>Oblíbená hra:</strong> CS2</li>
+                            <li><strong>Hodiny ve hře:</strong> 2500+</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="member-card member-jugyna">
+                <div class="member-card member-jugyna" data-member="jugyna" data-role="CS2 Rifler">
                     <div class="member-avatar">
                         <img src="img/jugyna.gif" alt="Jugyna">
                     </div>
                     <h3 class="member-name">Jugyna</h3>
                     <p class="member-real-name">Jan Šváb</p>
                     <p class="member-role">CS2 Rifler</p>
+                    <div class="bio-data" hidden>
+                        <p>Přesný jako laser s AK-47 v ruce. Nepřátelé se třesou, když slyší jeho kroky.</p>
+                        <ul>
+                            <li><strong>Oblíbená zbraň:</strong> AK-47</li>
+                            <li><strong>Oblíbená mapa:</strong> Inferno</li>
+                            <li><strong>Headshot %:</strong> 68</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="member-card member-pipa">
+                <div class="member-card member-pipa" data-member="pipa" data-role="NPC">
                     <div class="member-avatar">
                         <img src="img/pipa.gif" alt="Pípa">
                     </div>
                     <h3 class="member-name">Pípa</h3>
                     <p class="member-real-name">Josef Pech</p>
                     <p class="member-role">NPC</p>
+                    <div class="bio-data" hidden>
+                        <p>Tajemný člen týmu, který se objevuje a mizí podle potřeby. Nikdo neví, co dělá, ale všichni ho respektují.</p>
+                        <ul>
+                            <li><strong>Status:</strong> Offline (99% času)</li>
+                            <li><strong>Oblíbená aktivita:</strong> Být AFK</li>
+                            <li><strong>Citát:</strong> "Už jsem tady?"</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="member-card member-strix">
+                <div class="member-card member-strix" data-member="strix" data-role="Strix prostě">
                     <div class="member-avatar">
                         <img src="img/martin-strix.gif" alt="MartinStrix">
                     </div>
                     <h3 class="member-name">MartinStrix</h3>
                     <p class="member-real-name">Martin Poláček</p>
                     <p class="member-role">Strix prostě</p>
+                    <div class="bio-data" hidden>
+                        <p>Záhadný hráč s nevyzpytatelným herním stylem. Nikdy nevíte, co udělá - ani on sám.</p>
+                        <ul>
+                            <li><strong>Herní styl:</strong> Chaotické dobro</li>
+                            <li><strong>Specialita:</strong> Překvapivé tahy</li>
+                            <li><strong>Citát:</strong> "To jsem nechtěl udělat, ale vyšlo to!"</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="member-card member-azarin">
+                <div class="member-card member-azarin" data-member="azarin" data-role="Rapper">
                     <div class="member-avatar">
                         <img src="img/azarin.gif" alt="Azarin">
                     </div>
                     <h3 class="member-name">Azarin</h3>
                     <p class="member-real-name">Adam Soukup</p>
                     <p class="member-role">Rapper</p>
+                    <div class="bio-data" hidden>
+                        <p>Rytmus v týmu, který dokáže rapovat stejně dobře jako likvidovat nepřátele. Když hraje, je to jako hudba.</p>
+                        <ul>
+                            <li><strong>Hudební styl:</strong> Trap/Hip-Hop</li>
+                            <li><strong>Herní role:</strong> Entry Fragger</li>
+                            <li><strong>Soundtrack:</strong> Vlastní beaty</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="member-card member-podri">
+                <div class="member-card member-podri" data-member="podri" data-role="Content Creator">
                     <div class="member-avatar">
                         <img src="img/podri.gif" alt="Podri">
                     </div>
                     <h3 class="member-name">Podri</h3>
                     <p class="member-real-name">David Podroužek</p>
                     <p class="member-role">Content Creator</p>
+                    <div class="bio-data" hidden>
+                        <p>Kreativní duše týmu, který zachycuje nejlepší momenty a vytváří epický obsah. Jeho videa jsou legendární.</p>
+                        <ul>
+                            <li><strong>Platformy:</strong> YouTube, Twitch</li>
+                            <li><strong>Specialita:</strong> Highlight videa</li>
+                            <li><strong>Vybavení:</strong> RTX 4080, Sony A7III</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -141,20 +379,22 @@
         <div class="container">
             <h2 class="section-title">Naše hry</h2>
             <div class="games-grid">
-                <div class="game-card">
+                <a href="league-of-legends.html" class="game-card">
                     <div class="game-image">
                         <img src="img/lol.jpg" alt="League of Legends">
                     </div>
                     <h3 class="game-title">League of Legends</h3>
                     <p class="game-desc">MOBA hra od Riot Games, ve které se specializujeme na týmové strategie a kompetitivní hraní. Pravidelně trénujeme a účastníme se turnajů.</p>
-                </div>
-                <div class="game-card">
+                    <span class="game-link-btn">Více informací</span>
+                </a>
+                <a href="cs2.html" class="game-card">
                     <div class="game-image">
                         <img src="img/cs2.jpg" alt="Counter Strike 2">
                     </div>
                     <h3 class="game-title">Counter Strike 2</h3>
                     <p class="game-desc">FPS střílečka od Valve, ve které zdokonalujeme naše týmové taktiky, reflexy a přesnost. Náš tým se pravidelně účastní lokálních turnajů.</p>
-                </div>
+                    <span class="game-link-btn">Více informací</span>
+                </a>
             </div>
         </div>
     </section>
@@ -235,5 +475,99 @@
     
     <!-- JavaScript Files -->
     <script src="js/main.js"></script>
+    
+    <!-- Member Bio Modal HTML -->
+    <div class="bio-modal" id="bioModal">
+        <div class="bio-backdrop"></div>
+        <div class="bio-content">
+            <button class="close-bio">&times;</button>
+            <div class="bio-header">
+                <div class="bio-avatar">
+                    <img id="bioAvatar" src="" alt="Member">
+                </div>
+                <div class="bio-title">
+                    <h2 id="bioName"></h2>
+                    <h3 id="bioRealName"></h3>
+                    <div class="bio-role" id="bioRole"></div>
+                </div>
+            </div>
+            <div class="bio-description" id="bioDescription"></div>
+            <div class="bio-stats" id="bioStats"></div>
+        </div>
+    </div>
+    
+    <!-- Member Bio Modal JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all member cards and modal elements
+            const memberCards = document.querySelectorAll('.member-card');
+            const bioModal = document.getElementById('bioModal');
+            const bioBackdrop = document.querySelector('.bio-backdrop');
+            const closeBtn = document.querySelector('.bio-modal .close-bio');
+            
+            // Modal content elements
+            const bioAvatar = document.getElementById('bioAvatar');
+            const bioName = document.getElementById('bioName');
+            const bioRealName = document.getElementById('bioRealName');
+            const bioRole = document.getElementById('bioRole');
+            const bioDescription = document.getElementById('bioDescription');
+            const bioStats = document.getElementById('bioStats');
+            
+            // Add click event to each member card
+            memberCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Get card data
+                    const memberClass = Array.from(card.classList).find(cls => cls.startsWith('member-') && cls !== 'member-card');
+                    const memberRole = card.getAttribute('data-role');
+                    const name = card.querySelector('.member-name').textContent;
+                    const realName = card.querySelector('.member-real-name').textContent;
+                    const avatarSrc = card.querySelector('.member-avatar img').src;
+                    const bioData = card.querySelector('.bio-data');
+                    
+                    // Set modal content
+                    bioAvatar.src = avatarSrc;
+                    bioAvatar.alt = name;
+                    bioName.textContent = name;
+                    bioRealName.textContent = realName;
+                    bioRole.textContent = memberRole;
+                    bioRole.className = 'bio-role ' + memberClass;
+                    
+                    // Set bio description and stats
+                    if (bioData) {
+                        const description = bioData.querySelector('p').textContent;
+                        const statsList = bioData.querySelector('ul').innerHTML;
+                        
+                        bioDescription.textContent = description;
+                        bioStats.innerHTML = '<ul>' + statsList + '</ul>';
+                    }
+                    
+                    // Show modal with animation
+                    bioModal.classList.add('active');
+                    
+                    // Prevent body scrolling
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            // Close modal function
+            function closeModal() {
+                bioModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            // Close with button
+            closeBtn.addEventListener('click', closeModal);
+            
+            // Close with backdrop click
+            bioBackdrop.addEventListener('click', closeModal);
+            
+            // Close with ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && bioModal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
