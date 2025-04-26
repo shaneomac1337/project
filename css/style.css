@@ -149,6 +149,25 @@ a:hover {
     padding: 15px 20px;
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.site-logo {
+    height: 50px;
+    width: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+    transition: var(--transition);
+}
+
+.site-logo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(110, 79, 246, 0.7);
+}
+
 .logo h1 {
     font-size: 1.8rem;
     margin: 0;
