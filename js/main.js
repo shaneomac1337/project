@@ -114,6 +114,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let traxHideTimer = null;
     let isTraxVisible = false;
     
+    // Flag to track if first click has occurred
+    let hasFirstClickOccurred = false;
+    
     // Player state
     let currentTrack = 0;
     let isPlaying = false;
@@ -641,13 +644,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // No need for wrappers - directly modify the original functions to include animation
     // Already added the showTrackChangeAnimation call inside the nextTrack and prevTrack functions
     
-    // Add document-wide click event to show the player for 5 seconds
+    // Add document-wide click event to show the player ONLY on the first click
     document.addEventListener('click', function(e) {
-        // Don't trigger if clicking on the player itself or its controls
-        if (!e.target.closest('.trax-widget') && !e.target.closest('.trax-mini-icon')) {
-            // If player is not already visible, show it with auto-hide
-            if (!isTraxVisible) {
+        // Only show the widget on the first click
+        if (!hasFirstClickOccurred) {
+            // Don't trigger if clicking on the player itself or its controls
+            if (!e.target.closest('.trax-widget') && !e.target.closest('.trax-mini-icon')) {
+                console.log('First click detected, showing Trax widget');
                 showTraxWidget(true); // true enables auto-hide after 5 seconds
+                hasFirstClickOccurred = true; // Set flag to true after first click
             }
         }
     });
