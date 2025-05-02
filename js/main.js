@@ -100,7 +100,57 @@ document.addEventListener('DOMContentLoaded', function() {
             title: "Forgive Me",  // Default title for track3
             artist: "Versus the World", // Default artist
             file: "audio/track3.mp3"
-        }
+        },
+        {
+            title: "Worlds Away",  // New track4
+            artist: "Lil Peep", // Artist for track4
+            file: "audio/track4.mp3"
+        },
+        {
+            title: "Turn Your Back",  // New track5
+            artist: "Billy Talent feat Anti-Flag", // Artist for track5
+            file: "audio/track5.mp3"
+        },
+        {
+            title: "Superman",  // track6
+            artist: "Eminem", // Artist for track6
+            file: "audio/track6.mp3"
+        },
+        {
+            title: "Hard Rock Hallelujah",  // track7
+            artist: "Lordi", // Artist for track7
+            file: "audio/track7.mp3"
+        },
+        {
+            title: "Bring Me To Life",  // track8
+            artist: "Evanescence", // Artist for track8
+            file: "audio/track8.mp3"
+        },
+        {
+            title: "Papercuts",  // track9
+            artist: "Machine Gun Kelly", // Artist for track9
+            file: "audio/track9.mp3"
+        },
+        {
+            title: "Hollywood Forever",  // track10
+            artist: "Hollywood Undead", // Artist for track10
+            file: "audio/track10.mp3"
+        },
+        {
+            title: "Stíny",  // track11
+            artist: "Viktor Sheen", // Artist for track11
+            file: "audio/track11.mp3"
+        },
+        {
+            title: "Hollywood Sucks",  // track12
+            artist: "Kenny Hoopla", // Artist for track12
+            file: "audio/track12.mp3"
+        },
+        {
+            title: "Bite Me",  // track13
+            artist: "Avril Lavigne", // Artist for track13
+            file: "audio/track13.mp3"
+        },
         // Add more tracks here as needed
         // {
         //     title: "Track Title",

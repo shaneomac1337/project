@@ -853,7 +853,7 @@ a:hover {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 380px;
+    width: 420px; /* Increased width to accommodate longer text */
     height: 170px;
     background-color: rgba(0, 0, 0, 0.8);
     border-radius: 12px;
@@ -1001,7 +1001,8 @@ a:hover {
     align-items: center;
     margin-bottom: 10px;
     flex-grow: 1;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    justify-content: space-between;
 }
 
 .trax-widget .trax-logo {
@@ -1047,6 +1048,7 @@ a:hover {
     padding: 0 10px;
     overflow: hidden;
     white-space: nowrap;
+    max-width: 55%;
 }
 
 .trax-widget .track-name {
@@ -1093,6 +1095,7 @@ a:hover {
     background: transparent;
     padding: 5px 0;
     margin-left: auto;
+    flex-shrink: 0;
 }
 
 /* Volume control styles - gaming-inspired design */
@@ -1108,6 +1111,8 @@ a:hover {
     border: 1px solid rgba(0, 255, 255, 0.1);
     width: 100%;
     margin-top: auto;
+    position: relative;
+    z-index: 10;
 }
 
 #volume-slider {
