@@ -74,6 +74,129 @@
     margin: 0 10px;
 }
 
+/* Modal styling for authentication modals */
+.bio-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+.bio-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+.bio-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.bio-content {
+    position: relative;
+    width: 90%;
+    max-width: 450px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d3c 100%);
+    border-radius: 15px;
+    padding: 30px;
+    color: var(--light-text);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 70, 85, 0.2);
+    transform: translateY(30px) scale(0.95);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.4s;
+    max-height: 80vh;
+    overflow-y: auto;
+    border: 1px solid rgba(255, 70, 85, 0.3);
+}
+.bio-modal.active .bio-content {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+.close-bio {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+.close-bio:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+    transform: scale(1.1);
+}
+.bio-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.bio-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 20px;
+    border: 3px solid #ff4655;
+    box-shadow: 0 0 15px rgba(255, 70, 85, 0.5);
+}
+.bio-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.bio-title h2 {
+    font-size: 1.8rem;
+    margin: 0 0 5px 0;
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 70, 85, 0.5);
+}
+.bio-title h3 {
+    font-size: 1rem;
+    color: #bababa;
+    margin: 0;
+}
+.bio-description {
+    margin-bottom: 20px;
+    color: var(--light-text);
+}
+.bio-stats ul {
+    list-style: none;
+    padding: 0;
+}
+.bio-stats li {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255, 70, 85, 0.3);
+}
+.bio-stats li:last-child {
+    border-bottom: none;
+}
+.bio-stats strong {
+    color: #ff4655;
+    font-weight: normal;
+    margin-right: 5px;
+}
+
 /* Notification styles */
 #notification-container {
     position: fixed;
