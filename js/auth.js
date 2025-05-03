@@ -135,6 +135,7 @@ function setupAuthEventListeners() {
     }
 }
 
+
 // Show login modal function
 function showLoginModal() {
     // First, remove any existing modals
@@ -189,7 +190,10 @@ function showLoginModal() {
     
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
-        loginForm.onsubmit = handleLogin;
+        loginForm.addEventListener('submit', function(e) {
+            console.log('Login form submitted:', document.getElementById('login-email').value);
+            handleLogin(e);
+        });
     }
     
     const switchToSignup = document.getElementById('switch-to-signup');
@@ -244,6 +248,10 @@ function showSignupModal() {
             </div>
             <form id="signup-form" class="auth-form">
                 <div class="form-group">
+                    <label for="signup-username">Uživatelské jméno</label>
+                    <input type="text" id="signup-username" required class="auth-input">
+                </div>
+                <div class="form-group">
                     <label for="signup-email">Email</label>
                     <input type="email" id="signup-email" required class="auth-input">
                 </div>
@@ -276,7 +284,10 @@ function showSignupModal() {
     
     const signupForm = document.getElementById('signup-form');
     if (signupForm) {
-        signupForm.onsubmit = handleSignup;
+        signupForm.addEventListener('submit', function(e) {
+            console.log('Signup form submitted:', document.getElementById('signup-username').value, document.getElementById('signup-email').value);
+            handleSignup(e);
+        });
     }
     
     const switchToLogin = document.getElementById('switch-to-login');
@@ -628,6 +639,8 @@ function showChangePasswordModal() {
 
 // Handle login form submission
 function handleLogin(e) {
+    console.log('handleLogin triggered');
+
     e.preventDefault();
     
     const email = document.getElementById('login-email').value;
@@ -664,6 +677,8 @@ function handleLogin(e) {
 
 // Handle signup form submission
 function handleSignup(e) {
+    console.log('handleSignup triggered');
+
     e.preventDefault();
     
     const username = document.getElementById('signup-username').value;
@@ -720,7 +735,7 @@ function handleSignup(e) {
 function handleForgotPassword(e) {
     e.preventDefault();
     
-    const email = document.getElementById('reset-email').value;
+    const email = document.getElementById('forgot-email').value;
     
     // Show loading state
     const submitBtn = e.target.querySelector('button[type="submit"]');
