@@ -337,7 +337,13 @@
                     <li><a href="index.html" class="nav-link">Domů</a></li>
                     <li><a href="index.html#o-nas" class="nav-link">O nás</a></li>
                     <li><a href="index.html#clenove" class="nav-link">Členové</a></li>
-                    <li><a href="index.html#hry" class="nav-link active">Hry</a></li>
+                    <li class="has-submenu">
+                        <a href="index.html#hry" class="nav-link active">Hry <i class="fas fa-chevron-down submenu-arrow"></i></a>
+                        <ul class="submenu">
+                            <li><a href="league-of-legends.html" class="nav-link">League of Legends</a></li>
+                            <li><a href="cs2.html" class="nav-link">CS2</a></li>
+                        </ul>
+                    </li>
                     <li><a href="index.html#discord" class="nav-link">Discord</a></li>
                     <li><a href="index.html#kontakt" class="nav-link">Kontakt</a></li>
                 </ul>
@@ -393,9 +399,29 @@
             <p>CS2 obsahuje řadu ikonických map, které byly vylepšeny pro Source 2 engine. Každá mapa má své unikátní rozvržení a vyžaduje specifické strategie.</p>
             
             <div class="game-map-grid">
+    <!-- Ancient -->
+    <div class="game-map-card">
+        <div class="game-map-image">
+            <img src="img/maps/ancient.jpg" alt="Ancient">
+        </div>
+        <div class="game-map-content">
+            <h3 class="game-map-title">Ancient</h3>
+            <p class="game-map-desc">Modern jungle-themed map with tight corridors and open bombsites, requiring strategic utility use and map control.</p>
+        </div>
+    </div>
+    <!-- Anubis -->
+    <div class="game-map-card">
+        <div class="game-map-image">
+            <img src="img/maps/anubis.jpg" alt="Anubis">
+        </div>
+        <div class="game-map-content">
+            <h3 class="game-map-title">Anubis</h3>
+            <p class="game-map-desc">Egyptian-themed map with water features, vertical gameplay, and unique rotations between bombsites.</p>
+        </div>
+    </div>
                 <div class="game-map-card">
                     <div class="game-map-image">
-                        <img src="img/cs2.jpg" alt="Dust II">
+                        <img src="img/maps/dust2.jpg" alt="Dust II">
                     </div>
                     <div class="game-map-content">
                         <h3 class="game-map-title">Dust II</h3>
@@ -405,7 +431,7 @@
                 
                 <div class="game-map-card">
                     <div class="game-map-image">
-                        <img src="img/cs2.jpg" alt="Mirage">
+                        <img src="img/maps/mirage.jpg" alt="Mirage">
                     </div>
                     <div class="game-map-content">
                         <h3 class="game-map-title">Mirage</h3>
@@ -415,13 +441,43 @@
                 
                 <div class="game-map-card">
                     <div class="game-map-image">
-                        <img src="img/cs2.jpg" alt="Inferno">
+                        <img src="img/maps/inferno.jpg" alt="Inferno">
                     </div>
                     <div class="game-map-content">
                         <h3 class="game-map-title">Inferno</h3>
                         <p class="game-map-desc">Mapa zasazená v italském městečku s úzkými uličkami a dvěma bombsity. Známá pro svou "banana" a intenzivní boje o kontrolu klíčových bodů.</p>
                     </div>
                 </div>
+    <!-- Mirage -->
+    <div class="game-map-card">
+        <div class="game-map-image">
+            <img src="img/maps/mirage.jpg" alt="Mirage">
+        </div>
+        <div class="game-map-content">
+            <h3 class="game-map-title">Mirage</h3>
+            <p class="game-map-desc">Mapa inspirovaná marockým městem s otevřeným středem a dvěma bombsity. Nabízí mnoho možností pro kreativní využití kouřových granátů a flashek.</p>
+        </div>
+    </div>
+    <!-- Nuke -->
+    <div class="game-map-card">
+        <div class="game-map-image">
+            <img src="img/maps/nuke.jpg" alt="Nuke">
+        </div>
+        <div class="game-map-content">
+            <h3 class="game-map-title">Nuke</h3>
+            <p class="game-map-desc">Jaderná elektrárna s několika úrovněmi a možnostmi vertikálního pohybu. Vyžaduje precizní týmovou práci a znalost mapy.</p>
+        </div>
+    </div>
+    <!-- Train -->
+    <div class="game-map-card">
+        <div class="game-map-image">
+            <img src="img/maps/train.jpg" alt="Train">
+        </div>
+        <div class="game-map-content">
+            <h3 class="game-map-title">Train</h3>
+            <p class="game-map-desc">Průmyslová mapa s vlaky a otevřenými prostory, vhodná pro dlouhé linie pohledu a rychlé rotace mezi bombsity.</p>
+        </div>
+    </div>
             </div>
         </div>
     </section>
@@ -447,42 +503,84 @@
                 <div class="weapons-grid">
                     <div class="weapon-card">
                         <div class="weapon-image">
-                            <img src="img/cs2.jpg" alt="Desert Eagle" style="object-fit: contain;">
+                            <img src="img/weapons/desert-eagle.jpg" alt="Desert Eagle" style="object-fit: contain;">
                         </div>
                         <h4 class="weapon-name">Desert Eagle</h4>
                         <p class="weapon-price">$700</p>
                         <p class="weapon-stats">Vysoké poškození, přesná na první ránu</p>
                         <div class="weapon-details">
-                            <p><strong>Poškození:</strong> 73 (hlava), 35 (tělo)</p>
-                            <p><strong>Přesnost:</strong> Vysoká u prvé střely, velký zpětný ráz</p>
+                            <p><strong>Poškození:</strong> 190 (hlava), 53 (tělo)</p>
+                            <p><strong>Přesnost:</strong> Vysoká u prvé ránu, následně klesá</p>
                             <p><strong>Tým:</strong> CT i T</p>
                         </div>
                     </div>
                     
                     <div class="weapon-card">
                         <div class="weapon-image">
-                            <img src="img/cs2.jpg" alt="USP-S" style="object-fit: contain;">
+                            <img src="img/weapons/usp-s.jpg" alt="USP-S" style="object-fit: contain;">
                         </div>
                         <h4 class="weapon-name">USP-S</h4>
                         <p class="weapon-price">CT Startovní</p>
                         <p class="weapon-stats">Tichá, přesná na střední vzdálenost</p>
                         <div class="weapon-details">
-                            <p><strong>Poškození:</strong> 70 (hlava), 35 (tělo)</p>
-                            <p><strong>Přesnost:</strong> Vysoká, malý zpětný ráz</p>
+                            <p><strong>Poškození:</strong> 141 (hlava), 35 (tělo)</p>
+                            <p><strong>Přesnost:</strong> Vysoká přesnost, malý zpětný ráz</p>
                             <p><strong>Tým:</strong> CT</p>
                         </div>
                     </div>
                     
                     <div class="weapon-card">
                         <div class="weapon-image">
-                            <img src="img/cs2.jpg" alt="Glock-18" style="object-fit: contain;">
+                            <img src="img/weapons/glock-18.jpg" alt="Glock-18" style="object-fit: contain;">
                         </div>
                         <h4 class="weapon-name">Glock-18</h4>
                         <p class="weapon-price">T Startovní</p>
                         <p class="weapon-stats">Rychlá kadence, nízký zpětný ráz</p>
                         <div class="weapon-details">
-                            <p><strong>Poškození:</strong> 40 (hlava), 20 (tělo)</p>
-                            <p><strong>Přesnost:</strong> Střední, velmi nízký zpětný ráz</p>
+                            <p><strong>Poškození:</strong> 120 (hlava), 30 (tělo)</p>
+                            <p><strong>Přesnost:</strong> Střední přesnost, dobrá na blízko</p>
+                            <p><strong>Tým:</strong> T</p>
+                        </div>
+                    </div>
+                    
+                    <div class="weapon-card">
+                        <div class="weapon-image">
+                            <img src="img/weapons/p250.jpg" alt="P250" style="object-fit: contain;">
+                        </div>
+                        <h4 class="weapon-name">P250</h4>
+                        <p class="weapon-price">$300</p>
+                        <p class="weapon-stats">Dobrý poměr cena/výkon, dobrá proti neprátelům s helmou</p>
+                        <div class="weapon-details">
+                            <p><strong>Poškození:</strong> 154 (hlava), 38 (tělo)</p>
+                            <p><strong>Přesnost:</strong> Střední přesnost, mírný zpětný ráz</p>
+                            <p><strong>Tým:</strong> CT i T</p>
+                        </div>
+                    </div>
+                    
+                    <div class="weapon-card">
+                        <div class="weapon-image">
+                            <img src="img/weapons/five-seven.jpg" alt="Five-SeveN" style="object-fit: contain;">
+                        </div>
+                        <h4 class="weapon-name">Five-SeveN</h4>
+                        <p class="weapon-price">$500</p>
+                        <p class="weapon-stats">Vysoká kapacita zásobníku, dobrá proti neprátelům s vestou</p>
+                        <div class="weapon-details">
+                            <p><strong>Poškození:</strong> 129 (hlava), 32 (tělo)</p>
+                            <p><strong>Přesnost:</strong> Vysoká přesnost, nízký zpětný ráz</p>
+                            <p><strong>Tým:</strong> CT</p>
+                        </div>
+                    </div>
+                    
+                    <div class="weapon-card">
+                        <div class="weapon-image">
+                            <img src="img/weapons/tec-9.jpg" alt="Tec-9" style="object-fit: contain;">
+                        </div>
+                        <h4 class="weapon-name">Tec-9</h4>
+                        <p class="weapon-price">$500</p>
+                        <p class="weapon-stats">Vysoká kadence, dobrá na běh a střelbu</p>
+                        <div class="weapon-details">
+                            <p><strong>Poškození:</strong> 133 (hlava), 33 (tělo)</p>
+                            <p><strong>Přesnost:</strong> Nízká přesnost, střední zpětný ráz</p>
                             <p><strong>Tým:</strong> T</p>
                         </div>
                     </div>
@@ -512,51 +610,57 @@
                     weapons: [
                         {
                             name: 'Desert Eagle',
-                            price: '$700',
+                            price: '$600',
                             stats: 'Vysoké poškození, přesná na první ránu',
-                            damage: '73 (hlava), 47 (tělo)',
-                            accuracy: 'Vysoká na prvé ránu, následně klesá',
-                            team: 'CT i T'
+                            damage: '231 (hlava s helmou), 58 (tělo s vestou)',
+                            accuracy: 'Vysoká u prvé ránu, následně klesá',
+                            team: 'CT i T',
+                            image: 'img/weapons/desert-eagle.jpg'
                         },
                         {
                             name: 'USP-S',
                             price: 'CT Startovní',
                             stats: 'Tichá, přesná na střední vzdálenost',
-                            damage: '70 (hlava), 35 (tělo)',
+                            damage: '70 (hlava s helmou), 17 (tělo s vestou)',
                             accuracy: 'Vysoká přesnost, malý zpětný ráz',
-                            team: 'CT'
+                            team: 'CT',
+                            image: 'img/weapons/usp-s.jpg'
                         },
                         {
                             name: 'Glock-18',
                             price: 'T Startovní',
                             stats: 'Rychlá kadence, nízký zpětný ráz',
-                            damage: '30 (hlava), 12 (tělo)',
+                            damage: '55 (hlava s helmou), 13 (tělo s vestou)',
                             accuracy: 'Střední přesnost, dobrá na blízko',
-                            team: 'T'
+                            team: 'T',
+                            image: 'img/weapons/glock-18.jpg'
                         },
                         {
                             name: 'P250',
                             price: '$300',
                             stats: 'Dobrý poměr cena/výkon, dobrá proti neprátelům s helmou',
-                            damage: '66 (hlava), 26 (tělo)',
+                            damage: '96 (hlava s helmou), 24 (tělo s vestou)',
                             accuracy: 'Střední přesnost, mírný zpětný ráz',
-                            team: 'CT i T'
+                            team: 'CT i T',
+                            image: 'img/weapons/p250.jpg'
                         },
                         {
                             name: 'Five-SeveN',
                             price: '$500',
                             stats: 'Vysoká kapacita zásobníku, dobrá proti neprátelům s vestou',
-                            damage: '68 (hlava), 24 (tělo)',
+                            damage: '115 (hlava s helmou), 28 (tělo s vestou)',
                             accuracy: 'Vysoká přesnost, nízký zpětný ráz',
-                            team: 'CT'
+                            team: 'CT',
+                            image: 'img/weapons/five-seven.jpg'
                         },
                         {
                             name: 'Tec-9',
                             price: '$500',
                             stats: 'Vysoká kadence, dobrá na běh a střelbu',
-                            damage: '62 (hlava), 26 (tělo)',
+                            damage: '119 (hlava s helmou), 29 (tělo s vestou)',
                             accuracy: 'Nízká přesnost, střední zpětný ráz',
-                            team: 'T'
+                            team: 'T',
+                            image: 'img/weapons/tec-9.jpg'
                         }
                     ]
                 },
@@ -568,57 +672,64 @@
                             name: 'MP9',
                             price: '$1250',
                             stats: 'Vysoká kadence, dobrá mobilita, pouze pro CT',
-                            damage: '26 (hlava), 13 (tělo)',
+                            damage: '61 (hlava s helmou), 15 (tělo s vestou)',
                             accuracy: 'Přesná na blízko, střední zpětný ráz',
-                            team: 'CT'
+                            team: 'CT',
+                            image: 'img/weapons/mp9.jpg'
                         },
                         {
                             name: 'MAC-10',
                             price: '$1050',
                             stats: 'Levný, vysoká kadence, pouze pro T',
-                            damage: '29 (hlava), 15 (tělo)',
+                            damage: '65 (hlava s helmou), 16 (tělo s vestou)',
                             accuracy: 'Nízká přesnost, vysoký zpětný ráz',
-                            team: 'T'
+                            team: 'T',
+                            image: 'img/weapons/mac-10.jpg'
                         },
                         {
                             name: 'MP7',
                             price: '$1500',
                             stats: 'Vyvážený samopal s dobrou přesností',
-                            damage: '29 (hlava), 14 (tělo)',
+                            damage: '71 (hlava s helmou), 17 (tělo s vestou)',
                             accuracy: 'Dobrá přesnost, nízký zpětný ráz',
-                            team: 'CT i T'
+                            team: 'CT i T',
+                            image: 'img/weapons/mp7.jpg'
                         },
                         {
                             name: 'MP5-SD',
                             price: '$1500',
                             stats: 'Tichá alternativa k MP7 s podobnými statistikami',
-                            damage: '27 (hlava), 13 (tělo)',
+                            damage: '66 (hlava s helmou), 16 (tělo s vestou)',
                             accuracy: 'Dobrá přesnost, nízký zpětný ráz',
-                            team: 'CT i T'
+                            team: 'CT i T',
+                            image: 'img/weapons/mp5-sd.jpg'
                         },
                         {
                             name: 'UMP-45',
                             price: '$1200',
                             stats: 'Silný samopal s dobrým poškozením na střední vzdálenost',
-                            damage: '35 (hlava), 17 (tělo)',
+                            damage: '90 (hlava s helmou), 22 (tělo s vestou)',
                             accuracy: 'Střední přesnost, střední zpětný ráz',
-                            team: 'CT i T'
+                            team: 'CT i T',
+                            image: 'img/weapons/ump-45.jpg'
                         },
                         {
                             name: 'P90',
                             price: '$2350',
                             stats: '50 nábojů v zásobníku, dobrá pro začátečníky',
-                            damage: '26 (hlava), 13 (tělo)',
+                            damage: '71 (hlava s helmou), 17 (tělo s vestou)',
                             accuracy: 'Střední přesnost, nízký zpětný ráz',
-                            team: 'CT i T'
+                            team: 'CT i T',
+                            image: 'img/weapons/p90.jpg'
                         },
                         {
                             name: 'PP-Bizon',
                             price: '$1400',
                             stats: 'Zásobník na 64 nábojů, ideální proti nepřátelům bez vesty',
-                            damage: '27 (hlava), 13 (tělo)',
+                            damage: '61 (hlava s helmou), 15 (tělo s vestou)',
                             accuracy: 'Nízká přesnost, nízký zpětný ráz',
-                            team: 'CT i T'
+                            team: 'CT i T',
+                            image: 'img/weapons/pp-bizon.jpg'
                         }
                     ]
                 },
@@ -630,57 +741,64 @@
                             name: 'AK-47',
                             price: '$2700',
                             stats: 'Vysoké poškození, zabijí na jednu ránu do hlavy, pouze pro T',
-                            damage: '143 (hlava), 35 (tělo)',
+                            damage: '109 (hlava s helmou), 27 (tělo s vestou)',
                             accuracy: 'Střední přesnost, vysoký zpětný ráz',
-                            team: 'T'
+                            team: 'T',
+                            image: 'img/weapons/ak-47.jpg'
                         },
                         {
                             name: 'M4A4',
                             price: '$3100',
                             stats: 'Vyvážená puška s nízkým zpětným rázem, pouze pro CT',
-                            damage: '92 (hlava), 28 (tělo)',
+                            damage: '92 (hlava s helmou), 23 (tělo s vestou)',
                             accuracy: 'Vysoká přesnost, střední zpětný ráz',
-                            team: 'CT'
+                            team: 'CT',
+                            image: 'img/weapons/m4a4.jpg'
                         },
                         {
                             name: 'M4A1-S',
                             price: '$2900',
                             stats: 'Tichá alternativa k M4A4 s menším zásobníkem, pouze pro CT',
-                            damage: '92 (hlava), 28 (tělo)',
+                            damage: '92 (hlava s helmou), 26 (tělo s vestou)',
                             accuracy: 'Velmi vysoká přesnost, nízký zpětný ráz',
-                            team: 'CT'
+                            team: 'CT',
+                            image: 'img/weapons/m4a1-s.jpg'
                         },
                         {
                             name: 'FAMAS',
-                            price: '$1050',
+                            price: '$2050',
                             stats: 'Levnější CT automatická puška, má režim dávkové střelby',
-                            damage: '78 (hlava), 24 (tělo)',
+                            damage: '84 (hlava s helmou), 21 (tělo s vestou)',
                             accuracy: 'Střední přesnost, střední zpětný ráz',
-                            team: 'CT'
+                            team: 'CT',
+                            image: 'img/weapons/famas.jpg'
                         },
                         {
                             name: 'Galil AR',
                             price: '$1800',
                             stats: 'Levnější T automatická puška s velkou kapacitou zásobníku',
-                            damage: '85 (hlava), 25 (tělo)',
+                            damage: '92 (hlava s helmou), 23 (tělo s vestou)',
                             accuracy: 'Nízká přesnost, vysoký zpětný ráz',
-                            team: 'T'
+                            team: 'T',
+                            image: 'img/weapons/galil-ar.jpg'
                         },
                         {
                             name: 'AUG',
                             price: '$3300',
-                            stats: 'CT puška s optickým hledí pro střelbu na větší vzdálenost',
-                            damage: '95 (hlava), 28 (tělo)',
+                            stats: 'CT puška s optickým hledím pro střelbu na větší vzdálenost',
+                            damage: '101 (hlava s helmou), 25 (tělo s vestou)',
                             accuracy: 'Velmi vysoká přesnost s hledím, nízký zpětný ráz',
-                            team: 'CT'
+                            team: 'CT',
+                            image: 'img/weapons/aug.jpg'
                         },
                         {
                             name: 'SG 553',
                             price: '$3000',
                             stats: 'T puška s optickým hledím, vyšší poškození než AUG',
-                            damage: '100 (hlava), 30 (tělo)',
+                            damage: '120 (hlava s helmou), 30 (tělo s vestou)',
                             accuracy: 'Vysoká přesnost s hledím, střední zpětný ráz',
-                            team: 'T'
+                            team: 'T',
+                            image: 'img/weapons/sg-553.jpg'
                         }
                     ]
                 },
@@ -692,25 +810,28 @@
                             name: 'AWP',
                             price: '$4750',
                             stats: 'Nejsilnější zbraň ve hře, zabijí na jednu ránu do těla',
-                            damage: '459 (hlava), 115 (tělo)',
+                            damage: '448 (hlava s helmou), 112 (tělo s vestou)',
                             accuracy: 'Velmi vysoká přesnost, silný zpětný ráz',
-                            team: 'CT i T'
+                            team: 'CT i T',
+                            image: 'img/weapons/awp.jpg'
                         },
                         {
                             name: 'SSG 08',
                             price: '$1700',
                             stats: 'Levná odstřelovačka, zabijí na jednu ránu do hlavy',
-                            damage: '88 (hlava), 30 (tělo)',
+                            damage: '299 (hlava s helmou), 74 (tělo s vestou)',
                             accuracy: 'Vysoká přesnost, nízký zpětný ráz',
-                            team: 'CT i T'
+                            team: 'CT i T',
+                            image: 'img/weapons/ssg-08.jpg'
                         },
                         {
                             name: 'SCAR-20/G3SG1',
                             price: '$5000',
                             stats: 'Poloautomatická odstřelovačka s vysokou kadencí',
-                            damage: '80 (hlava), 30 (tělo)',
+                            damage: '263 (hlava s helmou), 65 (tělo s vestou)',
                             accuracy: 'Vysoká přesnost, střední zpětný ráz',
-                            team: 'SCAR-20 (CT), G3SG1 (T)'
+                            team: 'SCAR-20 (CT), G3SG1 (T)',
+                            image: 'img/weapons/scar-20.jpg'
                         }
                     ]
                 },
@@ -829,10 +950,11 @@
                 let html = '';
                 
                 weapons.forEach(weapon => {
+                    const imgSrc = weapon.image ? weapon.image : 'img/cs2.jpg';
                     html += `
                         <div class="weapon-card">
                             <div class="weapon-image">
-                                <img src="img/cs2.jpg" alt="${weapon.name}" style="object-fit: contain;">
+                                <img src="${imgSrc}" alt="${weapon.name}" style="object-fit: contain;">
                             </div>
                             <h4 class="weapon-name">${weapon.name}</h4>
                             <p class="weapon-price">${weapon.price}</p>
@@ -855,10 +977,11 @@
             let html = '';
             
             weapons.forEach(weapon => {
+                const imgSrc = weapon.image ? weapon.image : 'img/cs2.jpg';
                 html += `
                     <div class="weapon-card">
                         <div class="weapon-image">
-                            <img src="img/cs2.jpg" alt="${weapon.name}" style="object-fit: contain;">
+                            <img src="${imgSrc}" alt="${weapon.name}" style="object-fit: contain;">
                         </div>
                         <h4 class="weapon-name">${weapon.name}</h4>
                         <p class="weapon-price">${weapon.price}</p>
