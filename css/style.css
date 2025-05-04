@@ -201,6 +201,80 @@ a:hover {
 }
 
 /* Header & Navigation */
+
+.has-submenu {
+    position: relative;
+}
+
+.submenu-arrow {
+    font-size: 0.7em;
+    margin-left: 6px;
+    vertical-align: middle;
+    transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
+    color: var(--accent-color);
+    opacity: 0.85;
+}
+
+.has-submenu:hover .submenu-arrow,
+.has-submenu:focus-within .submenu-arrow {
+    transform: rotate(180deg);
+    color: var(--primary-color);
+    opacity: 1;
+}
+
+
+.submenu {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background: rgba(18, 18, 18, 0.98);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    border-radius: 0 0 8px 8px;
+    min-width: 180px;
+    padding: 10px 0;
+    z-index: 999;
+    list-style: none;
+    padding-left: 0;
+}
+
+.submenu li {
+    width: 100%;
+}
+
+.submenu .nav-link {
+    padding: 10px 20px;
+    color: var(--light-text);
+    white-space: nowrap;
+    font-size: 0.95em;
+}
+
+.submenu .nav-link:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.has-submenu:hover > .submenu,
+.has-submenu:focus-within > .submenu {
+    display: block;
+}
+
+/* Mobile: show submenu if parent is active (toggle logic can be improved with JS if needed) */
+@media (max-width: 992px) {
+    .has-submenu > .submenu {
+        position: static;
+        box-shadow: none;
+        background: rgba(18,18,18,0.98);
+        border-radius: 0 0 8px 8px;
+        min-width: 0;
+        padding: 0;
+        display: none;
+    }
+    .has-submenu.active > .submenu {
+        display: block;
+    }
+}
+
 .header {
     position: fixed;
     top: 0;
