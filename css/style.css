@@ -1020,15 +1020,15 @@ a:hover {
 /* Visibility is now handled by JavaScript instead of CSS */
 
 @keyframes pulse {
-    0% { 
-        transform: scale(1); 
-        box-shadow: 0 0 10px 2px var(--accent-color), 
-                  inset 0 0 2px 1px var(--accent-color); 
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 10px 2px var(--accent-color),
+                  inset 0 0 2px 1px var(--accent-color);
     }
-    100% { 
-        transform: scale(1.1); 
-        box-shadow: 0 0 15px 3px var(--accent-color), 
-                  inset 0 0 3px 1px var(--accent-color); 
+    100% {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px 3px var(--accent-color),
+                  inset 0 0 3px 1px var(--accent-color);
     }
 }
 
@@ -1120,9 +1120,42 @@ a:hover {
 .trax-widget .trax-track-info {
     flex-grow: 1;
     padding: 0 10px;
-    overflow: hidden;
-    white-space: nowrap;
-    max-width: 55%;
+    overflow: hidden; /* Always keep overflow hidden for proper clipping */
+    min-width: 0; /* Allow flex item to shrink below content size */
+    max-width: 65%; /* Increased from 55% to give more space */
+    position: relative; /* For proper positioning of scrolling text */
+}
+
+/* Add fade-out effect using pseudo-element for better browser support */
+.trax-widget .trax-track-info::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.8));
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Enhanced fade during scrolling */
+.trax-widget .trax-track-info.scrolling::after {
+    width: 30px;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.9));
+}
+
+/* Also add fade on the left during scrolling */
+.trax-widget .trax-track-info.scrolling::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 100%;
+    background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.8));
+    pointer-events: none;
+    z-index: 1;
 }
 
 .trax-widget .track-name {
@@ -1135,11 +1168,41 @@ a:hover {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    position: relative;
+    display: block;
+    width: 100%;
 }
 
-/* Enhanced glow for track name when pulsating */
-.trax-widget.pulsating .track-name {
+/* Scrolling animation for long track names */
+.trax-widget .track-name.scrolling {
+    animation: scroll-text 6s linear infinite;
+    text-overflow: clip; /* Remove ellipsis when scrolling */
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    width: max-content; /* Allow text to extend beyond container */
+}
+
+@keyframes scroll-text {
+    0% { transform: translateX(0); }
+    15% { transform: translateX(0); }
+    85% { transform: translateX(-50%); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Pause scrolling animation when hovering over the widget */
+.trax-widget:hover .track-name.scrolling {
+    animation-play-state: paused;
+}
+
+/* Enhanced glow for track name when pulsating - but preserve scrolling */
+.trax-widget.pulsating .track-name:not(.scrolling) {
     animation: track-glow 1.5s infinite alternate;
+}
+
+/* When both pulsating and scrolling, combine animations */
+.trax-widget.pulsating .track-name.scrolling {
+    animation: scroll-text 6s linear infinite, track-glow 1.5s infinite alternate;
 }
 
 @keyframes track-glow {
@@ -1294,11 +1357,11 @@ a:hover {
     .hero-title {
         font-size: 3.5rem;
     }
-    
+
     .hero-subtitle {
         font-size: 1.5rem;
     }
-    
+
     .section-title {
         font-size: 2.2rem;
     }
@@ -1308,7 +1371,7 @@ a:hover {
     .mobile-menu-toggle {
         display: block;
     }
-    
+
     .nav-list {
         position: fixed;
         top: 70px;
@@ -1320,31 +1383,31 @@ a:hover {
         box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
         padding: 20px 0;
     }
-    
+
     .nav-list.active {
         left: 0;
     }
-    
+
     .nav-link {
         padding: 15px;
     }
-    
+
     .nav-link::after {
         display: none;
     }
-    
+
     .hero-title {
         font-size: 3rem;
     }
-    
+
     .hero-subtitle {
         font-size: 1.3rem;
     }
-    
+
     .section {
         padding: 60px 0;
     }
-    
+
     .section-title {
         font-size: 2rem;
     }
@@ -1354,31 +1417,67 @@ a:hover {
     .hero-title {
         font-size: 2.5rem;
     }
-    
+
     .hero-subtitle {
         font-size: 1.1rem;
     }
-    
+
     .hero-desc {
         font-size: 1rem;
     }
-    
+
     .btn {
         padding: 10px 20px;
         font-size: 0.9rem;
     }
-    
+
     .section-title {
         font-size: 1.8rem;
     }
-    
+
     .members-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .member-card {
         max-width: 320px;
         margin: 0 auto;
+    }
+
+    /* Trax widget responsive adjustments */
+    .trax-widget {
+        width: calc(100vw - 40px);
+        max-width: 380px;
+        right: 20px;
+        left: 20px;
+        margin: 0 auto;
+    }
+
+    .trax-widget .trax-track-info {
+        max-width: 70%; /* Even more space on mobile */
+        padding: 0 8px;
+    }
+
+    .trax-widget .track-name {
+        font-size: 1.1rem; /* Slightly smaller on mobile */
+    }
+
+    /* Adjust scrolling animation for mobile */
+    @keyframes scroll-text {
+        0% { transform: translateX(0); }
+        15% { transform: translateX(0); }
+        85% { transform: translateX(-60%); }
+        100% { transform: translateX(-60%); }
+    }
+
+    .trax-widget .trax-logo {
+        width: 60px;
+        height: 60px;
+        margin: 0 10px;
+    }
+
+    .trax-widget .logo-text {
+        font-size: 30px;
     }
 }
 
