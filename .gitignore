@@ -40,5 +40,5 @@ jspm_packages/
 # Local Netlify folder
 .netlify
 
-# Large binary files now handled by Git LFS
-# (*.mp3, *.gif, *.jar are tracked by LFS - see .gitattributes)
+# Large binary files are now handled by Git LFS
+# See .gitattributes for LFS-tracked file types
