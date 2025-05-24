@@ -247,6 +247,9 @@
             border: 1px solid rgba(110, 79, 246, 0.3);
             transition: all 0.3s ease;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 580px;
         }
 
         .champion-card:hover {
@@ -256,21 +259,23 @@
         }
 
         .champion-splash {
-            height: 200px;
+            height: 250px;
             overflow: hidden;
             position: relative;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
         }
 
         .champion-splash img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center top;
+            object-position: center 20%;
             transition: transform 0.5s ease;
+            display: block;
         }
 
         .champion-card:hover .champion-splash img {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .champion-position-badges {
@@ -296,6 +301,10 @@
 
         .champion-info {
             padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .champion-name {
@@ -317,31 +326,135 @@
             color: var(--medium-text);
             line-height: 1.5;
             margin-bottom: 15px;
+            height: 60px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            line-clamp: 4;
+            -webkit-box-orient: vertical;
         }
 
         .champion-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 15px;
         }
 
         .champion-stat {
+            background: rgba(40, 40, 40, 0.8);
+            padding: 12px 10px;
+            border-radius: 8px;
             text-align: center;
-            flex: 1;
+            border: 1px solid rgba(110, 79, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+            height: 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .champion-stat::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), rgba(110, 79, 246, 0.6));
+            transition: width 0.3s ease;
+        }
+
+        .champion-stat[data-level="Velmi nízká"]::before,
+        .champion-stat[data-level="Nízká"]::before,
+        .champion-stat[data-level="Nízké"]::before {
+            width: 20%;
+            background: linear-gradient(90deg, #ff4757, #ff6b7a);
+        }
+
+        .champion-stat[data-level="Střední"]::before {
+            width: 50%;
+            background: linear-gradient(90deg, #ffa502, #ffb84d);
+        }
+
+        .champion-stat[data-level="Vysoká"]::before,
+        .champion-stat[data-level="Vysoké"]::before {
+            width: 75%;
+            background: linear-gradient(90deg, #2ed573, #7bed9f);
+        }
+
+        .champion-stat[data-level="Velmi vysoká"]::before,
+        .champion-stat[data-level="Velmi vysoké"]::before {
+            width: 100%;
+            background: linear-gradient(90deg, #5352ed, #7c4dff);
         }
 
         .champion-stat-label {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: var(--medium-text);
+            margin-bottom: 4px;
+            font-weight: 500;
             text-transform: uppercase;
-            margin-bottom: 5px;
+            letter-spacing: 0.5px;
         }
 
         .champion-stat-value {
-            font-size: 0.9rem;
-            color: var(--primary-color);
+            font-size: 0.8rem;
+            color: var(--light-text);
             font-weight: 600;
+            position: relative;
+            z-index: 1;
         }
+
+        .champion-stat[data-level="Velmi nízká"] .champion-stat-value,
+        .champion-stat[data-level="Nízká"] .champion-stat-value,
+        .champion-stat[data-level="Nízké"] .champion-stat-value {
+            color: #ff6b7a;
+        }
+
+        .champion-stat[data-level="Střední"] .champion-stat-value {
+            color: #ffb84d;
+        }
+
+        .champion-stat[data-level="Vysoká"] .champion-stat-value,
+        .champion-stat[data-level="Vysoké"] .champion-stat-value {
+            color: #7bed9f;
+        }
+
+        .champion-stat[data-level="Velmi vysoká"] .champion-stat-value,
+        .champion-stat[data-level="Velmi vysoké"] .champion-stat-value {
+            color: #7c4dff;
+        }
+
+        /* Responsive champion grid */
+        .champions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .champions-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+
+            .champion-splash {
+                height: 200px;
+            }
+
+            .champion-stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+
+            .champion-stat {
+                padding: 6px 8px;
+            }
+        }
+
+
 
         .back-button {
             display: inline-block;
@@ -530,6 +643,90 @@
                 <button type="button" class="champion-role" onclick="showChampions('Support')">Support (<span id="support-count">0</span>)</button>
             </div>
 
+            <!-- Advanced Filters -->
+            <div class="advanced-filters">
+                <div class="filter-toggle">
+                    <button type="button" class="toggle-filters-btn" onclick="toggleAdvancedFilters()">
+                        <span class="filter-icon">🔍</span>
+                        Pokročilé filtry
+                        <span class="filter-count" id="active-filters-count"></span>
+                        <span class="toggle-arrow">▼</span>
+                    </button>
+                </div>
+
+                <div class="filters-panel" id="filters-panel">
+                    <div class="filters-row">
+                        <div class="filter-group">
+                            <label for="search-input">Hledat šampiona:</label>
+                            <input type="text" id="search-input" placeholder="Název nebo popis..." oninput="applyFilters()">
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="difficulty-filter">Obtížnost:</label>
+                            <select id="difficulty-filter" onchange="applyFilters()">
+                                <option value="">Všechny</option>
+                                <option value="Nízká">Nízká</option>
+                                <option value="Střední">Střední</option>
+                                <option value="Vysoká">Vysoká</option>
+                                <option value="Velmi vysoká">Velmi vysoká</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="damage-filter">Poškození:</label>
+                            <select id="damage-filter" onchange="applyFilters()">
+                                <option value="">Všechny</option>
+                                <option value="Nízké">Nízké</option>
+                                <option value="Střední">Střední</option>
+                                <option value="Vysoké">Vysoké</option>
+                                <option value="Velmi vysoké">Velmi vysoké</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="survivability-filter">Přežitelnost:</label>
+                            <select id="survivability-filter" onchange="applyFilters()">
+                                <option value="">Všechny</option>
+                                <option value="Velmi nízká">Velmi nízká</option>
+                                <option value="Nízká">Nízká</option>
+                                <option value="Střední">Střední</option>
+                                <option value="Vysoká">Vysoká</option>
+                                <option value="Velmi vysoká">Velmi vysoká</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="filters-row">
+                        <div class="filter-group roles-filter">
+                            <label>Role (více možností):</label>
+                            <div class="role-checkboxes">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="Top" onchange="applyFilters()"> Top
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="Jungle" onchange="applyFilters()"> Jungle
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="Mid" onchange="applyFilters()"> Mid
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="ADC" onchange="applyFilters()"> ADC
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" value="Support" onchange="applyFilters()"> Support
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="filter-actions">
+                            <button type="button" class="clear-filters-btn" onclick="clearAllFilters()">
+                                Vymazat filtry
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="champions-grid" id="champions-grid">
                 <!-- Champions will be populated by JavaScript -->
             </div>
@@ -654,87 +851,233 @@
             if (clickedTab) clickedTab.classList.add('active');
         }
 
-        // Function to show champions for a specific position
-        function showChampions(position) {
-            console.log('Showing champions for position:', position);
+        // Global variables for filtering
+        let currentFilters = {
+            search: '',
+            difficulty: '',
+            damage: '',
+            survivability: '',
+            roles: [],
+            position: 'All'
+        };
 
+        // Function to toggle advanced filters panel
+        function toggleAdvancedFilters() {
+            const panel = document.getElementById('filters-panel');
+            const arrow = document.querySelector('.toggle-arrow');
+
+            if (panel.classList.contains('open')) {
+                panel.classList.remove('open');
+                arrow.style.transform = 'rotate(0deg)';
+            } else {
+                panel.classList.add('open');
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Function to apply all filters
+        function applyFilters() {
+            // Get all filter values
+            const searchInput = document.getElementById('search-input');
+            const difficultyFilter = document.getElementById('difficulty-filter');
+            const damageFilter = document.getElementById('damage-filter');
+            const survivabilityFilter = document.getElementById('survivability-filter');
+            const roleCheckboxes = document.querySelectorAll('.role-checkboxes input[type="checkbox"]:checked');
+
+            // Update current filters
+            currentFilters.search = searchInput ? searchInput.value.toLowerCase().trim() : '';
+            currentFilters.difficulty = difficultyFilter ? difficultyFilter.value : '';
+            currentFilters.damage = damageFilter ? damageFilter.value : '';
+            currentFilters.survivability = survivabilityFilter ? survivabilityFilter.value : '';
+            currentFilters.roles = Array.from(roleCheckboxes).map(cb => cb.value);
+
+            // Apply filters and show results
+            showFilteredChampions();
+            updateFilterCount();
+        }
+
+        // Function to clear all filters
+        function clearAllFilters() {
+            // Clear all inputs
+            const searchInput = document.getElementById('search-input');
+            const difficultyFilter = document.getElementById('difficulty-filter');
+            const damageFilter = document.getElementById('damage-filter');
+            const survivabilityFilter = document.getElementById('survivability-filter');
+            const roleCheckboxes = document.querySelectorAll('.role-checkboxes input[type="checkbox"]');
+
+            if (searchInput) searchInput.value = '';
+            if (difficultyFilter) difficultyFilter.value = '';
+            if (damageFilter) damageFilter.value = '';
+            if (survivabilityFilter) survivabilityFilter.value = '';
+            roleCheckboxes.forEach(cb => cb.checked = false);
+
+            // Reset filters and show all champions
+            currentFilters = {
+                search: '',
+                difficulty: '',
+                damage: '',
+                survivability: '',
+                roles: [],
+                position: 'All'
+            };
+
+            showFilteredChampions();
+            updateFilterCount();
+        }
+
+        // Function to update active filter count
+        function updateFilterCount() {
+            const filterCount = document.getElementById('active-filters-count');
+            let activeCount = 0;
+
+            if (currentFilters.search) activeCount++;
+            if (currentFilters.difficulty) activeCount++;
+            if (currentFilters.damage) activeCount++;
+            if (currentFilters.survivability) activeCount++;
+            if (currentFilters.roles.length > 0) activeCount++;
+
+            if (activeCount > 0) {
+                filterCount.textContent = activeCount;
+                filterCount.classList.add('active');
+            } else {
+                filterCount.classList.remove('active');
+            }
+        }
+
+        // Function to show filtered champions
+        function showFilteredChampions() {
             const championsGrid = document.getElementById('champions-grid');
             if (!championsGrid) {
                 console.error('Champions grid element not found');
                 return;
             }
 
-            let champions = [];
+            let champions = createUnifiedChampionsList();
 
-            if (position === 'All') {
-                // Get unified champions list (no duplicates)
-                champions = createUnifiedChampionsList();
-                // Sort alphabetically by champion name
-                champions.sort((a, b) => a.name.localeCompare(b.name));
-            } else {
-                // Filter unified champions by role
-                const unifiedChampions = createUnifiedChampionsList();
-                champions = unifiedChampions.filter(champion => champion.roles.includes(position));
+            // Apply position filter first (from role buttons)
+            if (currentFilters.position !== 'All') {
+                champions = champions.filter(champion => champion.roles.includes(currentFilters.position));
             }
 
-            // Update active tab state for champion section
-            const championTabs = document.querySelectorAll('.section .champion-role');
-            championTabs.forEach(t => t.classList.remove('active'));
-
-            // Find and activate the clicked tab
-            const clickedTab = Array.from(championTabs).find(t => {
-                const text = t.textContent;
-                if (position === 'All') {
-                    return text.includes('Všichni');
-                } else {
-                    return text.includes(position) && !text.includes('Všichni');
+            // Apply advanced filters
+            champions = champions.filter(champion => {
+                // Search filter
+                if (currentFilters.search) {
+                    const searchTerm = currentFilters.search;
+                    const matchesName = champion.name.toLowerCase().includes(searchTerm);
+                    const matchesDescription = champion.description.toLowerCase().includes(searchTerm);
+                    const matchesTitle = champion.title.toLowerCase().includes(searchTerm);
+                    if (!matchesName && !matchesDescription && !matchesTitle) {
+                        return false;
+                    }
                 }
+
+                // Difficulty filter
+                if (currentFilters.difficulty && champion.difficulty !== currentFilters.difficulty) {
+                    return false;
+                }
+
+                // Damage filter
+                if (currentFilters.damage && champion.damage !== currentFilters.damage) {
+                    return false;
+                }
+
+                // Survivability filter
+                if (currentFilters.survivability && champion.survivability !== currentFilters.survivability) {
+                    return false;
+                }
+
+                // Roles filter (if any roles are selected, champion must have at least one)
+                if (currentFilters.roles.length > 0) {
+                    const hasMatchingRole = currentFilters.roles.some(role => champion.roles.includes(role));
+                    if (!hasMatchingRole) {
+                        return false;
+                    }
+                }
+
+                return true;
             });
-            if (clickedTab) clickedTab.classList.add('active');
 
-            // Clear existing content
-            championsGrid.innerHTML = '';
+            // Sort alphabetically
+            champions.sort((a, b) => a.name.localeCompare(b.name));
 
-            // Create champion cards
-            champions.forEach(champion => {
-                const championCard = document.createElement('div');
-                championCard.className = 'champion-card';
+            // Display results
+            displayChampions(champions);
+        }
 
-                // Create role badges HTML
-                const roleBadges = champion.roles.map(role =>
-                    `<span class="champion-position-badge">${role}</span>`
-                ).join('');
+        // Function to display champions (extracted from showChampions)
+        function displayChampions(champions) {
+            const championsGrid = document.getElementById('champions-grid');
 
-                championCard.innerHTML = `
+            if (champions.length === 0) {
+                championsGrid.innerHTML = `
+                    <div class="no-results">
+                        <span class="emoji">😔</span>
+                        <p>Žádní šampioni nevyhovují vybraným filtrům.</p>
+                        <p>Zkuste změnit kritéria vyhledávání.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            championsGrid.innerHTML = champions.map(champion => `
+                <div class="champion-card">
                     <div class="champion-splash">
                         <img src="${champion.splash}" alt="${champion.name}" loading="lazy">
-                        <div class="champion-position-badges">${roleBadges}</div>
+                        <div class="champion-position-badges">
+                            ${champion.roles.map(role => `<span class="champion-position-badge">${role}</span>`).join('')}
+                        </div>
                     </div>
                     <div class="champion-info">
-                        <h3 class="champion-name">${champion.name}</h3>
-                        <p class="champion-title">${champion.title}</p>
-                        <p class="champion-description">${champion.description}</p>
+                        <div class="champion-content">
+                            <h3 class="champion-name">${champion.name}</h3>
+                            <p class="champion-title">"${champion.title}"</p>
+                            <p class="champion-description">${champion.description}</p>
+                        </div>
                         <div class="champion-stats">
-                            <div class="champion-stat">
+                            <div class="champion-stat" data-level="${champion.difficulty}">
                                 <div class="champion-stat-label">Obtížnost</div>
                                 <div class="champion-stat-value">${champion.difficulty}</div>
                             </div>
-                            <div class="champion-stat">
+                            <div class="champion-stat" data-level="${champion.damage}">
                                 <div class="champion-stat-label">Poškození</div>
                                 <div class="champion-stat-value">${champion.damage}</div>
                             </div>
-                            <div class="champion-stat">
-                                <div class="champion-stat-label">Přežití</div>
+                            <div class="champion-stat" data-level="${champion.survivability}">
+                                <div class="champion-stat-label">Přežitelnost</div>
                                 <div class="champion-stat-value">${champion.survivability}</div>
                             </div>
                         </div>
                     </div>
-                `;
-                championsGrid.appendChild(championCard);
-            });
-
-            // Note: Tab state is already updated above at line 731-743
+                </div>
+            `).join('');
         }
+
+        // Function to show champions for a specific position (updated)
+        function showChampions(position) {
+            console.log('Showing champions for position:', position);
+
+            // Update active role button
+            document.querySelectorAll('.champion-role').forEach(btn => btn.classList.remove('active'));
+
+            // Find the button that was clicked and make it active
+            const buttons = document.querySelectorAll('.champion-role');
+            for (let btn of buttons) {
+                if ((position === 'All' && btn.textContent.includes('Všichni')) ||
+                    (position !== 'All' && btn.textContent.includes(position) && !btn.textContent.includes('Všichni'))) {
+                    btn.classList.add('active');
+                    break;
+                }
+            }
+
+            // Update position filter
+            currentFilters.position = position;
+
+            // Apply all filters
+            showFilteredChampions();
+        }
+
+
 
         // Function to update champion counts
         function updateChampionCounts() {
@@ -792,7 +1135,7 @@
             // Direct initialization
             if (typeof allChampions !== 'undefined' && allChampions && allChampions.length > 0) {
                 updateChampionCounts();
-                showChampions('All');
+                showFilteredChampions(); // Use the new filtering system
             } else {
                 // Fallback: try multiple times
                 let attempts = 0;
@@ -803,7 +1146,7 @@
 
                     if (typeof allChampions !== 'undefined' && allChampions && allChampions.length > 0) {
                         updateChampionCounts();
-                        showChampions('All');
+                        showFilteredChampions(); // Use the new filtering system
                     } else if (attempts < maxAttempts) {
                         setTimeout(tryInitialize, 100);
                     } else {

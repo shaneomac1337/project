@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Advanced Filters</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: #f1f1f1;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 8px;
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid #00ff00;
+        }
+        .error {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Advanced Filters Test</h1>
+    
+    <div class="test-section">
+        <h2>Test Results</h2>
+        <div id="test-results"></div>
+    </div>
+
+    <!-- Load Champions Data -->
+    <script src="js/champions-data.js"></script>
+    
+    <script>
+        function runTests() {
+            const results = document.getElementById('test-results');
+            let testsPassed = 0;
+            let totalTests = 0;
+
+            function addResult(testName, passed, message) {
+                totalTests++;
+                if (passed) testsPassed++;
+                
+                const div = document.createElement('div');
+                div.className = `test-result ${passed ? 'success' : 'error'}`;
+                div.innerHTML = `
+                    <strong>${testName}:</strong> ${passed ? '✅ PASSED' : '❌ FAILED'}<br>
+                    ${message}
+                `;
+                results.appendChild(div);
+            }
+
+            // Test 1: Champions data loaded
+            const championsLoaded = typeof allChampions !== 'undefined' && allChampions && allChampions.length > 0;
+            addResult('Champions Data Loaded', championsLoaded, 
+                championsLoaded ? `${allChampions.length} champions loaded` : 'Champions data not available');
+
+            if (!championsLoaded) {
+                addResult('Summary', false, 'Cannot run further tests without champions data');
+                return;
+            }
+
+            // Test 2: Filter by difficulty
+            const easyChampions = allChampions.filter(c => c.difficulty === 'Nízká');
+            addResult('Difficulty Filter', easyChampions.length > 0, 
+                `Found ${easyChampions.length} champions with 'Nízká' difficulty`);
+
+            // Test 3: Filter by damage
+            const highDamageChampions = allChampions.filter(c => c.damage === 'Vysoké');
+            addResult('Damage Filter', highDamageChampions.length > 0, 
+                `Found ${highDamageChampions.length} champions with 'Vysoké' damage`);
+
+            // Test 4: Filter by survivability
+            const highSurvivabilityChampions = allChampions.filter(c => c.survivability === 'Velmi vysoká');
+            addResult('Survivability Filter', highSurvivabilityChampions.length > 0, 
+                `Found ${highSurvivabilityChampions.length} champions with 'Velmi vysoká' survivability`);
+
+            // Test 5: Filter by role
+            const supportChampions = allChampions.filter(c => c.roles.includes('Support'));
+            addResult('Role Filter', supportChampions.length > 0, 
+                `Found ${supportChampions.length} Support champions`);
+
+            // Test 6: Search filter
+            const ahriChampions = allChampions.filter(c => c.name.toLowerCase().includes('ahri'));
+            addResult('Search Filter', ahriChampions.length > 0, 
+                `Found ${ahriChampions.length} champions matching 'ahri'`);
+
+            // Test 7: Complex filter (Support + High Survivability)
+            const tankSupports = allChampions.filter(c => 
+                c.roles.includes('Support') && 
+                (c.survivability === 'Vysoká' || c.survivability === 'Velmi vysoká')
+            );
+            addResult('Complex Filter', tankSupports.length > 0, 
+                `Found ${tankSupports.length} tanky Support champions`);
+
+            // Test 8: Renata Glasc splash art fix
+            const renataGlasc = allChampions.find(c => c.name === 'Renata Glasc');
+            const renataFixed = renataGlasc && renataGlasc.splash.includes('Renata_0.jpg');
+            addResult('Renata Glasc Fix', renataFixed, 
+                renataFixed ? 'Renata Glasc splash art URL is correct' : 'Renata Glasc splash art URL still broken');
+
+            // Summary
+            const allPassed = testsPassed === totalTests;
+            addResult('Summary', allPassed, 
+                `${testsPassed}/${totalTests} tests passed. ${allPassed ? 'All systems working!' : 'Some issues found.'}`);
+        }
+
+        // Run tests when page loads
+        window.addEventListener('load', function() {
+            if (typeof allChampions !== 'undefined') {
+                runTests();
+            } else {
+                setTimeout(() => {
+                    if (typeof allChampions !== 'undefined') {
+                        runTests();
+                    } else {
+                        document.getElementById('test-results').innerHTML = 
+                            '<div class="test-result error">❌ Champions data failed to load</div>';
+                    }
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
