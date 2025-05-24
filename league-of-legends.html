@@ -22,7 +22,6 @@
         .game-hero {
             position: relative;
             height: 60vh;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/lol.jpg');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -31,6 +30,7 @@
             text-align: center;
             color: var(--light-text);
             overflow: hidden;
+            transition: background-image 0.5s ease-in-out;
         }
 
         .game-hero::before {
@@ -63,6 +63,34 @@
             font-size: 1.5rem;
             margin-bottom: 30px;
             font-weight: 300;
+        }
+
+        .random-bg-btn {
+            background: rgba(110, 79, 246, 0.9);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .random-bg-btn:hover {
+            background: rgba(110, 79, 246, 1);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(110, 79, 246, 0.4);
+        }
+
+        .random-bg-btn:active {
+            transform: translateY(0);
         }
 
         .game-info-section {
@@ -590,6 +618,9 @@
         <div class="game-hero-content">
             <h1 class="game-hero-title">League of Legends</h1>
             <p class="game-hero-subtitle">Nejpopulárnější MOBA hra na světě od Riot Games</p>
+            <button type="button" class="random-bg-btn" onclick="setRandomHeroBackground()" title="Změnit pozadí na náhodného šampiona">
+                <i class="fas fa-random"></i> Náhodný šampion
+            </button>
         </div>
     </section>
 
@@ -635,7 +666,7 @@
             <div class="game-map-grid">
                 <div class="game-map-card">
                     <div class="game-map-image">
-                        <img src="img/lol-summoners-rift-new.jpg" alt="Summoner's Rift">
+                        <img src="img/lol-summoners-rift-artwork.jpg" alt="Summoner's Rift">
                     </div>
                     <div class="game-map-content">
                         <h3 class="game-map-title">Summoner's Rift</h3>
@@ -655,7 +686,7 @@
 
                 <div class="game-map-card">
                     <div class="game-map-image">
-                        <img src="img/lol-tft-new.jpg" alt="Convergence">
+                        <img src="img/lol-tft-artwork.jpg" alt="Convergence">
                     </div>
                     <div class="game-map-content">
                         <h3 class="game-map-title">Convergence</h3>
@@ -681,7 +712,7 @@
 
             <div class="game-info-card">
                 <div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 20px;">
-                    <img src="img/lol-darius.png" alt="Top Lane" style="width: 80px; height: 80px; border-radius: 10px; object-fit: cover; border: 2px solid var(--primary-color);">
+                    <img src="https://ddragon.leagueoflegends.com/cdn/15.10.1/img/champion/Darius.png" alt="Top Lane" style="width: 80px; height: 80px; border-radius: 10px; object-fit: cover; border: 2px solid var(--primary-color);">
                     <div>
                         <h3 style="margin-top: 0;">Top Lane</h3>
                         <p>Top laneři jsou obvykle tanky nebo bojovníci, kteří mohou samostatně fungovat v horní části mapy. Jejich úkolem je získat výhodu nad soupeřem, vytvářet tlak a později se účastnit týmových bojů.</p>
@@ -864,6 +895,35 @@
 
     <!-- Page-specific JavaScript -->
     <script>
+        // Set random champion splash art as hero background
+        function setRandomHeroBackground() {
+            if (typeof allChampions !== 'undefined' && allChampions.length > 0) {
+                // Get a random champion from the champions data
+                const randomChampion = allChampions[Math.floor(Math.random() * allChampions.length)];
+
+                // Set the background image with overlay
+                const heroSection = document.querySelector('.game-hero');
+                if (heroSection && randomChampion.splash) {
+                    heroSection.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${randomChampion.splash}')`;
+
+                    // Add champion name as data attribute
+                    heroSection.setAttribute('data-champion', randomChampion.name);
+
+                    // Update button text to show current champion
+                    const randomBtn = document.querySelector('.random-bg-btn');
+                    if (randomBtn) {
+                        randomBtn.innerHTML = `<i class="fas fa-random"></i> ${randomChampion.name}`;
+                        randomBtn.title = `Aktuální pozadí: ${randomChampion.name} - "${randomChampion.title}"`;
+                    }
+
+                    console.log(`Random hero background set to: ${randomChampion.name} - "${randomChampion.title}"`);
+                }
+            }
+        }
+
+        // Set random background when page loads
+        document.addEventListener('DOMContentLoaded', setRandomHeroBackground);
+
         // Champions data loaded from external file
 
         // Role data available globally
@@ -875,7 +935,7 @@
                     style: 'Samostatnost, splitpushing, tankování poškození v týmových bojích',
                     abilities: 'Teleport, dobrá výdrž, schopnost 1v1 soubojů',
                     items: 'Divine Sunderer, Sterak\'s Gage, Thornmail',
-                    image: 'img/lol-darius.png'
+                    image: 'https://ddragon.leagueoflegends.com/cdn/15.10.1/img/champion/Darius.png'
                 },
                 'Jungle': {
                     title: 'Jungle',
@@ -884,7 +944,7 @@
                     style: 'Ganking, kontrola objektů, invaze do nepřátelské džungle',
                     abilities: 'Smite, mobilita, schopnost překvapit nepřátele',
                     items: 'Eclipse, Dead Man\'s Plate, Guardian Angel',
-                    image: 'img/lol-leesin.png'
+                    image: 'https://ddragon.leagueoflegends.com/cdn/15.10.1/img/champion/LeeSin.png'
                 },
                 'Mid': {
                     title: 'Mid Lane',
@@ -893,7 +953,7 @@
                     style: 'Vysoké poškození, roaming, kontrola mapy',
                     abilities: 'Burst damage, mobilita, CC schopnosti',
                     items: 'Luden\'s Echo, Rabadon\'s Deathcap, Zhonya\'s Hourglass',
-                    image: 'img/lol-ahri.png'
+                    image: 'https://ddragon.leagueoflegends.com/cdn/15.10.1/img/champion/Ahri.png'
                 },
                 'ADC': {
                     title: 'ADC (Bot Lane Carry)',
@@ -902,7 +962,7 @@
                     style: 'Vysoké stabilní poškození, farmení, positioning',
                     abilities: 'Auto-attack damage, kritické zásahy, lifesteal',
                     items: 'Infinity Edge, Bloodthirster, Guardian Angel',
-                    image: 'img/lol-jinx.png'
+                    image: 'https://ddragon.leagueoflegends.com/cdn/15.10.1/img/champion/Jinx.png'
                 },
                 'Support': {
                     title: 'Support',
@@ -911,7 +971,7 @@
                     style: 'Ochrana ADC, crowd control, poskytování vize',
                     abilities: 'Heal, shield, engage/disengage, CC',
                     items: 'Moonstone Renewer, Locket of the Iron Solari, Redemption',
-                    image: 'img/lol-thresh.png'
+                    image: 'https://ddragon.leagueoflegends.com/cdn/15.10.1/img/champion/Thresh.png'
                 }
             };
 
