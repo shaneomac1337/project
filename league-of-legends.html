@@ -369,7 +369,7 @@
         .champion-stat[data-level="Nízká"]::before,
         .champion-stat[data-level="Nízké"]::before {
             width: 20%;
-            background: linear-gradient(90deg, #ff4757, #ff6b7a);
+            background: linear-gradient(90deg, #2ed573, #7bed9f);
         }
 
         .champion-stat[data-level="Střední"]::before {
@@ -380,13 +380,13 @@
         .champion-stat[data-level="Vysoká"]::before,
         .champion-stat[data-level="Vysoké"]::before {
             width: 75%;
-            background: linear-gradient(90deg, #2ed573, #7bed9f);
+            background: linear-gradient(90deg, #ff4757, #ff6b7a);
         }
 
         .champion-stat[data-level="Velmi vysoká"]::before,
         .champion-stat[data-level="Velmi vysoké"]::before {
             width: 100%;
-            background: linear-gradient(90deg, #5352ed, #7c4dff);
+            background: linear-gradient(90deg, #8b0000, #dc143c);
         }
 
         .champion-stat-label {
@@ -409,7 +409,7 @@
         .champion-stat[data-level="Velmi nízká"] .champion-stat-value,
         .champion-stat[data-level="Nízká"] .champion-stat-value,
         .champion-stat[data-level="Nízké"] .champion-stat-value {
-            color: #ff6b7a;
+            color: #7bed9f;
         }
 
         .champion-stat[data-level="Střední"] .champion-stat-value {
@@ -418,12 +418,80 @@
 
         .champion-stat[data-level="Vysoká"] .champion-stat-value,
         .champion-stat[data-level="Vysoké"] .champion-stat-value {
-            color: #7bed9f;
+            color: #ff6b7a;
         }
 
         .champion-stat[data-level="Velmi vysoká"] .champion-stat-value,
         .champion-stat[data-level="Velmi vysoké"] .champion-stat-value {
-            color: #7c4dff;
+            color: #dc143c;
+        }
+
+        /* Survivability-specific color overrides (reversed logic) */
+        .survivability-stat[data-level="Velmi nízká"]::before,
+        .survivability-stat[data-level="Nízká"]::before {
+            background: linear-gradient(90deg, #ff4757, #ff6b7a) !important;
+        }
+
+        .survivability-stat[data-level="Střední"]::before {
+            background: linear-gradient(90deg, #ffa502, #ffb84d) !important;
+        }
+
+        .survivability-stat[data-level="Vysoká"]::before {
+            background: linear-gradient(90deg, #2ed573, #7bed9f) !important;
+        }
+
+        .survivability-stat[data-level="Velmi vysoká"]::before {
+            background: linear-gradient(90deg, #27ae60, #58d68d) !important;
+        }
+
+        .survivability-stat[data-level="Velmi nízká"] .champion-stat-value,
+        .survivability-stat[data-level="Nízká"] .champion-stat-value {
+            color: #ff6b7a !important;
+        }
+
+        .survivability-stat[data-level="Střední"] .champion-stat-value {
+            color: #ffb84d !important;
+        }
+
+        .survivability-stat[data-level="Vysoká"] .champion-stat-value {
+            color: #7bed9f !important;
+        }
+
+        .survivability-stat[data-level="Velmi vysoká"] .champion-stat-value {
+            color: #58d68d !important;
+        }
+
+        /* Damage-specific color overrides (cool to hot progression) */
+        .damage-stat[data-level="Nízké"]::before {
+            background: linear-gradient(90deg, #3498db, #5dade2) !important;
+        }
+
+        .damage-stat[data-level="Střední"]::before {
+            background: linear-gradient(90deg, #f39c12, #f8c471) !important;
+        }
+
+        .damage-stat[data-level="Vysoké"]::before {
+            background: linear-gradient(90deg, #e74c3c, #ec7063) !important;
+        }
+
+        .damage-stat[data-level="Velmi vysoké"]::before {
+            background: linear-gradient(90deg, #c0392b, #ff6b9d) !important;
+        }
+
+        .damage-stat[data-level="Nízké"] .champion-stat-value {
+            color: #5dade2 !important;
+        }
+
+        .damage-stat[data-level="Střední"] .champion-stat-value {
+            color: #f8c471 !important;
+        }
+
+        .damage-stat[data-level="Vysoké"] .champion-stat-value {
+            color: #ec7063 !important;
+        }
+
+        .damage-stat[data-level="Velmi vysoké"] .champion-stat-value {
+            color: #ff6b9d !important;
         }
 
         /* Responsive champion grid */
@@ -694,6 +762,51 @@
                                 <option value="Velmi vysoká">Velmi vysoká</option>
                             </select>
                         </div>
+
+                        <div class="filter-group">
+                            <label for="range-filter">Dosah:</label>
+                            <select id="range-filter" onchange="applyFilters()">
+                                <option value="">Všechny</option>
+                                <option value="Melee">Melee</option>
+                                <option value="Ranged">Ranged</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="filters-row">
+                        <div class="filter-group">
+                            <label for="class-filter">Třída šampiona:</label>
+                            <select id="class-filter" onchange="applyFilters()">
+                                <option value="">Všechny</option>
+                                <option value="Assassin">Assassin</option>
+                                <option value="Fighter">Fighter</option>
+                                <option value="Mage">Mage</option>
+                                <option value="Marksman">Marksman</option>
+                                <option value="Support">Support</option>
+                                <option value="Tank">Tank</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="region-filter">Region:</label>
+                            <select id="region-filter" onchange="applyFilters()">
+                                <option value="">Všechny</option>
+                                <option value="Bandle City">Bandle City</option>
+                                <option value="Bilgewater">Bilgewater</option>
+                                <option value="Demacia">Demacia</option>
+                                <option value="Freljord">Freljord</option>
+                                <option value="Ionia">Ionia</option>
+                                <option value="Ixtal">Ixtal</option>
+                                <option value="Noxus">Noxus</option>
+                                <option value="Piltover">Piltover</option>
+                                <option value="Runeterra">Runeterra</option>
+                                <option value="Shadow Isles">Shadow Isles</option>
+                                <option value="Shurima">Shurima</option>
+                                <option value="Targon">Targon</option>
+                                <option value="Void">Void</option>
+                                <option value="Zaun">Zaun</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="filters-row">
@@ -857,6 +970,9 @@
             difficulty: '',
             damage: '',
             survivability: '',
+            rangeType: '',
+            championClass: '',
+            region: '',
             roles: [],
             position: 'All'
         };
@@ -882,6 +998,9 @@
             const difficultyFilter = document.getElementById('difficulty-filter');
             const damageFilter = document.getElementById('damage-filter');
             const survivabilityFilter = document.getElementById('survivability-filter');
+            const rangeFilter = document.getElementById('range-filter');
+            const classFilter = document.getElementById('class-filter');
+            const regionFilter = document.getElementById('region-filter');
             const roleCheckboxes = document.querySelectorAll('.role-checkboxes input[type="checkbox"]:checked');
 
             // Update current filters
@@ -889,6 +1008,9 @@
             currentFilters.difficulty = difficultyFilter ? difficultyFilter.value : '';
             currentFilters.damage = damageFilter ? damageFilter.value : '';
             currentFilters.survivability = survivabilityFilter ? survivabilityFilter.value : '';
+            currentFilters.rangeType = rangeFilter ? rangeFilter.value : '';
+            currentFilters.championClass = classFilter ? classFilter.value : '';
+            currentFilters.region = regionFilter ? regionFilter.value : '';
             currentFilters.roles = Array.from(roleCheckboxes).map(cb => cb.value);
 
             // Apply filters and show results
@@ -903,12 +1025,18 @@
             const difficultyFilter = document.getElementById('difficulty-filter');
             const damageFilter = document.getElementById('damage-filter');
             const survivabilityFilter = document.getElementById('survivability-filter');
+            const rangeFilter = document.getElementById('range-filter');
+            const classFilter = document.getElementById('class-filter');
+            const regionFilter = document.getElementById('region-filter');
             const roleCheckboxes = document.querySelectorAll('.role-checkboxes input[type="checkbox"]');
 
             if (searchInput) searchInput.value = '';
             if (difficultyFilter) difficultyFilter.value = '';
             if (damageFilter) damageFilter.value = '';
             if (survivabilityFilter) survivabilityFilter.value = '';
+            if (rangeFilter) rangeFilter.value = '';
+            if (classFilter) classFilter.value = '';
+            if (regionFilter) regionFilter.value = '';
             roleCheckboxes.forEach(cb => cb.checked = false);
 
             // Reset filters and show all champions
@@ -917,6 +1045,9 @@
                 difficulty: '',
                 damage: '',
                 survivability: '',
+                rangeType: '',
+                championClass: '',
+                region: '',
                 roles: [],
                 position: 'All'
             };
@@ -934,6 +1065,9 @@
             if (currentFilters.difficulty) activeCount++;
             if (currentFilters.damage) activeCount++;
             if (currentFilters.survivability) activeCount++;
+            if (currentFilters.rangeType) activeCount++;
+            if (currentFilters.championClass) activeCount++;
+            if (currentFilters.region) activeCount++;
             if (currentFilters.roles.length > 0) activeCount++;
 
             if (activeCount > 0) {
@@ -984,6 +1118,21 @@
 
                 // Survivability filter
                 if (currentFilters.survivability && champion.survivability !== currentFilters.survivability) {
+                    return false;
+                }
+
+                // Range type filter
+                if (currentFilters.rangeType && champion.rangeType !== currentFilters.rangeType) {
+                    return false;
+                }
+
+                // Champion class filter
+                if (currentFilters.championClass && champion.championClass !== currentFilters.championClass) {
+                    return false;
+                }
+
+                // Region filter
+                if (currentFilters.region && champion.region !== currentFilters.region) {
                     return false;
                 }
 
@@ -1039,11 +1188,11 @@
                                 <div class="champion-stat-label">Obtížnost</div>
                                 <div class="champion-stat-value">${champion.difficulty}</div>
                             </div>
-                            <div class="champion-stat" data-level="${champion.damage}">
+                            <div class="champion-stat damage-stat" data-level="${champion.damage}">
                                 <div class="champion-stat-label">Poškození</div>
                                 <div class="champion-stat-value">${champion.damage}</div>
                             </div>
-                            <div class="champion-stat" data-level="${champion.survivability}">
+                            <div class="champion-stat survivability-stat" data-level="${champion.survivability}">
                                 <div class="champion-stat-label">Přežitelnost</div>
                                 <div class="champion-stat-value">${champion.survivability}</div>
                             </div>

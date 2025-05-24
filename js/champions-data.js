@@ -1,5 +1,5 @@
 // League of Legends Champions Data with Selection Quotes
-// Updated: 2025-05-24T06:32:39.611Z
+// Updated: 2025-05-24T07:49:14.524Z
 // Total Champions: 170
 
 const allChampions = [
@@ -13,7 +13,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Shurima"
   },
   {
     "name": "Ahri",
@@ -25,7 +28,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Ionia"
   },
   {
     "name": "Akali",
@@ -37,7 +43,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Ionia"
   },
   {
     "name": "Akshan",
@@ -49,7 +58,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Shurima"
   },
   {
     "name": "Alistar",
@@ -61,7 +73,10 @@ const allChampions = [
     "survivability": "Velmi vysoká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Runeterra"
   },
   {
     "name": "Ambessa",
@@ -73,7 +88,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Noxus"
   },
   {
     "name": "Amumu",
@@ -85,7 +103,10 @@ const allChampions = [
     "survivability": "Vysoká",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Shurima"
   },
   {
     "name": "Anivia",
@@ -97,7 +118,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Freljord"
   },
   {
     "name": "Annie",
@@ -109,7 +133,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Noxus"
   },
   {
     "name": "Aphelios",
@@ -121,7 +148,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Targon"
   },
   {
     "name": "Ashe",
@@ -133,7 +163,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Freljord"
   },
   {
     "name": "Aurelion Sol",
@@ -145,7 +178,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Targon"
   },
   {
     "name": "Aurora",
@@ -157,7 +193,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Freljord"
   },
   {
     "name": "Azir",
@@ -169,7 +208,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Shurima"
   },
   {
     "name": "Bard",
@@ -181,7 +223,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Support",
+    "region": "Runeterra"
   },
   {
     "name": "Bel'Veth",
@@ -193,7 +238,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Void"
   },
   {
     "name": "Blitzcrank",
@@ -205,7 +253,10 @@ const allChampions = [
     "survivability": "Vysoká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Zaun"
   },
   {
     "name": "Brand",
@@ -218,7 +269,10 @@ const allChampions = [
     "roles": [
       "Mid",
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Freljord"
   },
   {
     "name": "Braum",
@@ -230,7 +284,10 @@ const allChampions = [
     "survivability": "Velmi vysoká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Support",
+    "region": "Freljord"
   },
   {
     "name": "Briar",
@@ -242,7 +299,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Noxus"
   },
   {
     "name": "Caitlyn",
@@ -254,7 +314,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Piltover"
   },
   {
     "name": "Camille",
@@ -266,7 +329,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Piltover"
   },
   {
     "name": "Cassiopeia",
@@ -278,7 +344,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Noxus"
   },
   {
     "name": "Cho'Gath",
@@ -290,7 +359,10 @@ const allChampions = [
     "survivability": "Velmi vysoká",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Void"
   },
   {
     "name": "Corki",
@@ -303,7 +375,10 @@ const allChampions = [
     "roles": [
       "Mid",
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Bandle City"
   },
   {
     "name": "Darius",
@@ -315,7 +390,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Noxus"
   },
   {
     "name": "Diana",
@@ -328,7 +406,10 @@ const allChampions = [
     "roles": [
       "Mid",
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Targon"
   },
   {
     "name": "Dr. Mundo",
@@ -340,7 +421,10 @@ const allChampions = [
     "survivability": "Velmi vysoká",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Zaun"
   },
   {
     "name": "Draven",
@@ -352,7 +436,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Noxus"
   },
   {
     "name": "Ekko",
@@ -365,7 +452,10 @@ const allChampions = [
     "roles": [
       "Mid",
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Zaun"
   },
   {
     "name": "Elise",
@@ -377,7 +467,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Shadow Isles"
   },
   {
     "name": "Evelynn",
@@ -389,7 +482,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Runeterra"
   },
   {
     "name": "Ezreal",
@@ -401,7 +497,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Piltover"
   },
   {
     "name": "Fiddlesticks",
@@ -413,7 +512,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Runeterra"
   },
   {
     "name": "Fiora",
@@ -425,7 +527,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Demacia"
   },
   {
     "name": "Fizz",
@@ -437,7 +542,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Bilgewater"
   },
   {
     "name": "Galio",
@@ -449,7 +557,10 @@ const allChampions = [
     "survivability": "Velmi vysoká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Demacia"
   },
   {
     "name": "Gangplank",
@@ -461,7 +572,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Fighter",
+    "region": "Bilgewater"
   },
   {
     "name": "Garen",
@@ -473,7 +587,10 @@ const allChampions = [
     "survivability": "Vysoká",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Demacia"
   },
   {
     "name": "Gnar",
@@ -485,7 +602,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Fighter",
+    "region": "Freljord"
   },
   {
     "name": "Gragas",
@@ -497,7 +617,10 @@ const allChampions = [
     "survivability": "Vysoká",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Freljord"
   },
   {
     "name": "Graves",
@@ -509,7 +632,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Bilgewater"
   },
   {
     "name": "Gwen",
@@ -521,7 +647,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Shadow Isles"
   },
   {
     "name": "Hecarim",
@@ -533,7 +662,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Shadow Isles"
   },
   {
     "name": "Heimerdinger",
@@ -545,7 +677,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Piltover"
   },
   {
     "name": "Hwei",
@@ -557,7 +692,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Ionia"
   },
   {
     "name": "Illaoi",
@@ -569,7 +707,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Bilgewater"
   },
   {
     "name": "Irelia",
@@ -582,7 +723,10 @@ const allChampions = [
     "roles": [
       "Top",
       "Mid"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Ionia"
   },
   {
     "name": "Ivern",
@@ -594,7 +738,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Support",
+    "region": "Ionia"
   },
   {
     "name": "Janna",
@@ -606,7 +753,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Support",
+    "region": "Zaun"
   },
   {
     "name": "Jarvan IV",
@@ -618,7 +768,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Demacia"
   },
   {
     "name": "Jax",
@@ -631,7 +784,10 @@ const allChampions = [
     "roles": [
       "Top",
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Icathia"
   },
   {
     "name": "Jayce",
@@ -644,7 +800,10 @@ const allChampions = [
     "roles": [
       "Top",
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Fighter",
+    "region": "Piltover"
   },
   {
     "name": "Jhin",
@@ -656,7 +815,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Ionia"
   },
   {
     "name": "Jinx",
@@ -668,7 +830,10 @@ const allChampions = [
     "survivability": "Velmi nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Zaun"
   },
   {
     "name": "K'Sante",
@@ -680,7 +845,10 @@ const allChampions = [
     "survivability": "Vysoká",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Shurima"
   },
   {
     "name": "Kai'Sa",
@@ -692,7 +860,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Void"
   },
   {
     "name": "Kalista",
@@ -704,7 +875,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Shadow Isles"
   },
   {
     "name": "Karma",
@@ -716,7 +890,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Ionia"
   },
   {
     "name": "Karthus",
@@ -728,7 +905,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Shadow Isles"
   },
   {
     "name": "Kassadin",
@@ -740,7 +920,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Void"
   },
   {
     "name": "Katarina",
@@ -752,7 +935,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Noxus"
   },
   {
     "name": "Kayle",
@@ -764,7 +950,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Fighter",
+    "region": "Targon"
   },
   {
     "name": "Kayn",
@@ -776,7 +965,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Ionia"
   },
   {
     "name": "Kennen",
@@ -788,7 +980,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Ionia"
   },
   {
     "name": "Kha'Zix",
@@ -800,7 +995,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Void"
   },
   {
     "name": "Kindred",
@@ -812,7 +1010,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Runeterra"
   },
   {
     "name": "Kled",
@@ -824,7 +1025,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Noxus"
   },
   {
     "name": "Kog'Maw",
@@ -836,7 +1040,10 @@ const allChampions = [
     "survivability": "Velmi nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Void"
   },
   {
     "name": "LeBlanc",
@@ -848,7 +1055,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Assassin",
+    "region": "Noxus"
   },
   {
     "name": "Lee Sin",
@@ -860,7 +1070,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Ionia"
   },
   {
     "name": "Leona",
@@ -872,7 +1085,10 @@ const allChampions = [
     "survivability": "Velmi vysoká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Targon"
   },
   {
     "name": "Lillia",
@@ -884,7 +1100,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Fighter",
+    "region": "Ionia"
   },
   {
     "name": "Lissandra",
@@ -896,7 +1115,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Freljord"
   },
   {
     "name": "Lucian",
@@ -908,7 +1130,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Demacia"
   },
   {
     "name": "Lulu",
@@ -920,7 +1145,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Support",
+    "region": "Bandle City"
   },
   {
     "name": "Lux",
@@ -933,7 +1161,10 @@ const allChampions = [
     "roles": [
       "Mid",
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Demacia"
   },
   {
     "name": "Malphite",
@@ -945,7 +1176,10 @@ const allChampions = [
     "survivability": "Velmi vysoká",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Ixtal"
   },
   {
     "name": "Malzahar",
@@ -957,7 +1191,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Void"
   },
   {
     "name": "Maokai",
@@ -970,7 +1207,10 @@ const allChampions = [
     "roles": [
       "Top",
       "Support"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Shadow Isles"
   },
   {
     "name": "Master Yi",
@@ -982,7 +1222,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Ionia"
   },
   {
     "name": "Milio",
@@ -994,7 +1237,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Support",
+    "region": "Ixtal"
   },
   {
     "name": "Miss Fortune",
@@ -1006,7 +1252,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Bilgewater"
   },
   {
     "name": "Mordekaiser",
@@ -1018,7 +1267,10 @@ const allChampions = [
     "survivability": "Vysoká",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Noxus"
   },
   {
     "name": "Morgana",
@@ -1030,7 +1282,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Demacia"
   },
   {
     "name": "Naafiri",
@@ -1042,7 +1297,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Shurima"
   },
   {
     "name": "Nami",
@@ -1054,7 +1312,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Support",
+    "region": "Runeterra"
   },
   {
     "name": "Nasus",
@@ -1066,7 +1327,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Shurima"
   },
   {
     "name": "Nautilus",
@@ -1078,7 +1342,10 @@ const allChampions = [
     "survivability": "Velmi vysoká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Bilgewater"
   },
   {
     "name": "Neeko",
@@ -1090,7 +1357,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Ixtal"
   },
   {
     "name": "Nidalee",
@@ -1102,7 +1372,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Assassin",
+    "region": "Ixtal"
   },
   {
     "name": "Nilah",
@@ -1114,7 +1387,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Bilgewater"
   },
   {
     "name": "Nocturne",
@@ -1126,7 +1402,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Runeterra"
   },
   {
     "name": "Nunu & Willump",
@@ -1138,7 +1417,10 @@ const allChampions = [
     "survivability": "Vysoká",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Freljord"
   },
   {
     "name": "Olaf",
@@ -1151,7 +1433,10 @@ const allChampions = [
     "roles": [
       "Top",
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Freljord"
   },
   {
     "name": "Orianna",
@@ -1163,7 +1448,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Piltover"
   },
   {
     "name": "Ornn",
@@ -1175,7 +1463,10 @@ const allChampions = [
     "survivability": "Velmi vysoká",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Freljord"
   },
   {
     "name": "Pantheon",
@@ -1188,7 +1479,10 @@ const allChampions = [
     "roles": [
       "Top",
       "Mid"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Targon"
   },
   {
     "name": "Poppy",
@@ -1201,7 +1495,10 @@ const allChampions = [
     "roles": [
       "Top",
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Demacia"
   },
   {
     "name": "Pyke",
@@ -1213,7 +1510,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Support",
+    "region": "Bilgewater"
   },
   {
     "name": "Qiyana",
@@ -1225,7 +1525,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Ixtal"
   },
   {
     "name": "Quinn",
@@ -1237,7 +1540,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Demacia"
   },
   {
     "name": "Rakan",
@@ -1249,7 +1555,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Support",
+    "region": "Ionia"
   },
   {
     "name": "Rammus",
@@ -1261,7 +1570,10 @@ const allChampions = [
     "survivability": "Velmi vysoká",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Shurima"
   },
   {
     "name": "Rek'Sai",
@@ -1273,7 +1585,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Void"
   },
   {
     "name": "Rell",
@@ -1285,7 +1600,10 @@ const allChampions = [
     "survivability": "Velmi vysoká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Noxus"
   },
   {
     "name": "Renata Glasc",
@@ -1297,7 +1615,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Support",
+    "region": "Zaun"
   },
   {
     "name": "Renekton",
@@ -1309,7 +1630,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Shurima"
   },
   {
     "name": "Rengar",
@@ -1322,7 +1646,10 @@ const allChampions = [
     "roles": [
       "Top",
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Ixtal"
   },
   {
     "name": "Riven",
@@ -1334,7 +1661,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Noxus"
   },
   {
     "name": "Rumble",
@@ -1346,7 +1676,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Bandle City"
   },
   {
     "name": "Ryze",
@@ -1358,7 +1691,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Runeterra"
   },
   {
     "name": "Samira",
@@ -1370,7 +1706,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Noxus"
   },
   {
     "name": "Sejuani",
@@ -1382,7 +1721,10 @@ const allChampions = [
     "survivability": "Velmi vysoká",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Freljord"
   },
   {
     "name": "Senna",
@@ -1394,7 +1736,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Shadow Isles"
   },
   {
     "name": "Seraphine",
@@ -1406,7 +1751,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Piltover"
   },
   {
     "name": "Sett",
@@ -1418,7 +1766,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Ionia"
   },
   {
     "name": "Shaco",
@@ -1430,7 +1781,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Runeterra"
   },
   {
     "name": "Shen",
@@ -1442,7 +1796,10 @@ const allChampions = [
     "survivability": "Velmi vysoká",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Ionia"
   },
   {
     "name": "Shyvana",
@@ -1454,7 +1811,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Demacia"
   },
   {
     "name": "Singed",
@@ -1466,7 +1826,10 @@ const allChampions = [
     "survivability": "Vysoká",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Zaun"
   },
   {
     "name": "Sion",
@@ -1478,7 +1841,10 @@ const allChampions = [
     "survivability": "Velmi vysoká",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Noxus"
   },
   {
     "name": "Sivir",
@@ -1490,7 +1856,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Shurima"
   },
   {
     "name": "Skarner",
@@ -1502,7 +1871,10 @@ const allChampions = [
     "survivability": "Vysoká",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Ixtal"
   },
   {
     "name": "Smolder",
@@ -1514,7 +1886,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Ixtal"
   },
   {
     "name": "Sona",
@@ -1526,7 +1901,10 @@ const allChampions = [
     "survivability": "Velmi nízká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Support",
+    "region": "Demacia"
   },
   {
     "name": "Soraka",
@@ -1538,7 +1916,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Support",
+    "region": "Targon"
   },
   {
     "name": "Swain",
@@ -1551,7 +1932,10 @@ const allChampions = [
     "roles": [
       "Mid",
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Noxus"
   },
   {
     "name": "Sylas",
@@ -1563,7 +1947,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Mage",
+    "region": "Demacia"
   },
   {
     "name": "Syndra",
@@ -1575,7 +1962,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Ionia"
   },
   {
     "name": "Tahm Kench",
@@ -1588,7 +1978,10 @@ const allChampions = [
     "roles": [
       "Top",
       "Support"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Support",
+    "region": "Bilgewater"
   },
   {
     "name": "Taliyah",
@@ -1600,7 +1993,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Shurima"
   },
   {
     "name": "Talon",
@@ -1612,7 +2008,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Noxus"
   },
   {
     "name": "Taric",
@@ -1624,7 +2023,10 @@ const allChampions = [
     "survivability": "Velmi vysoká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Support",
+    "region": "Targon"
   },
   {
     "name": "Teemo",
@@ -1636,7 +2038,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Bandle City"
   },
   {
     "name": "Thresh",
@@ -1648,7 +2053,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Support",
+    "region": "Shadow Isles"
   },
   {
     "name": "Tristana",
@@ -1660,7 +2068,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Bandle City"
   },
   {
     "name": "Trundle",
@@ -1673,7 +2084,10 @@ const allChampions = [
     "roles": [
       "Top",
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Freljord"
   },
   {
     "name": "Tryndamere",
@@ -1685,7 +2099,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Freljord"
   },
   {
     "name": "Twisted Fate",
@@ -1697,7 +2114,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Bilgewater"
   },
   {
     "name": "Twitch",
@@ -1709,7 +2129,10 @@ const allChampions = [
     "survivability": "Velmi nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Zaun"
   },
   {
     "name": "Udyr",
@@ -1721,7 +2144,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Freljord"
   },
   {
     "name": "Urgot",
@@ -1733,7 +2159,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Fighter",
+    "region": "Zaun"
   },
   {
     "name": "Varus",
@@ -1745,7 +2174,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Ionia"
   },
   {
     "name": "Vayne",
@@ -1757,7 +2189,10 @@ const allChampions = [
     "survivability": "Velmi nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Demacia"
   },
   {
     "name": "Veigar",
@@ -1769,7 +2204,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Bandle City"
   },
   {
     "name": "Vel'Koz",
@@ -1782,7 +2220,10 @@ const allChampions = [
     "roles": [
       "Mid",
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Void"
   },
   {
     "name": "Vex",
@@ -1794,7 +2235,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Bandle City"
   },
   {
     "name": "Vi",
@@ -1806,7 +2250,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Piltover"
   },
   {
     "name": "Viego",
@@ -1818,7 +2265,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Shadow Isles"
   },
   {
     "name": "Viktor",
@@ -1830,7 +2280,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Zaun"
   },
   {
     "name": "Vladimir",
@@ -1843,7 +2296,10 @@ const allChampions = [
     "roles": [
       "Top",
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Noxus"
   },
   {
     "name": "Volibear",
@@ -1856,7 +2312,10 @@ const allChampions = [
     "roles": [
       "Top",
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Freljord"
   },
   {
     "name": "Warwick",
@@ -1868,7 +2327,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Zaun"
   },
   {
     "name": "Xayah",
@@ -1880,7 +2342,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Ionia"
   },
   {
     "name": "Xerath",
@@ -1893,7 +2358,10 @@ const allChampions = [
     "roles": [
       "Mid",
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Shurima"
   },
   {
     "name": "Xin Zhao",
@@ -1905,7 +2373,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Demacia"
   },
   {
     "name": "Yasuo",
@@ -1918,7 +2389,10 @@ const allChampions = [
     "roles": [
       "Mid",
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Ionia"
   },
   {
     "name": "Yone",
@@ -1930,7 +2404,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Ionia"
   },
   {
     "name": "Yorick",
@@ -1942,7 +2419,10 @@ const allChampions = [
     "survivability": "Střední",
     "roles": [
       "Top"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Shadow Isles"
   },
   {
     "name": "Yuumi",
@@ -1954,7 +2434,10 @@ const allChampions = [
     "survivability": "Velmi nízká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Support",
+    "region": "Bandle City"
   },
   {
     "name": "Zac",
@@ -1966,7 +2449,10 @@ const allChampions = [
     "survivability": "Velmi vysoká",
     "roles": [
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Tank",
+    "region": "Zaun"
   },
   {
     "name": "Zed",
@@ -1978,7 +2464,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Assassin",
+    "region": "Ionia"
   },
   {
     "name": "Zeri",
@@ -1990,7 +2479,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "ADC"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Marksman",
+    "region": "Zaun"
   },
   {
     "name": "Ziggs",
@@ -2002,7 +2494,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Bandle City"
   },
   {
     "name": "Zilean",
@@ -2014,7 +2509,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Support",
+    "region": "Ixtal"
   },
   {
     "name": "Zoe",
@@ -2026,7 +2524,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Mid"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Targon"
   },
   {
     "name": "Zyra",
@@ -2038,7 +2539,10 @@ const allChampions = [
     "survivability": "Nízká",
     "roles": [
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Ixtal"
   },
   {
     "name": "Mel",
@@ -2051,7 +2555,10 @@ const allChampions = [
     "roles": [
       "Mid",
       "Support"
-    ]
+    ],
+    "rangeType": "Ranged",
+    "championClass": "Mage",
+    "region": "Piltover"
   },
   {
     "name": "Wukong",
@@ -2064,7 +2571,10 @@ const allChampions = [
     "roles": [
       "Top",
       "Jungle"
-    ]
+    ],
+    "rangeType": "Melee",
+    "championClass": "Fighter",
+    "region": "Ionia"
   }
 ];
 
