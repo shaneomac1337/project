@@ -65,34 +65,6 @@
             font-weight: 300;
         }
 
-        .random-bg-btn {
-            background: rgba(110, 79, 246, 0.9);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            margin-top: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .random-bg-btn:hover {
-            background: rgba(110, 79, 246, 1);
-            border-color: rgba(255, 255, 255, 0.6);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(110, 79, 246, 0.4);
-        }
-
-        .random-bg-btn:active {
-            transform: translateY(0);
-        }
-
         .game-info-section {
             padding: 80px 0;
         }
@@ -618,9 +590,6 @@
         <div class="game-hero-content">
             <h1 class="game-hero-title">League of Legends</h1>
             <p class="game-hero-subtitle">Nejpopulárnější MOBA hra na světě od Riot Games</p>
-            <button type="button" class="random-bg-btn" onclick="setRandomHeroBackground()" title="Změnit pozadí na náhodného šampiona">
-                <i class="fas fa-random"></i> Náhodný šampion
-            </button>
         </div>
     </section>
 
@@ -908,13 +877,6 @@
 
                     // Add champion name as data attribute
                     heroSection.setAttribute('data-champion', randomChampion.name);
-
-                    // Update button text to show current champion
-                    const randomBtn = document.querySelector('.random-bg-btn');
-                    if (randomBtn) {
-                        randomBtn.innerHTML = `<i class="fas fa-random"></i> ${randomChampion.name}`;
-                        randomBtn.title = `Aktuální pozadí: ${randomChampion.name} - "${randomChampion.title}"`;
-                    }
 
                     console.log(`Random hero background set to: ${randomChampion.name} - "${randomChampion.title}"`);
                 }
