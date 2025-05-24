@@ -2,7 +2,7 @@
 const fs = require('fs');
 
 // Read the champions data file
-const championsData = fs.readFileSync('champions-data.js', 'utf8');
+const championsData = fs.readFileSync('js/champions-data.js', 'utf8');
 
 // Extract the allChampions array using regex
 const match = championsData.match(/const allChampions = \[([\s\S]*)\];/);

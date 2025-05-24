@@ -1291,7 +1291,7 @@ const allChampions = [
     "name": "Renata Glasc",
     "title": "the Chem-Baroness",
     "description": "Chem-baronka, která ovládá Zaun svými chemickými inovacemi.",
-    "splash": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/RenataGlasc_0.jpg",
+    "splash": "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Renata_0.jpg",
     "difficulty": "Vysoká",
     "damage": "Střední",
     "survivability": "Nízká",
