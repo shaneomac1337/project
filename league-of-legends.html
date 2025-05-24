@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="League of Legends - MOBA hra od Riot Games, ve které se specializuje klan Komplexáci">
     <title>League of Legends | Komplexáci</title>
-    
-    <!-- Favicon -->    
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="img/logo.png">
     <link rel="apple-touch-icon" href="img/logo.png">
     <meta name="theme-color" content="#6e4ff6">
-    
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         /* Game Page Specific Styles */
         .game-hero {
@@ -32,7 +32,7 @@
             color: var(--light-text);
             overflow: hidden;
         }
-        
+
         .game-hero::before {
             content: '';
             position: absolute;
@@ -43,14 +43,14 @@
             background: linear-gradient(45deg, rgba(110, 79, 246, 0.3), rgba(0, 210, 255, 0.3));
             z-index: 1;
         }
-        
+
         .game-hero-content {
             position: relative;
             z-index: 2;
             max-width: 800px;
             padding: 0 20px;
         }
-        
+
         .game-hero-title {
             font-size: 4rem;
             margin-bottom: 20px;
@@ -58,30 +58,30 @@
             letter-spacing: 2px;
             text-shadow: 0 0 20px rgba(110, 79, 246, 0.8);
         }
-        
+
         .game-hero-subtitle {
             font-size: 1.5rem;
             margin-bottom: 30px;
             font-weight: 300;
         }
-        
+
         .game-info-section {
             padding: 80px 0;
         }
-        
+
         .game-info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
             margin-top: 40px;
         }
-        
+
         @media (max-width: 768px) {
             .game-info-grid {
                 grid-template-columns: 1fr;
             }
         }
-        
+
         .game-info-card {
             background: linear-gradient(135deg, rgba(18, 18, 18, 0.8) 0%, rgba(30, 30, 30, 0.8) 100%);
             border-radius: 10px;
@@ -90,12 +90,12 @@
             border: 1px solid rgba(110, 79, 246, 0.3);
             transition: transform 0.3s, box-shadow 0.3s;
         }
-        
+
         .game-info-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
         }
-        
+
         .game-info-card h3 {
             color: var(--primary-color);
             font-size: 1.5rem;
@@ -103,26 +103,26 @@
             border-bottom: 1px solid rgba(110, 79, 246, 0.3);
             padding-bottom: 10px;
         }
-        
+
         .game-map-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 20px;
             margin-top: 40px;
         }
-        
+
         @media (max-width: 992px) {
             .game-map-grid {
                 grid-template-columns: 1fr 1fr;
             }
         }
-        
+
         @media (max-width: 576px) {
             .game-map-grid {
                 grid-template-columns: 1fr;
             }
         }
-        
+
         .game-map-card {
             background: rgba(18, 18, 18, 0.8);
             border-radius: 10px;
@@ -130,72 +130,74 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s;
         }
-        
+
         .game-map-card:hover {
             transform: translateY(-5px);
         }
-        
+
         .game-map-image {
             height: 200px;
             overflow: hidden;
         }
-        
+
         .game-map-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s;
         }
-        
+
         .game-map-card:hover .game-map-image img {
             transform: scale(1.1);
         }
-        
+
         .game-map-content {
             padding: 20px;
         }
-        
+
         .game-map-title {
             font-size: 1.2rem;
             margin-bottom: 10px;
             color: var(--light-text);
         }
-        
+
         .game-map-desc {
             font-size: 0.9rem;
             color: var(--medium-text);
         }
-        
+
         .champions-section {
             background-color: var(--darker-bg);
             padding: 80px 0;
         }
-        
+
         .champion-roles {
             display: flex;
             justify-content: center;
             margin: 30px 0;
             flex-wrap: wrap;
         }
-        
+
         .champion-role {
             display: inline-block;
-            padding: 10px 20px;
-            background-color: rgba(110, 79, 246, 0.1);
+            padding: 12px 24px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(110, 79, 246, 0.3);
             border-radius: 30px;
             margin-right: 10px;
             margin-bottom: 10px;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             cursor: pointer !important;
             user-select: none;
             position: relative;
             z-index: 10;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             font-size: 1rem;
             font-family: inherit;
+            font-weight: 600;
+            color: #333;
         }
-        
+
         .champion-role::after {
             content: '';
             position: absolute;
@@ -204,24 +206,143 @@
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 5px solid rgba(110, 79, 246, 0.1);
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid var(--primary-color);
             opacity: 0;
             transition: opacity 0.3s;
         }
-        
-        .champion-role:hover, .champion-role.active {
+
+        .champion-role:hover {
+            background-color: rgba(110, 79, 246, 0.1);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(110, 79, 246, 0.2);
+        }
+
+        .champion-role.active {
             background-color: var(--primary-color);
+            border-color: var(--primary-color);
             color: white;
             transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(110, 79, 246, 0.4);
         }
-        
-        .champion-role:hover::after, .champion-role.active::after {
+
+        .champion-role.active::after {
             opacity: 1;
-            border-top-color: var(--primary-color);
         }
-        
+
+        .champions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .champion-card {
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.9) 0%, rgba(30, 30, 30, 0.9) 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(110, 79, 246, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .champion-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border-color: var(--primary-color);
+        }
+
+        .champion-splash {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .champion-splash img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: transform 0.5s ease;
+        }
+
+        .champion-card:hover .champion-splash img {
+            transform: scale(1.1);
+        }
+
+        .champion-position-badges {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .champion-position-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .champion-info {
+            padding: 20px;
+        }
+
+        .champion-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--light-text);
+            margin-bottom: 5px;
+        }
+
+        .champion-title {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .champion-description {
+            font-size: 0.9rem;
+            color: var(--medium-text);
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .champion-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .champion-stat {
+            text-align: center;
+            flex: 1;
+        }
+
+        .champion-stat-label {
+            font-size: 0.7rem;
+            color: var(--medium-text);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .champion-stat-value {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
         .back-button {
             display: inline-block;
             margin-top: 40px;
@@ -235,7 +356,7 @@
             border: none;
             cursor: pointer;
         }
-        
+
         .back-button:hover {
             background-color: #5d3dd3;
             transform: translateY(-2px);
@@ -245,11 +366,11 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    
+
     <!-- Firebase Configuration and Game Auth -->
     <script src="js/firebase-config.js"></script>
     <script src="js/auth.js"></script>
-    
+
     <!-- Auth Styles -->
     <link rel="stylesheet" href="css/auth.css">
 </head>
@@ -295,7 +416,7 @@
         <div class="container">
             <h2 class="section-title">O hře League of Legends</h2>
             <p>League of Legends (LoL) je týmová strategická hra, ve které dva týmy po pěti hráčích bojují proti sobě s cílem zničit nepřátelskou základnu. Každý hráč ovládá jedinečného šampiona s unikátními schopnostmi a rolí v týmu. Hra kombinuje prvky real-time strategie, RPG a akce.</p>
-            
+
             <div class="game-info-grid">
                 <div class="game-info-card">
                     <h3>Základní informace</h3>
@@ -309,7 +430,7 @@
                         <li><strong>Esport:</strong> Jedna z největších esportových her na světě</li>
                     </ul>
                 </div>
-                
+
                 <div class="game-info-card">
                     <h3>Herní mechaniky</h3>
                     <p>V League of Legends se hráči snaží zničit nepřátelský Nexus, který je chráněn věžemi a inhibitory. Během hry hráči:</p>
@@ -329,31 +450,31 @@
         <div class="container">
             <h2 class="section-title">Mapy v League of Legends</h2>
             <p>League of Legends nabízí několik různých map, každá s jedinečnými herními mechanismy a strategickými výzvami.</p>
-            
+
             <div class="game-map-grid">
                 <div class="game-map-card">
                     <div class="game-map-image">
-                        <img src="img/lol.jpg" alt="Summoner's Rift">
+                        <img src="img/lol-summoners-rift-new.jpg" alt="Summoner's Rift">
                     </div>
                     <div class="game-map-content">
                         <h3 class="game-map-title">Summoner's Rift</h3>
                         <p class="game-map-desc">Hlavní a nejpopulárnější mapa v League of Legends. Dva týmy po pěti hráčích bojují na třech linkách s cílem zničit nepřátelský Nexus.</p>
                     </div>
                 </div>
-                
+
                 <div class="game-map-card">
                     <div class="game-map-image">
-                        <img src="img/lol.jpg" alt="Howling Abyss">
+                        <img src="img/lol-bridge-of-progress.jpg" alt="Bridge of Progress">
                     </div>
                     <div class="game-map-content">
-                        <h3 class="game-map-title">Howling Abyss</h3>
-                        <p class="game-map-desc">Mapa pro ARAM (All Random All Mid) režim. Jednolinkový most, kde hráči dostanou náhodné šampiony a bojují v intenzivních týmových soubojích.</p>
+                        <h3 class="game-map-title">Bridge of Progress</h3>
+                        <p class="game-map-desc">Nová mapa pro ARAM (All Random All Mid) režim. Modernizovaný most s vylepšeným designem, kde hráči dostanou náhodné šampiony a bojují v intenzivních týmových soubojích.</p>
                     </div>
                 </div>
-                
+
                 <div class="game-map-card">
                     <div class="game-map-image">
-                        <img src="img/lol.jpg" alt="Convergence">
+                        <img src="img/lol-tft-new.jpg" alt="Convergence">
                     </div>
                     <div class="game-map-content">
                         <h3 class="game-map-title">Convergence</h3>
@@ -368,7 +489,7 @@
         <div class="container">
             <h2 class="section-title">Šampioni a role</h2>
             <p>V League of Legends existuje více než 160 hratelných šampionů, každý s unikátními schopnostmi a herním stylem. Šampioni jsou rozděleni do různých rolí podle jejich funkcí v týmu.</p>
-            
+
             <div class="champion-roles">
                 <button type="button" class="champion-role active" onclick="showRole('Top')">Top</button>
                 <button type="button" class="champion-role" onclick="showRole('Jungle')">Jungle</button>
@@ -376,17 +497,42 @@
                 <button type="button" class="champion-role" onclick="showRole('ADC')">ADC</button>
                 <button type="button" class="champion-role" onclick="showRole('Support')">Support</button>
             </div>
-            
+
             <div class="game-info-card">
-                <h3>Top Lane</h3>
-                <p>Top laneři jsou obvykle tanky nebo bojovníci, kteří mohou samostatně fungovat v horní části mapy. Jejich úkolem je získat výhodu nad soupeřem, vytvářet tlak a později se účastnit týmových bojů.</p>
+                <div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 20px;">
+                    <img src="img/lol-darius.png" alt="Top Lane" style="width: 80px; height: 80px; border-radius: 10px; object-fit: cover; border: 2px solid var(--primary-color);">
+                    <div>
+                        <h3 style="margin-top: 0;">Top Lane</h3>
+                        <p>Top laneři jsou obvykle tanky nebo bojovníci, kteří mohou samostatně fungovat v horní části mapy. Jejich úkolem je získat výhodu nad soupeřem, vytvářet tlak a později se účastnit týmových bojů.</p>
+                    </div>
+                </div>
                 <p><strong>Populární šampioni:</strong> Darius, Fiora, Camille, Jax, Shen, Garen</p>
                 <p><strong>Herní styl:</strong> Samostatnost, splitpushing, tankování poškození v týmových bojích</p>
                 <p><strong>Klíčové schopnosti:</strong> Teleport, dobrá výdrž, schopnost 1v1 soubojů</p>
                 <p><strong>Typické předměty:</strong> Divine Sunderer, Sterak's Gage, Thornmail</p>
             </div>
-            
+
             <a href="index.html#hry" class="back-button">Zpět na přehled her</a>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Šampioni</h2>
+            <p>Objevte populární šampiony v každé pozici s jejich unikátními schopnostmi a herním stylem.</p>
+
+            <div class="champion-roles">
+                <button type="button" class="champion-role active" onclick="showChampions('All')">Všichni (<span id="all-count">0</span>)</button>
+                <button type="button" class="champion-role" onclick="showChampions('Top')">Top (<span id="top-count">0</span>)</button>
+                <button type="button" class="champion-role" onclick="showChampions('Jungle')">Jungle (<span id="jungle-count">0</span>)</button>
+                <button type="button" class="champion-role" onclick="showChampions('Mid')">Mid (<span id="mid-count">0</span>)</button>
+                <button type="button" class="champion-role" onclick="showChampions('ADC')">ADC (<span id="adc-count">0</span>)</button>
+                <button type="button" class="champion-role" onclick="showChampions('Support')">Support (<span id="support-count">0</span>)</button>
+            </div>
+
+            <div class="champions-grid" id="champions-grid">
+                <!-- Champions will be populated by JavaScript -->
+            </div>
         </div>
     </section>
 
@@ -396,11 +542,20 @@
         </div>
     </footer>
 
+    <!-- Champions Data - Load First -->
+    <script src="js/champions-data.js"></script>
+
+
+
     <!-- JavaScript Files -->
     <script src="js/main.js"></script>
-    
+
+
+
     <!-- Page-specific JavaScript -->
     <script>
+        // Champions data loaded from external file
+
         // Role data available globally
         const roleData = {
                 'Top': {
@@ -409,7 +564,8 @@
                     champions: 'Darius, Fiora, Camille, Jax, Shen, Garen',
                     style: 'Samostatnost, splitpushing, tankování poškození v týmových bojích',
                     abilities: 'Teleport, dobrá výdrž, schopnost 1v1 soubojů',
-                    items: 'Divine Sunderer, Sterak\'s Gage, Thornmail'
+                    items: 'Divine Sunderer, Sterak\'s Gage, Thornmail',
+                    image: 'img/lol-darius.png'
                 },
                 'Jungle': {
                     title: 'Jungle',
@@ -417,7 +573,8 @@
                     champions: 'Lee Sin, Elise, Graves, Hecarim, Vi, Kha\'Zix',
                     style: 'Ganking, kontrola objektů, invaze do nepřátelské džungle',
                     abilities: 'Smite, mobilita, schopnost překvapit nepřátele',
-                    items: 'Eclipse, Dead Man\'s Plate, Guardian Angel'
+                    items: 'Eclipse, Dead Man\'s Plate, Guardian Angel',
+                    image: 'img/lol-leesin.png'
                 },
                 'Mid': {
                     title: 'Mid Lane',
@@ -425,7 +582,8 @@
                     champions: 'Ahri, Zed, Syndra, Yasuo, LeBlanc, Viktor',
                     style: 'Vysoké poškození, roaming, kontrola mapy',
                     abilities: 'Burst damage, mobilita, CC schopnosti',
-                    items: 'Luden\'s Echo, Rabadon\'s Deathcap, Zhonya\'s Hourglass'
+                    items: 'Luden\'s Echo, Rabadon\'s Deathcap, Zhonya\'s Hourglass',
+                    image: 'img/lol-ahri.png'
                 },
                 'ADC': {
                     title: 'ADC (Bot Lane Carry)',
@@ -433,7 +591,8 @@
                     champions: 'Jinx, Caitlyn, Ezreal, Jhin, Kai\'Sa, Vayne',
                     style: 'Vysoké stabilní poškození, farmení, positioning',
                     abilities: 'Auto-attack damage, kritické zásahy, lifesteal',
-                    items: 'Infinity Edge, Bloodthirster, Guardian Angel'
+                    items: 'Infinity Edge, Bloodthirster, Guardian Angel',
+                    image: 'img/lol-jinx.png'
                 },
                 'Support': {
                     title: 'Support',
@@ -441,10 +600,18 @@
                     champions: 'Thresh, Lulu, Leona, Nami, Pyke, Soraka',
                     style: 'Ochrana ADC, crowd control, poskytování vize',
                     abilities: 'Heal, shield, engage/disengage, CC',
-                    items: 'Moonstone Renewer, Locket of the Iron Solari, Redemption'
+                    items: 'Moonstone Renewer, Locket of the Iron Solari, Redemption',
+                    image: 'img/lol-thresh.png'
                 }
             };
-            
+
+        // Champions data is now imported from champions-data.js
+
+        // Function to create unified champions list from existing data
+        function createUnifiedChampionsList() {
+            return allChampions || [];
+        }
+
         // Super simple global function to change role content
         function showRole(roleName) {
             console.log('Showing role:', roleName);
@@ -455,33 +622,203 @@
                 console.error('Role data not found for:', roleName);
                 return;
             }
-            
+
             // Get the correct element in the champions section
             const roleContent = document.querySelector('.champions-section .game-info-card');
             if (!roleContent) {
                 console.error('Role content element not found');
                 return;
             }
-            
+
             // Direct HTML replacement - most reliable approach
             roleContent.innerHTML = `
-                <h3>${role.title}</h3>
-                <p>${role.description}</p>
+                <div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 20px;">
+                    <img src="${role.image}" alt="${role.title}" style="width: 80px; height: 80px; border-radius: 10px; object-fit: cover; border: 2px solid var(--primary-color);">
+                    <div>
+                        <h3 style="margin-top: 0;">${role.title}</h3>
+                        <p>${role.description}</p>
+                    </div>
+                </div>
                 <p><strong>Populární šampioni:</strong> ${role.champions}</p>
                 <p><strong>Herní styl:</strong> ${role.style}</p>
                 <p><strong>Klíčové schopnosti:</strong> ${role.abilities}</p>
                 <p><strong>Typické předměty:</strong> ${role.items}</p>
             `;
-            
+
             // Update active tab state
-            const tabs = document.querySelectorAll('.champion-role');
+            const tabs = document.querySelectorAll('.champions-section .champion-role');
             tabs.forEach(t => t.classList.remove('active'));
-            
+
             // Find and activate the clicked tab
             const clickedTab = Array.from(tabs).find(t => t.textContent === roleName);
             if (clickedTab) clickedTab.classList.add('active');
         }
-    
+
+        // Function to show champions for a specific position
+        function showChampions(position) {
+            console.log('Showing champions for position:', position);
+
+            const championsGrid = document.getElementById('champions-grid');
+            if (!championsGrid) {
+                console.error('Champions grid element not found');
+                return;
+            }
+
+            let champions = [];
+
+            if (position === 'All') {
+                // Get unified champions list (no duplicates)
+                champions = createUnifiedChampionsList();
+                // Sort alphabetically by champion name
+                champions.sort((a, b) => a.name.localeCompare(b.name));
+            } else {
+                // Filter unified champions by role
+                const unifiedChampions = createUnifiedChampionsList();
+                champions = unifiedChampions.filter(champion => champion.roles.includes(position));
+            }
+
+            // Update active tab state for champion section
+            const championTabs = document.querySelectorAll('.section .champion-role');
+            championTabs.forEach(t => t.classList.remove('active'));
+
+            // Find and activate the clicked tab
+            const clickedTab = Array.from(championTabs).find(t => {
+                const text = t.textContent;
+                if (position === 'All') {
+                    return text.includes('Všichni');
+                } else {
+                    return text.includes(position) && !text.includes('Všichni');
+                }
+            });
+            if (clickedTab) clickedTab.classList.add('active');
+
+            // Clear existing content
+            championsGrid.innerHTML = '';
+
+            // Create champion cards
+            champions.forEach(champion => {
+                const championCard = document.createElement('div');
+                championCard.className = 'champion-card';
+
+                // Create role badges HTML
+                const roleBadges = champion.roles.map(role =>
+                    `<span class="champion-position-badge">${role}</span>`
+                ).join('');
+
+                championCard.innerHTML = `
+                    <div class="champion-splash">
+                        <img src="${champion.splash}" alt="${champion.name}" loading="lazy">
+                        <div class="champion-position-badges">${roleBadges}</div>
+                    </div>
+                    <div class="champion-info">
+                        <h3 class="champion-name">${champion.name}</h3>
+                        <p class="champion-title">${champion.title}</p>
+                        <p class="champion-description">${champion.description}</p>
+                        <div class="champion-stats">
+                            <div class="champion-stat">
+                                <div class="champion-stat-label">Obtížnost</div>
+                                <div class="champion-stat-value">${champion.difficulty}</div>
+                            </div>
+                            <div class="champion-stat">
+                                <div class="champion-stat-label">Poškození</div>
+                                <div class="champion-stat-value">${champion.damage}</div>
+                            </div>
+                            <div class="champion-stat">
+                                <div class="champion-stat-label">Přežití</div>
+                                <div class="champion-stat-value">${champion.survivability}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                championsGrid.appendChild(championCard);
+            });
+
+            // Note: Tab state is already updated above at line 731-743
+        }
+
+        // Function to update champion counts
+        function updateChampionCounts() {
+            // Check if allChampions is available
+            if (typeof allChampions === 'undefined' || !allChampions || allChampions.length === 0) {
+                setTimeout(updateChampionCounts, 200);
+                return;
+            }
+
+            const unifiedChampions = createUnifiedChampionsList();
+            if (unifiedChampions.length === 0) {
+                setTimeout(updateChampionCounts, 200);
+                return;
+            }
+
+            // Count champions by PRIMARY role only (first role in their roles array)
+            const roleCounts = {
+                'Top': 0,
+                'Jungle': 0,
+                'Mid': 0,
+                'ADC': 0,
+                'Support': 0
+            };
+
+            unifiedChampions.forEach(champion => {
+                if (champion.roles && Array.isArray(champion.roles) && champion.roles.length > 0) {
+                    // Only count the primary role (first role in the array)
+                    const primaryRole = champion.roles[0];
+                    if (roleCounts[primaryRole] !== undefined) {
+                        roleCounts[primaryRole]++;
+                    }
+                }
+            });
+
+
+
+            // Update individual role counts
+            const topCountEl = document.getElementById('top-count');
+            const jungleCountEl = document.getElementById('jungle-count');
+            const midCountEl = document.getElementById('mid-count');
+            const adcCountEl = document.getElementById('adc-count');
+            const supportCountEl = document.getElementById('support-count');
+            const allCountEl = document.getElementById('all-count');
+
+            if (topCountEl) topCountEl.textContent = roleCounts['Top'];
+            if (jungleCountEl) jungleCountEl.textContent = roleCounts['Jungle'];
+            if (midCountEl) midCountEl.textContent = roleCounts['Mid'];
+            if (adcCountEl) adcCountEl.textContent = roleCounts['ADC'];
+            if (supportCountEl) supportCountEl.textContent = roleCounts['Support'];
+            if (allCountEl) allCountEl.textContent = unifiedChampions.length;
+        }
+
+        // Initialize champions section with All champions
+        window.addEventListener('load', function() {
+            // Direct initialization
+            if (typeof allChampions !== 'undefined' && allChampions && allChampions.length > 0) {
+                updateChampionCounts();
+                showChampions('All');
+            } else {
+                // Fallback: try multiple times
+                let attempts = 0;
+                const maxAttempts = 50; // 5 seconds max
+
+                function tryInitialize() {
+                    attempts++;
+
+                    if (typeof allChampions !== 'undefined' && allChampions && allChampions.length > 0) {
+                        updateChampionCounts();
+                        showChampions('All');
+                    } else if (attempts < maxAttempts) {
+                        setTimeout(tryInitialize, 100);
+                    } else {
+                        // Show error message to user
+                        const championsGrid = document.getElementById('champions-grid');
+                        if (championsGrid) {
+                            championsGrid.innerHTML = '<p style="text-align: center; color: red;">Chyba při načítání šampionů. Obnovte stránku.</p>';
+                        }
+                    }
+                }
+
+                tryInitialize();
+            }
+        });
+
     </script>
 </body>
 </html>
