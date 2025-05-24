@@ -195,20 +195,22 @@
 
         .weapon-category {
             display: inline-block;
-            padding: 10px 20px;
-            background-color: rgba(110, 79, 246, 0.1);
+            padding: 12px 24px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(255, 71, 87, 0.3);
             border-radius: 30px;
             margin-right: 10px;
             margin-bottom: 10px;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             cursor: pointer !important;
             user-select: none;
             position: relative;
             z-index: 10;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             font-size: 1rem;
             font-family: inherit;
+            font-weight: 600;
+            color: #333;
         }
 
         .weapon-category::after {
@@ -219,22 +221,30 @@
             transform: translateX(-50%);
             width: 0;
             height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 5px solid rgba(110, 79, 246, 0.1);
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid var(--secondary-color);
             opacity: 0;
             transition: opacity 0.3s;
         }
 
-        .weapon-category:hover, .weapon-category.active {
-            background-color: var(--primary-color);
-            color: white;
+        .weapon-category:hover {
+            background-color: rgba(255, 71, 87, 0.1);
+            border-color: var(--secondary-color);
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 71, 87, 0.2);
         }
 
-        .weapon-category:hover::after, .weapon-category.active::after {
+        .weapon-category.active {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 71, 87, 0.4);
+        }
+
+        .weapon-category.active::after {
             opacity: 1;
-            border-top-color: var(--primary-color);
         }
 
         .weapons-grid {

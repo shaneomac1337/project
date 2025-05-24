@@ -1266,14 +1266,19 @@
         function showChampions(position) {
             console.log('Showing champions for position:', position);
 
-            // Update active role button
-            document.querySelectorAll('.champion-role').forEach(btn => btn.classList.remove('active'));
+            // Update active role button - target only the champion filter buttons (second set)
+            const championFilterButtons = document.querySelectorAll('.section .champion-role');
+            championFilterButtons.forEach(btn => btn.classList.remove('active'));
 
             // Find the button that was clicked and make it active
-            const buttons = document.querySelectorAll('.champion-role');
-            for (let btn of buttons) {
-                if ((position === 'All' && btn.textContent.includes('Všichni')) ||
-                    (position !== 'All' && btn.textContent.includes(position) && !btn.textContent.includes('Všichni'))) {
+            for (let btn of championFilterButtons) {
+                const btnText = btn.textContent.toLowerCase();
+                if ((position === 'All' && btnText.includes('všichni')) ||
+                    (position === 'Top' && btnText.includes('top') && !btnText.includes('všichni')) ||
+                    (position === 'Jungle' && btnText.includes('jungle')) ||
+                    (position === 'Mid' && btnText.includes('mid')) ||
+                    (position === 'ADC' && btnText.includes('adc')) ||
+                    (position === 'Support' && btnText.includes('support'))) {
                     btn.classList.add('active');
                     break;
                 }
