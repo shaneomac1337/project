@@ -40,20 +40,5 @@ jspm_packages/
 # Local Netlify folder
 .netlify
 
-# Large binary files that shouldn't be in version control
-bfg.jar
-*.jar
-
-# Large media files (consider using Git LFS or external storage)
-audio/*.mp3
-img/*.gif
-*.mp3
-*.gif
-
-# Large image files
-img/podri.gif
-img/barber.gif
-img/azarin.gif
-img/martin-strix.gif
-img/pipa.gif
-img/zander.gif
+# Large binary files now handled by Git LFS
+# (*.mp3, *.gif, *.jar are tracked by LFS - see .gitattributes)
