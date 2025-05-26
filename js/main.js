@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize player
     function initPlayer() {
         // Set initial volume
-        musicPlayer.volume = volumeSlider.value / 100;
+        musicPlayer.volume = volumeSlider.value;
 
         // Load first track
         loadTrack(currentTrack);
@@ -740,8 +740,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function initPlayer() {
         console.log('Initializing EA Trax player');
 
-        // Set initial volume
-        musicPlayer.volume = 0.7; // 70% volume
+        // Set initial volume from slider
+        musicPlayer.volume = volumeSlider.value; // Use slider value (0.2 = 20%)
 
         // Make sure audio element has proper attributes
         musicPlayer.autoplay = false;
@@ -758,7 +758,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Set initial volume slider value
         if (volumeSlider) {
-            volumeSlider.value = musicPlayer.volume * 100;
+            volumeSlider.value = musicPlayer.volume;
             updateVolumeIcon(musicPlayer.volume);
         }
 
