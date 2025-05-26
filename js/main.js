@@ -1,4 +1,271 @@
 // Wait for DOM content to load
+// ======================================
+    // ENHANCED PARTICLE SYSTEM AND VISUAL EFFECTS
+    // ======================================
+    
+    // Create enhanced animated particles with different types
+    function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        if (!particlesContainer) return;
+        
+        const particleCount = 30; // Increased for more spectacular effect
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            // Random size between 1-10px with variety
+            const size = Math.random() * 9 + 1;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            
+            // Random horizontal position
+            particle.style.left = Math.random() * 100 + '%';
+            
+            // Random animation delay
+            particle.style.animationDelay = Math.random() * 25 + 's';
+            
+            // Random animation duration with more variety
+            particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+            
+            // Add random opacity variation
+            particle.style.opacity = Math.random() * 0.15 + 0.05;
+            
+            // Add different particle types
+            if (i % 5 === 0) {
+                particle.style.borderRadius = '0';
+                particle.style.transform = 'rotate(45deg)';
+            } else if (i % 7 === 0) {
+                particle.style.borderRadius = '30%';
+            }
+            
+            particlesContainer.appendChild(particle);
+        }
+    }
+    
+    // Create enhanced floating gaming elements
+    function createFloatingElements() {
+        const floatingContainer = document.getElementById('floating-elements');
+        if (!floatingContainer) return;
+        
+        const gamingIcons = [
+            '🎮', '🕹️', '⚔️', '🛡️', '🏆', '💎', '⭐', '🔥',
+            '💥', '⚡', '🎯', '🎲', '👾', '🚀', '💀', '🎪',
+            '🎨', '🎭', '🎪', '🎯', '🎲', '🎰', '🎳', '🎸'
+        ];
+        
+        const elementCount = 15; // Increased for more visual impact
+        
+        for (let i = 0; i < elementCount; i++) {
+            const element = document.createElement('div');
+            element.className = 'floating-element';
+            element.textContent = gamingIcons[Math.floor(Math.random() * gamingIcons.length)];
+            
+            // Random vertical position
+            element.style.top = Math.random() * 100 + '%';
+            
+            // Random animation delay
+            element.style.animationDelay = Math.random() * 50 + 's';
+            
+            // Random animation duration with more variety
+            element.style.animationDuration = (Math.random() * 25 + 25) + 's';
+            
+            // Add size variation
+            const fontSize = Math.random() * 1.5 + 1.5;
+            element.style.fontSize = fontSize + 'rem';
+            
+            // Add random rotation
+            element.style.transform = `rotate(${Math.random() * 360}deg)`;
+            
+            floatingContainer.appendChild(element);
+        }
+    }
+    
+    // Create floating orbs for hero section
+    function createHeroOrbs() {
+        const hero = document.querySelector('.hero');
+        if (!hero) return;
+        
+        // Create orbs container
+        const orbsContainer = document.createElement('div');
+        orbsContainer.className = 'hero-orbs';
+        
+        // Create 3 floating orbs
+        for (let i = 0; i < 3; i++) {
+            const orb = document.createElement('div');
+            orb.className = 'hero-orb';
+            orbsContainer.appendChild(orb);
+        }
+        
+        hero.appendChild(orbsContainer);
+    }
+    
+    // Initialize enhanced visual effects
+    createParticles();
+    createFloatingElements();
+    createHeroOrbs();
+    
+    // Enhanced parallax effect for hero section
+    function addParallaxEffect() {
+        const hero = document.querySelector('.hero');
+        if (!hero) return;
+        
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.3;
+            hero.style.transform = `translateY(${rate}px)`;
+            
+            // Add dynamic opacity to hero content
+            const heroContent = hero.querySelector('.hero-content');
+            if (heroContent) {
+                const opacity = Math.max(0, 1 - scrolled / window.innerHeight);
+                heroContent.style.opacity = opacity;
+            }
+        });
+    }
+    
+    addParallaxEffect(); // Re-enabled with improvements
+    
+    // Mouse trail effect removed for better user experience
+    
+    // Enhanced scroll-triggered animations with spectacular effects
+    function initScrollAnimations() {
+        const sections = document.querySelectorAll('.section');
+        const animatedElements = document.querySelectorAll('.member-card, .game-card');
+        
+        // Set initial state for all animated elements
+        animatedElements.forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(60px) scale(0.8)';
+        });
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Add spectacular staggered animations to child elements
+                    const memberCards = entry.target.querySelectorAll('.member-card');
+                    const gameCards = entry.target.querySelectorAll('.game-card');
+                    
+                    // Animate member cards with bounce effect
+                    memberCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('animate-in');
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0) scale(1)';
+                        }, index * 150); // Staggered delay
+                    });
+                    
+                    // Animate game cards with slide effects
+                    gameCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('animate-in');
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateX(0) scale(1)';
+                        }, index * 200); // Staggered delay
+                    });
+                    
+                    // Animate section title with special effect
+                    const sectionTitle = entry.target.querySelector('.section-title');
+                    if (sectionTitle) {
+                        setTimeout(() => {
+                            sectionTitle.style.animation = 'titleSlideIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards';
+                        }, 100);
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Also observe individual cards for more precise control
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('animate-in')) {
+                    setTimeout(() => {
+                        entry.target.classList.add('animate-in');
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0) scale(1)';
+                    }, 100);
+                }
+            });
+        }, {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        animatedElements.forEach(element => {
+            cardObserver.observe(element);
+        });
+    }
+    
+    // Custom cursor removed for better user experience
+    
+    // Interactive particle burst on click
+    function createClickBurst(x, y) {
+        const burstCount = 8;
+        const colors = ['var(--accent-color)', 'var(--primary-color)', 'var(--secondary-color)'];
+        
+        for (let i = 0; i < burstCount; i++) {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.width = '4px';
+            particle.style.height = '4px';
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '9999';
+            
+            const angle = (i / burstCount) * Math.PI * 2;
+            const velocity = 50 + Math.random() * 50;
+            const vx = Math.cos(angle) * velocity;
+            const vy = Math.sin(angle) * velocity;
+            
+            document.body.appendChild(particle);
+            
+            let posX = x;
+            let posY = y;
+            let opacity = 1;
+            
+            function animateParticle() {
+                posX += vx * 0.02;
+                posY += vy * 0.02;
+                opacity -= 0.02;
+                
+                particle.style.left = posX + 'px';
+                particle.style.top = posY + 'px';
+                particle.style.opacity = opacity;
+                
+                if (opacity > 0) {
+                    requestAnimationFrame(animateParticle);
+                } else {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }
+            }
+            
+            animateParticle();
+        }
+    }
+    
+    // Initialize enhanced effects
+    initScrollAnimations();
+    
+    // Add click burst effect
+    document.addEventListener('click', (e) => {
+        createClickBurst(e.clientX, e.clientY);
+    });
 document.addEventListener('DOMContentLoaded', function() {
     // ======================================
     // Navigation and general site functionality
