@@ -1119,3 +1119,60 @@ document.addEventListener('DOMContentLoaded', function() {
         initPlayer();
     }
 });
+
+// Toggle advanced filters visibility
+function toggleAdvancedFilters() {
+    const filtersPanel = document.getElementById('filters-panel');
+    const toggleBtn = document.querySelector('.toggle-filters-btn');
+    const toggleArrow = toggleBtn.querySelector('.toggle-arrow');
+    const activeFiltersCount = document.getElementById('active-filters-count');
+    
+    if (filtersPanel.style.display === 'none' || filtersPanel.style.display === '') {
+        filtersPanel.style.display = 'block';
+        toggleBtn.classList.add('active');
+        toggleArrow.style.transform = 'rotate(180deg)';
+    } else {
+        filtersPanel.style.display = 'none';
+        toggleBtn.classList.remove('active');
+        toggleArrow.style.transform = 'rotate(0deg)';
+    }
+    
+    // Update active filters count
+    updateActiveFiltersCount();
+}
+
+// Update active filters count display
+function updateActiveFiltersCount() {
+    const activeFiltersCount = document.getElementById('active-filters-count');
+    const selectedFilters = document.querySelectorAll('.filter-option.selected');
+    const searchInput = document.querySelector('.search-input');
+    
+    let count = selectedFilters.length;
+    if (searchInput && searchInput.value.trim()) {
+        count++;
+    }
+    
+    if (count > 0) {
+        activeFiltersCount.textContent = count;
+        activeFiltersCount.classList.add('active');
+    } else {
+        activeFiltersCount.textContent = '';
+        activeFiltersCount.classList.remove('active');
+    }
+}
+
+// Call updateActiveFiltersCount when filters change
+document.addEventListener('DOMContentLoaded', function() {
+    // Add event listeners to filter options
+    document.addEventListener('change', function(e) {
+        if (e.target.matches('.filter-option input[type="checkbox"]')) {
+            updateActiveFiltersCount();
+        }
+    });
+    
+    // Add event listener to search input
+    const searchInput = document.querySelector('.search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', updateActiveFiltersCount);
+    }
+});
