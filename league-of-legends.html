@@ -250,8 +250,8 @@
             display: flex;
             flex-direction: column;
             height: 580px;
-            opacity: 0;
-            transform: translateY(30px);
+            opacity: 1 !important;
+            transform: translateY(0) !important;
             cursor: pointer;
         }
 
@@ -287,9 +287,27 @@
             object-fit: cover;
             object-position: center 20%;
             transition: transform 0.5s ease;
-            display: block;
+            display: block !important;
+            opacity: 1 !important;
+            filter: none !important;
         }
 
+        .champion-image {
+            opacity: 1 !important;
+            filter: none !important;
+            display: block !important;
+            visibility: visible !important;
+        }
+
+        /* Ensure champion images are always visible */
+        .champion-image.loading,
+        .champion-image[data-src],
+        .champion-card .champion-image {
+            opacity: 1 !important;
+            filter: none !important;
+            display: block !important;
+            visibility: visible !important;
+        }
         .champion-card:hover .champion-splash img {
             transform: scale(1.05);
         }
@@ -477,37 +495,17 @@
             color: #58d68d !important;
         }
 
-        /* Damage-specific color overrides (cool to hot progression) */
-        .damage-stat[data-level="Nízké"]::before {
-            background: linear-gradient(90deg, #3498db, #5dade2) !important;
+        /* Damage type-specific color overrides (no progress bar) */
+        .damage-type-stat::before {
+            display: none !important;
         }
 
-        .damage-stat[data-level="Střední"]::before {
-            background: linear-gradient(90deg, #f39c12, #f8c471) !important;
-        }
-
-        .damage-stat[data-level="Vysoké"]::before {
-            background: linear-gradient(90deg, #e74c3c, #ec7063) !important;
-        }
-
-        .damage-stat[data-level="Velmi vysoké"]::before {
-            background: linear-gradient(90deg, #c0392b, #ff6b9d) !important;
-        }
-
-        .damage-stat[data-level="Nízké"] .champion-stat-value {
-            color: #5dade2 !important;
-        }
-
-        .damage-stat[data-level="Střední"] .champion-stat-value {
-            color: #f8c471 !important;
-        }
-
-        .damage-stat[data-level="Vysoké"] .champion-stat-value {
+        .damage-type-stat[data-type="Physical"] .champion-stat-value {
             color: #ec7063 !important;
         }
 
-        .damage-stat[data-level="Velmi vysoké"] .champion-stat-value {
-            color: #ff6b9d !important;
+        .damage-type-stat[data-type="Magic"] .champion-stat-value {
+            color: #5dade2 !important;
         }
 
         /* Responsive champion grid */
@@ -569,28 +567,98 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .champion-modal.show {
+            opacity: 1;
         }
 
         .champion-modal-content {
-            background: linear-gradient(135deg, rgba(18, 18, 18, 0.95) 0%, rgba(30, 30, 30, 0.95) 100%);
-            margin: 2% auto;
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.98) 0%, rgba(30, 30, 30, 0.98) 100%);
+            margin: 1% auto;
             padding: 0;
-            border: 1px solid rgba(110, 79, 246, 0.3);
-            border-radius: 15px;
-            width: 90%;
-            max-width: 1000px;
-            max-height: 90vh;
+            border: 2px solid rgba(110, 79, 246, 0.5);
+            border-radius: 20px;
+            width: 95%;
+            max-width: 1200px;
+            max-height: 95vh;
             overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+            position: relative;
+            transform: scale(0.8) translateY(50px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .champion-modal.show .champion-modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .champion-modal-content:hover {
+            box-shadow: 0 40px 100px rgba(110, 79, 246, 0.3);
         }
 
         .champion-modal-header {
             position: relative;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 20px 20px 0 0;
+            background: linear-gradient(135deg, rgba(110, 79, 246, 0.3) 0%, rgba(0, 210, 255, 0.3) 100%);
+        }
+
+        .modal-splash-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: blur(2px);
+            transform: scale(1.1);
+            transition: all 0.6s ease;
+        }
+
+        .champion-modal-header:hover .modal-splash-background {
+            transform: scale(1.15);
+            filter: blur(1px);
+        }
+
+        .modal-splash-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(110, 79, 246, 0.4), rgba(0, 0, 0, 0.7));
+            transition: all 0.4s ease;
+        }
+
+        .champion-modal-header:hover .modal-splash-overlay {
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.6), rgba(110, 79, 246, 0.6), rgba(0, 0, 0, 0.6));
+        }
+
+        .modal-header-content {
+            position: relative;
+            z-index: 3;
             padding: 30px;
-            border-bottom: 1px solid rgba(110, 79, 246, 0.3);
-            background: linear-gradient(135deg, rgba(110, 79, 246, 0.1) 0%, rgba(0, 210, 255, 0.1) 100%);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideInUp 0.8s ease-out 0.2s forwards;
+        }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .champion-modal-close {
@@ -612,27 +680,210 @@
         .champion-modal-title {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 30px;
         }
 
         .modal-champion-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 10px;
-            border: 2px solid var(--primary-color);
+            width: 120px;
+            height: 120px;
+            border-radius: 15px;
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 10px 30px rgba(110, 79, 246, 0.5);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-champion-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .modal-champion-image:hover {
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 0 20px 50px rgba(110, 79, 246, 0.8);
+            border-color: rgba(110, 79, 246, 1);
+        }
+
+        .modal-champion-image:hover::before {
+            left: 100%;
         }
 
         .modal-champion-info h2 {
-            margin: 0 0 5px 0;
+            margin: 0 0 10px 0;
             color: var(--light-text);
-            font-size: 2rem;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            font-weight: 800;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .modal-champion-info h2:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 20px rgba(110, 79, 246, 0.8);
+            transform: translateX(10px);
         }
 
         .modal-champion-info p {
             margin: 0;
             color: var(--primary-color);
             font-style: italic;
+            font-size: 1.3rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .modal-champion-info p:hover {
+            color: var(--light-text);
+            transform: translateX(10px);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Star Rating System */
+        .star-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .star {
+            color: #ffd700;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            transform: scale(1);
+        }
+
+        .star:hover {
+            transform: scale(1.2);
+            filter: brightness(1.3);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        .star.empty {
+            color: #444;
+            transition: all 0.3s ease;
+        }
+
+        .star.empty:hover {
+            color: #666;
+            transform: scale(1.1);
+        }
+
+        /* Animate stars on load */
+        @keyframes starGlow {
+            0% { opacity: 0; transform: scale(0.5) rotate(-180deg); }
+            50% { opacity: 0.8; transform: scale(1.1) rotate(0deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        .star:not(.empty) {
+            animation: starGlow 0.6s ease-out forwards;
+        }
+
+        .star:nth-child(1) { animation-delay: 0.1s; }
+        .star:nth-child(2) { animation-delay: 0.2s; }
+        .star:nth-child(3) { animation-delay: 0.3s; }
+        .star:nth-child(4) { animation-delay: 0.4s; }
+        .star:nth-child(5) { animation-delay: 0.5s; }
+
+        .stat-item-enhanced {
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.9) 0%, rgba(60, 60, 60, 0.9) 100%);
+            border: 1px solid rgba(110, 79, 246, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item-enhanced:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(110, 79, 246, 0.3);
+            border-color: var(--primary-color);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .stat-name {
             font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--light-text);
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .stat-bar:hover {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(110, 79, 246, 0.3);
+        }
+
+        .stat-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), rgba(110, 79, 246, 0.6));
+            border-radius: 4px;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-fill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .stat-bar:hover .stat-fill {
+            background: linear-gradient(90deg, var(--primary-color), rgba(110, 79, 246, 0.8), var(--primary-color));
+            box-shadow: 0 0 15px rgba(110, 79, 246, 0.5);
+        }
+
+        /* Animate stat fill on load */
+        @keyframes fillAnimation {
+            from { width: 0; }
+            to { width: var(--target-width); }
         }
 
         .champion-modal-body {
@@ -655,16 +906,53 @@
             font-size: 1rem;
             font-weight: 600;
             border-bottom: 2px solid transparent;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(110, 79, 246, 0.1), transparent);
+            transition: left 0.4s ease;
         }
 
         .modal-tab:hover {
             color: var(--light-text);
+            background: rgba(110, 79, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .modal-tab:hover::before {
+            left: 100%;
         }
 
         .modal-tab.active {
             color: var(--primary-color);
             border-bottom-color: var(--primary-color);
+            background: rgba(110, 79, 246, 0.15);
+            box-shadow: 0 4px 15px rgba(110, 79, 246, 0.2);
+        }
+
+        .modal-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), rgba(110, 79, 246, 0.6), var(--primary-color));
+            animation: tabGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes tabGlow {
+            0% { box-shadow: 0 0 5px rgba(110, 79, 246, 0.5); }
+            100% { box-shadow: 0 0 20px rgba(110, 79, 246, 0.8); }
         }
 
         .modal-tab-content {
@@ -707,51 +995,135 @@
             display: flex;
             gap: 15px;
             padding: 20px;
-            background: rgba(40, 40, 40, 0.8);
-            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.9) 0%, rgba(60, 60, 60, 0.9) 100%);
+            border-radius: 12px;
             border: 1px solid rgba(110, 79, 246, 0.3);
             margin-bottom: 15px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ability-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(110, 79, 246, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .ability-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(110, 79, 246, 0.4);
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, rgba(50, 50, 50, 0.95) 0%, rgba(70, 70, 70, 0.95) 100%);
+        }
+
+        .ability-item:hover::before {
+            left: 100%;
         }
 
         .ability-icon {
             width: 60px;
             height: 60px;
-            border-radius: 8px;
+            border-radius: 10px;
             border: 2px solid var(--primary-color);
             flex-shrink: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ability-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .ability-item:hover .ability-icon {
+            transform: scale(1.1) rotate(5deg);
+            border-color: rgba(110, 79, 246, 1);
+            box-shadow: 0 10px 25px rgba(110, 79, 246, 0.6);
+        }
+
+        .ability-item:hover .ability-icon::before {
+            left: 100%;
         }
 
         .ability-info h4 {
             margin: 0 0 10px 0;
             color: var(--light-text);
             font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .ability-item:hover .ability-info h4 {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(110, 79, 246, 0.6);
+            transform: translateX(5px);
         }
 
         .ability-key {
             display: inline-block;
             background: var(--primary-color);
             color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
+            padding: 4px 10px;
+            border-radius: 6px;
             font-size: 0.8rem;
             font-weight: bold;
             margin-right: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(110, 79, 246, 0.3);
+        }
+
+        .ability-item:hover .ability-key {
+            background: linear-gradient(45deg, var(--primary-color), rgba(110, 79, 246, 0.8));
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(110, 79, 246, 0.6);
         }
 
         .ability-description {
             color: var(--medium-text);
-            line-height: 1.5;
+            line-height: 1.6;
             margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .ability-item:hover .ability-description {
+            color: var(--light-text);
+            transform: translateX(5px);
         }
 
         .ability-stats {
             display: flex;
             gap: 15px;
             font-size: 0.9rem;
+            flex-wrap: wrap;
         }
 
         .ability-stat {
             color: var(--primary-color);
+            background: rgba(110, 79, 246, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(110, 79, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .ability-item:hover .ability-stat {
+            background: rgba(110, 79, 246, 0.2);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(110, 79, 246, 0.3);
         }
 
         .abilities-grid {
@@ -762,33 +1134,101 @@
 
         .skins-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
         }
 
         .skin-item {
-            background: rgba(40, 40, 40, 0.8);
-            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.9) 0%, rgba(60, 60, 60, 0.9) 100%);
+            border-radius: 15px;
             overflow: hidden;
             border: 1px solid rgba(110, 79, 246, 0.3);
-            transition: transform 0.3s;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+        }
+
+        .skin-item.animate-in {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .skin-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(110, 79, 246, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+            pointer-events: none;
         }
 
         .skin-item:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(110, 79, 246, 0.4);
+            border-color: var(--primary-color);
+        }
+
+        .skin-item:hover::before {
+            opacity: 1;
         }
 
         .skin-image {
             width: 100%;
-            height: 120px;
+            height: 140px;
             object-fit: cover;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .skin-item:hover .skin-image {
+            transform: scale(1.1);
+            filter: brightness(1.2) contrast(1.1);
         }
 
         .skin-name {
-            padding: 15px;
+            padding: 18px;
             color: var(--light-text);
             font-weight: 600;
             text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.95) 0%, rgba(60, 60, 60, 0.95) 100%);
+        }
+
+        .skin-item:hover .skin-name {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(110, 79, 246, 0.6);
+            background: linear-gradient(135deg, rgba(50, 50, 50, 0.98) 0%, rgba(70, 70, 70, 0.98) 100%);
+        }
+
+        /* Add staggered animation for skins */
+        .skin-item:nth-child(1) { animation-delay: 0.1s; }
+        .skin-item:nth-child(2) { animation-delay: 0.2s; }
+        .skin-item:nth-child(3) { animation-delay: 0.3s; }
+        .skin-item:nth-child(4) { animation-delay: 0.4s; }
+        .skin-item:nth-child(5) { animation-delay: 0.5s; }
+        .skin-item:nth-child(6) { animation-delay: 0.6s; }
+        .skin-item:nth-child(n+7) { animation-delay: 0.7s; }
+
+        /* Skin entrance animation */
+        @keyframes skinFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .loading-spinner {
@@ -881,15 +1321,13 @@
             border-radius: 8px;
         }
 
-        /* Image lazy loading */
-        .champion-image {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+        /* Styles for champion images */
 
+        /*
         .champion-image.loaded {
             opacity: 1;
         }
+        */
 
         /* Staggered animation delays */
         .champion-card:nth-child(1) { animation-delay: 0.1s; }
@@ -953,6 +1391,331 @@
                 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             }
         }
+
+        /* Advanced Filters Styles */
+        .advanced-filters {
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.95) 0%, rgba(30, 30, 30, 0.95) 100%);
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 1px solid rgba(110, 79, 246, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .filters-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            background: linear-gradient(135deg, rgba(110, 79, 246, 0.1) 0%, rgba(0, 210, 255, 0.1) 100%);
+            border-bottom: 1px solid rgba(110, 79, 246, 0.3);
+        }
+
+        .filters-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: none;
+            border: none;
+            color: var(--light-text);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .filters-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        .toggle-arrow {
+            transition: transform 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .filter-count {
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .filter-count.active {
+            display: inline-block;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-action-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-action-btn:hover {
+            background: #5d3dd3;
+            transform: translateY(-2px);
+        }
+
+        .filter-action-btn.clear {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .filter-action-btn.clear:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .filters-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .filters-panel.open {
+            max-height: 1000px;
+        }
+
+        .filter-group {
+            padding: 25px;
+            border-bottom: 1px solid rgba(110, 79, 246, 0.2);
+        }
+
+        .filter-group:last-child {
+            border-bottom: none;
+        }
+
+        .filter-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--light-text);
+            margin-bottom: 15px;
+        }
+
+        .category-count {
+            background: var(--primary-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: none;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid rgba(110, 79, 246, 0.3);
+            border-radius: 8px;
+            color: var(--light-text);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(110, 79, 246, 0.2);
+        }
+
+        .search-input::placeholder {
+            color: var(--medium-text);
+        }
+
+        .filter-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: rgba(40, 40, 40, 0.6);
+            border: 1px solid rgba(110, 79, 246, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-option:hover {
+            background: rgba(110, 79, 246, 0.1);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .filter-option.selected {
+            background: linear-gradient(135deg, rgba(110, 79, 246, 0.2) 0%, rgba(0, 210, 255, 0.2) 100%);
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(110, 79, 246, 0.3);
+        }
+
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .filter-text {
+            flex: 1;
+            color: var(--light-text);
+            font-weight: 500;
+        }
+
+        .difficulty-bar, .survivability-bar {
+            width: 40px;
+            height: 4px;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .difficulty-bar.low, .survivability-bar.low {
+            background: linear-gradient(90deg, #2ed573, #7bed9f);
+        }
+
+        .difficulty-bar.medium, .survivability-bar.medium {
+            background: linear-gradient(90deg, #ffa502, #ffb84d);
+        }
+
+        .difficulty-bar.high, .survivability-bar.high {
+            background: linear-gradient(90deg, #ff4757, #ff6b7a);
+        }
+
+        .difficulty-bar.very-high, .survivability-bar.very-high {
+            background: linear-gradient(90deg, #8b0000, #dc143c);
+        }
+
+        .range-icon, .class-icon, .role-icon, .damage-type-icon {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .damage-type-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .filter-option:hover .damage-type-icon {
+            transform: scale(1.2);
+        }
+
+        .filter-results {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 25px;
+            background: rgba(110, 79, 246, 0.05);
+            color: var(--medium-text);
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .filter-results.active {
+            opacity: 1;
+        }
+
+        .filter-results i {
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .filters-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .filter-options {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-group {
+                padding: 20px 15px;
+            }
+
+            .filters-header {
+                padding: 15px 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .filter-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .filter-action-btn {
+                justify-content: center;
+            }
+        }
+
+        /* No results styling */
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--medium-text);
+        }
+
+        .no-results .emoji {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .no-results p {
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+
+        /* Ensure All Elements Are Immediately Visible */
+        .fade-in,
+        .slide-up,
+        .slide-left,
+        .slide-right,
+        .scale-in,
+        .rotate-in,
+        .flip-in,
+        .glow-in,
+        .bounce-in,
+        .text-reveal,
+        .hero-content,
+        .section-animate,
+        .card-grid-animate .card-item,
+        .champion-card {
+            opacity: 1 !important;
+            transform: none !important;
+            filter: none !important;
+            transition: none !important;
+        }
+        
     </style>
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -996,20 +1759,22 @@
         </div>
     </header>
 
+    <!-- Loading Indicator (Removed) -->
+
     <section class="game-hero">
-        <div class="game-hero-content">
-            <h1 class="game-hero-title">League of Legends</h1>
-            <p class="game-hero-subtitle">Nejpopulárnější MOBA hra na světě od Riot Games</p>
+        <div class="game-hero-content hero-content">
+            <h1 class="game-hero-title text-reveal">League of Legends</h1>
+            <p class="game-hero-subtitle text-reveal stagger-1">Nejpopulárnější MOBA hra na světě od Riot Games</p>
         </div>
     </section>
 
-    <section class="game-info-section">
+    <section class="game-info-section section-animate">
         <div class="container">
-            <h2 class="section-title">O hře League of Legends</h2>
-            <p>League of Legends (LoL) je týmová strategická hra, ve které dva týmy po pěti hráčích bojují proti sobě s cílem zničit nepřátelskou základnu. Každý hráč ovládá jedinečného šampiona s unikátními schopnostmi a rolí v týmu. Hra kombinuje prvky real-time strategie, RPG a akce.</p>
+            <h2 class="section-title slide-up">O hře League of Legends</h2>
+            <p class="slide-up stagger-1">League of Legends (LoL) je týmová strategická hra, ve které dva týmy po pěti hráčích bojují proti sobě s cílem zničit nepřátelskou základnu. Každý hráč ovládá jedinečného šampiona s unikátními schopnostmi a rolí v týmu. Hra kombinuje prvky real-time strategie, RPG a akce.</p>
 
-            <div class="game-info-grid">
-                <div class="game-info-card">
+            <div class="game-info-grid card-grid-animate">
+                <div class="game-info-card card-item stagger-2">
                     <h3>Základní informace</h3>
                     <ul>
                         <li><strong>Vývojář:</strong> Riot Games</li>
@@ -1022,7 +1787,7 @@
                     </ul>
                 </div>
 
-                <div class="game-info-card">
+                <div class="game-info-card card-item stagger-3">
                     <h3>Herní mechaniky</h3>
                     <p>V League of Legends se hráči snaží zničit nepřátelský Nexus, který je chráněn věžemi a inhibitory. Během hry hráči:</p>
                     <ul>
@@ -1037,13 +1802,13 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="section section-animate">
         <div class="container">
-            <h2 class="section-title">Mapy v League of Legends</h2>
-            <p>League of Legends nabízí několik různých map, každá s jedinečnými herními mechanismy a strategickými výzvami.</p>
+            <h2 class="section-title slide-up">Mapy v League of Legends</h2>
+            <p class="slide-up stagger-1">League of Legends nabízí několik různých map, každá s jedinečnými herními mechanismy a strategickými výzvami.</p>
 
-            <div class="game-map-grid">
-                <div class="game-map-card">
+            <div class="game-map-grid card-grid-animate">
+                <div class="game-map-card card-item stagger-2">
                     <div class="game-map-image">
                         <img src="img/lol-summoners-rift-artwork.jpg" alt="Summoner's Rift">
                     </div>
@@ -1053,7 +1818,7 @@
                     </div>
                 </div>
 
-                <div class="game-map-card">
+                <div class="game-map-card card-item stagger-3">
                     <div class="game-map-image">
                         <img src="img/lol-bridge-of-progress.jpg" alt="Bridge of Progress">
                     </div>
@@ -1063,7 +1828,7 @@
                     </div>
                 </div>
 
-                <div class="game-map-card">
+                <div class="game-map-card card-item stagger-4">
                     <div class="game-map-image">
                         <img src="img/lol-tft-artwork.jpg" alt="Convergence">
                     </div>
@@ -1076,12 +1841,12 @@
         </div>
     </section>
 
-    <section class="champions-section">
+    <section class="champions-section section-animate">
         <div class="container">
-            <h2 class="section-title">Šampioni a role</h2>
-            <p>V League of Legends existuje více než 160 hratelných šampionů, každý s unikátními schopnostmi a herním stylem. Šampioni jsou rozděleni do různých rolí podle jejich funkcí v týmu.</p>
+            <h2 class="section-title slide-up">Šampioni a role</h2>
+            <p class="slide-up stagger-1">V League of Legends existuje více než 160 hratelných šampionů, každý s unikátními schopnostmi a herním stylem. Šampioni jsou rozděleni do různých rolí podle jejich funkcí v týmu.</p>
 
-            <div class="champion-roles">
+            <div class="champion-roles fade-in stagger-2">
                 <button type="button" class="champion-role active" onclick="showRole('Top')">Top</button>
                 <button type="button" class="champion-role" onclick="showRole('Jungle')">Jungle</button>
                 <button type="button" class="champion-role" onclick="showRole('Mid')">Mid</button>
@@ -1107,12 +1872,12 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="section section-animate">
         <div class="container">
-            <h2 class="section-title">Šampioni</h2>
-            <p>Objevte populární šampiony v každé pozici s jejich unikátními schopnostmi a herním stylem.</p>
+            <h2 class="section-title slide-up">Šampioni</h2>
+            <p class="slide-up stagger-1">Objevte populární šampiony v každé pozici s jejich unikátními schopnostmi a herním stylem.</p>
 
-            <div class="champion-roles">
+            <div class="champion-roles fade-in stagger-2">
                 <button type="button" class="champion-role active" onclick="showChampions('All')">Všichni (<span id="all-count">0</span>)</button>
                 <button type="button" class="champion-role" onclick="showChampions('Top')">Top (<span id="top-count">0</span>)</button>
                 <button type="button" class="champion-role" onclick="showChampions('Jungle')">Jungle (<span id="jungle-count">0</span>)</button>
@@ -1123,207 +1888,222 @@
 
             <!-- Advanced Filters -->
             <div class="advanced-filters">
-                <div class="filters-toggle">
-                    <button type="button" class="toggle-filters-btn" onclick="toggleAdvancedFilters()">
+                <div class="filters-header">
+                    <button class="filters-toggle" onclick="toggleAdvancedFilters()">
                         <i class="fas fa-filter"></i>
-                        <span>Pokročilé filtry</span>
-                        <span class="active-filters-count" id="active-filters-count"></span>
-                        <i class="fas fa-chevron-down toggle-arrow"></i>
+                        Pokročilé filtry
+                        <span class="toggle-arrow">▼</span>
+                        <span id="active-filters-count" class="filter-count">0</span>
                     </button>
-                </div>
-                
-                <div class="filters-panel" id="filters-panel" style="display: none;">
-                    <div class="filters-row">
-                    <div class="filter-group">
-                        <label for="search-input">Hledat šampiona:</label>
-                        <input type="text" id="search-input" class="search-input" placeholder="Název, popis nebo schopnosti..." oninput="applyAdvancedFilters()">
+                    <div class="filter-actions">
+                        <button class="filter-action-btn" onclick="applyAdvancedFilters()">
+                            <i class="fas fa-search"></i>
+                            Použít
+                        </button>
+                        <button class="filter-action-btn clear" onclick="resetAdvancedFilters()">
+                            <i class="fas fa-times"></i>
+                            Vymazat
+                        </button>
                     </div>
                 </div>
-
-                <div class="filters-row">
+                
+                <div id="filters-panel" class="filters-panel">
+                    <!-- Search Filter -->
                     <div class="filter-group">
-                        <label>Obtížnost: <span class="filter-count" id="difficulty-count"></span></label>
-                        <div class="filter-options" id="difficulty-options">
+                        <label class="filter-label">
+                            <i class="fas fa-search"></i>
+                            Hledat šampiona
+                        </label>
+                        <input type="text" id="search-input" class="search-input"
+                               placeholder="Jméno, titul nebo popis..."
+                               oninput="applyAdvancedFilters()">
+                    </div>
+
+                    <!-- Difficulty Filter -->
+                    <div class="filter-group">
+                        <label class="filter-label">
+                            <i class="fas fa-chart-bar"></i>
+                            Obtížnost
+                            <span id="difficulty-count" class="category-count">0</span>
+                        </label>
+                        <div class="filter-options">
                             <div class="filter-option" onclick="toggleFilter(this, 'difficulty', 'Nízká')">
                                 <input type="checkbox" value="Nízká">
-                                <div class="checkmark"></div>
-                                <span class="label">Nízká</span>
+                                <span class="filter-text">Nízká</span>
+                                <div class="difficulty-bar low"></div>
                             </div>
                             <div class="filter-option" onclick="toggleFilter(this, 'difficulty', 'Střední')">
                                 <input type="checkbox" value="Střední">
-                                <div class="checkmark"></div>
-                                <span class="label">Střední</span>
+                                <span class="filter-text">Střední</span>
+                                <div class="difficulty-bar medium"></div>
                             </div>
                             <div class="filter-option" onclick="toggleFilter(this, 'difficulty', 'Vysoká')">
                                 <input type="checkbox" value="Vysoká">
-                                <div class="checkmark"></div>
-                                <span class="label">Vysoká</span>
+                                <span class="filter-text">Vysoká</span>
+                                <div class="difficulty-bar high"></div>
                             </div>
                             <div class="filter-option" onclick="toggleFilter(this, 'difficulty', 'Velmi vysoká')">
                                 <input type="checkbox" value="Velmi vysoká">
-                                <div class="checkmark"></div>
-                                <span class="label">Velmi vysoká</span>
+                                <span class="filter-text">Velmi vysoká</span>
+                                <div class="difficulty-bar very-high"></div>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Damage Type Filter -->
                     <div class="filter-group">
-                        <label>Poškození: <span class="filter-count" id="damage-count"></span></label>
-                        <div class="filter-options" id="damage-options">
-                            <div class="filter-option" onclick="toggleFilter(this, 'damage', 'Nízké')">
-                                <input type="checkbox" value="Nízké">
-                                <div class="checkmark"></div>
-                                <span class="label">Nízké</span>
+                        <label class="filter-label">
+                            <i class="fas fa-magic"></i>
+                            Typ poškození
+                            <span id="damage-count" class="category-count">0</span>
+                        </label>
+                        <div class="filter-options">
+                            <div class="filter-option" onclick="toggleFilter(this, 'damage', 'Physical')">
+                                <input type="checkbox" value="Physical">
+                                <span class="filter-text">Fyzické</span>
+                                <i class="fas fa-sword damage-type-icon" style="color: #e74c3c;"></i>
                             </div>
-                            <div class="filter-option" onclick="toggleFilter(this, 'damage', 'Střední')">
-                                <input type="checkbox" value="Střední">
-                                <div class="checkmark"></div>
-                                <span class="label">Střední</span>
-                            </div>
-                            <div class="filter-option" onclick="toggleFilter(this, 'damage', 'Vysoké')">
-                                <input type="checkbox" value="Vysoké">
-                                <div class="checkmark"></div>
-                                <span class="label">Vysoké</span>
-                            </div>
-                            <div class="filter-option" onclick="toggleFilter(this, 'damage', 'Velmi vysoké')">
-                                <input type="checkbox" value="Velmi vysoké">
-                                <div class="checkmark"></div>
-                                <span class="label">Velmi vysoké</span>
+                            <div class="filter-option" onclick="toggleFilter(this, 'damage', 'Magic')">
+                                <input type="checkbox" value="Magic">
+                                <span class="filter-text">Magické</span>
+                                <i class="fas fa-magic damage-type-icon" style="color: #3498db;"></i>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Survivability Filter -->
                     <div class="filter-group">
-                        <label>Přežitelnost: <span class="filter-count" id="survivability-count"></span></label>
-                        <div class="filter-options" id="survivability-options">
-                            <div class="filter-option" onclick="toggleFilter(this, 'survivability', 'Velmi nízká')">
-                                <input type="checkbox" value="Velmi nízká">
-                                <div class="checkmark"></div>
-                                <span class="label">Velmi nízká</span>
-                            </div>
+                        <label class="filter-label">
+                            <i class="fas fa-shield-alt"></i>
+                            Přežitelnost
+                            <span id="survivability-count" class="category-count">0</span>
+                        </label>
+                        <div class="filter-options">
                             <div class="filter-option" onclick="toggleFilter(this, 'survivability', 'Nízká')">
                                 <input type="checkbox" value="Nízká">
-                                <div class="checkmark"></div>
-                                <span class="label">Nízká</span>
+                                <span class="filter-text">Nízká</span>
+                                <div class="survivability-bar low"></div>
                             </div>
                             <div class="filter-option" onclick="toggleFilter(this, 'survivability', 'Střední')">
                                 <input type="checkbox" value="Střední">
-                                <div class="checkmark"></div>
-                                <span class="label">Střední</span>
+                                <span class="filter-text">Střední</span>
+                                <div class="survivability-bar medium"></div>
                             </div>
                             <div class="filter-option" onclick="toggleFilter(this, 'survivability', 'Vysoká')">
                                 <input type="checkbox" value="Vysoká">
-                                <div class="checkmark"></div>
-                                <span class="label">Vysoká</span>
+                                <span class="filter-text">Vysoká</span>
+                                <div class="survivability-bar high"></div>
                             </div>
                             <div class="filter-option" onclick="toggleFilter(this, 'survivability', 'Velmi vysoká')">
                                 <input type="checkbox" value="Velmi vysoká">
-                                <div class="checkmark"></div>
-                                <span class="label">Velmi vysoká</span>
+                                <span class="filter-text">Velmi vysoká</span>
+                                <div class="survivability-bar very-high"></div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="filters-row">
+                    <!-- Range Type Filter -->
                     <div class="filter-group">
-                        <label>Dosah: <span class="filter-count" id="range-count"></span></label>
-                        <div class="filter-options" id="range-options">
+                        <label class="filter-label">
+                            <i class="fas fa-crosshairs"></i>
+                            Typ dosahu
+                            <span id="range-count" class="category-count">0</span>
+                        </label>
+                        <div class="filter-options">
                             <div class="filter-option" onclick="toggleFilter(this, 'rangeType', 'Melee')">
                                 <input type="checkbox" value="Melee">
-                                <div class="checkmark"></div>
-                                <span class="label">Melee</span>
+                                <span class="filter-text">Melee</span>
+                                <i class="fas fa-fist-raised range-icon"></i>
                             </div>
                             <div class="filter-option" onclick="toggleFilter(this, 'rangeType', 'Ranged')">
                                 <input type="checkbox" value="Ranged">
-                                <div class="checkmark"></div>
-                                <span class="label">Ranged</span>
+                                <span class="filter-text">Ranged</span>
+                                <i class="fas fa-bow-arrow range-icon"></i>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Champion Class Filter -->
                     <div class="filter-group">
-                        <label>Třída: <span class="filter-count" id="class-count"></span></label>
-                        <div class="filter-options" id="class-options">
-                            <div class="filter-option" onclick="toggleFilter(this, 'championClass', 'Assassin')">
-                                <input type="checkbox" value="Assassin">
-                                <div class="checkmark"></div>
-                                <span class="label">Assassin</span>
-                            </div>
+                        <label class="filter-label">
+                            <i class="fas fa-users"></i>
+                            Třída šampiona
+                            <span id="class-count" class="category-count">0</span>
+                        </label>
+                        <div class="filter-options">
                             <div class="filter-option" onclick="toggleFilter(this, 'championClass', 'Fighter')">
                                 <input type="checkbox" value="Fighter">
-                                <div class="checkmark"></div>
-                                <span class="label">Fighter</span>
-                            </div>
-                            <div class="filter-option" onclick="toggleFilter(this, 'championClass', 'Mage')">
-                                <input type="checkbox" value="Mage">
-                                <div class="checkmark"></div>
-                                <span class="label">Mage</span>
-                            </div>
-                            <div class="filter-option" onclick="toggleFilter(this, 'championClass', 'Marksman')">
-                                <input type="checkbox" value="Marksman">
-                                <div class="checkmark"></div>
-                                <span class="label">Marksman</span>
-                            </div>
-                            <div class="filter-option" onclick="toggleFilter(this, 'championClass', 'Support')">
-                                <input type="checkbox" value="Support">
-                                <div class="checkmark"></div>
-                                <span class="label">Support</span>
+                                <span class="filter-text">Fighter</span>
+                                <i class="fas fa-sword class-icon"></i>
                             </div>
                             <div class="filter-option" onclick="toggleFilter(this, 'championClass', 'Tank')">
                                 <input type="checkbox" value="Tank">
-                                <div class="checkmark"></div>
-                                <span class="label">Tank</span>
+                                <span class="filter-text">Tank</span>
+                                <i class="fas fa-shield class-icon"></i>
+                            </div>
+                            <div class="filter-option" onclick="toggleFilter(this, 'championClass', 'Mage')">
+                                <input type="checkbox" value="Mage">
+                                <span class="filter-text">Mage</span>
+                                <i class="fas fa-magic class-icon"></i>
+                            </div>
+                            <div class="filter-option" onclick="toggleFilter(this, 'championClass', 'Assassin')">
+                                <input type="checkbox" value="Assassin">
+                                <span class="filter-text">Assassin</span>
+                                <i class="fas fa-user-ninja class-icon"></i>
+                            </div>
+                            <div class="filter-option" onclick="toggleFilter(this, 'championClass', 'Marksman')">
+                                <input type="checkbox" value="Marksman">
+                                <span class="filter-text">Marksman</span>
+                                <i class="fas fa-crosshairs class-icon"></i>
+                            </div>
+                            <div class="filter-option" onclick="toggleFilter(this, 'championClass', 'Support')">
+                                <input type="checkbox" value="Support">
+                                <span class="filter-text">Support</span>
+                                <i class="fas fa-heart class-icon"></i>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Roles Filter -->
                     <div class="filter-group">
-                        <label>Role: <span class="filter-count" id="roles-count"></span></label>
-                        <div class="filter-options" id="roles-options">
+                        <label class="filter-label">
+                            <i class="fas fa-map"></i>
+                            Pozice na mapě
+                            <span id="roles-count" class="category-count">0</span>
+                        </label>
+                        <div class="filter-options">
                             <div class="filter-option" onclick="toggleFilter(this, 'roles', 'Top')">
                                 <input type="checkbox" value="Top">
-                                <div class="checkmark"></div>
-                                <span class="label">Top</span>
+                                <span class="filter-text">Top Lane</span>
+                                <i class="fas fa-mountain role-icon"></i>
                             </div>
                             <div class="filter-option" onclick="toggleFilter(this, 'roles', 'Jungle')">
                                 <input type="checkbox" value="Jungle">
-                                <div class="checkmark"></div>
-                                <span class="label">Jungle</span>
+                                <span class="filter-text">Jungle</span>
+                                <i class="fas fa-tree role-icon"></i>
                             </div>
                             <div class="filter-option" onclick="toggleFilter(this, 'roles', 'Mid')">
                                 <input type="checkbox" value="Mid">
-                                <div class="checkmark"></div>
-                                <span class="label">Mid</span>
+                                <span class="filter-text">Mid Lane</span>
+                                <i class="fas fa-star role-icon"></i>
                             </div>
                             <div class="filter-option" onclick="toggleFilter(this, 'roles', 'ADC')">
                                 <input type="checkbox" value="ADC">
-                                <div class="checkmark"></div>
-                                <span class="label">ADC</span>
+                                <span class="filter-text">ADC</span>
+                                <i class="fas fa-bullseye role-icon"></i>
                             </div>
                             <div class="filter-option" onclick="toggleFilter(this, 'roles', 'Support')">
                                 <input type="checkbox" value="Support">
-                                <div class="checkmark"></div>
-                                <span class="label">Support</span>
+                                <span class="filter-text">Support</span>
+                                <i class="fas fa-hands-helping role-icon"></i>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="filter-actions">
-                    <button type="button" class="filter-btn apply" onclick="applyAdvancedFilters()">
-                        Aplikovat filtry
-                    </button>
-                    <button type="button" class="filter-btn reset" onclick="resetAdvancedFilters()">
-                        Resetovat
-                    </button>
-                    <button type="button" class="filter-btn clear" onclick="clearAllAdvancedFilters()">
-                        Vymazat vše
-                    </button>
-                </div>
-
-                    <div class="filter-results" id="filter-results">
-                        Zobrazeno <strong id="filtered-count">0</strong> z <strong id="total-count">0</strong> šampionů
+                    <!-- Filter Results -->
+                    <div id="filter-results" class="filter-results">
+                        <i class="fas fa-info-circle"></i>
+                        Zobrazeno <span id="filtered-count">0</span> z <span id="total-count">0</span> šampionů
                     </div>
                 </div>
             </div>
@@ -1408,6 +2188,27 @@
         // Global variables
         let allChampions = [];
         let isLoading = false;
+        
+        // Global error handler for unhandled promise rejections
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('Unhandled promise rejection:', event.reason);
+            event.preventDefault();
+        });
+        
+        // Ensure DataDragon API is available
+        function ensureDataDragonAPI() {
+            if (typeof DataDragonAPI === 'undefined') {
+                console.error('DataDragonAPI class not found! Make sure datadragon-api.js is loaded.');
+                throw new Error('DataDragonAPI not available');
+            }
+            
+            if (!window.datadragonAPI) {
+                console.log('Creating new DataDragonAPI instance...');
+                window.datadragonAPI = new DataDragonAPI();
+            }
+            
+            return window.datadragonAPI;
+        }
 
         // Set random champion splash art as hero background
         async function setRandomHeroBackground() {
@@ -1482,11 +2283,26 @@
                 // Show skeleton loading
                 showSkeletonLoading();
 
-                // Initialize DataDragon API
-                const api = new DataDragonAPI();
+                // Ensure DataDragon API is available
+                const api = ensureDataDragonAPI();
                 
-                // Fetch champions from API
-                allChampions = await api.getAllChampions();
+                // Fetch champions from API with retry logic
+                let attempts = 0;
+                const maxAttempts = 3;
+                
+                while (attempts < maxAttempts) {
+                    try {
+                        allChampions = await api.getAllChampions();
+                        break;
+                    } catch (error) {
+                        attempts++;
+                        if (attempts >= maxAttempts) {
+                            throw error;
+                        }
+                        console.warn(`Attempt ${attempts} failed, retrying...`, error);
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    }
+                }
                 
                 // Hide skeleton loading
                 hideSkeletonLoading();
@@ -1505,7 +2321,8 @@
                         <div class="no-results">
                             <span class="emoji">⚠️</span>
                             <p>Nepodařilo se načíst šampiony z API.</p>
-                            <p>Zkuste obnovit stránku.</p>
+                            <p>Zkuste obnovit stránku nebo zkontrolujte připojení k internetu.</p>
+                            <button onclick="loadChampionsData()" style="margin-top: 15px; padding: 10px 20px; background: var(--primary-color); color: white; border: none; border-radius: 5px; cursor: pointer;">Zkusit znovu</button>
                         </div>
                     `;
                 }
@@ -1514,7 +2331,7 @@
             }
         }
 
-        // Display champions with staggered animation
+        // Display champions with simple animation
         async function displayChampionsWithAnimation(champions) {
             const championsGrid = document.getElementById('champions-grid');
             if (!championsGrid) return;
@@ -1523,19 +2340,20 @@
             
             champions.forEach((champion, index) => {
                 const championCard = createChampionCard(champion);
+                championCard.style.opacity = '0';
+                championCard.style.transform = 'translateY(20px)';
                 championsGrid.appendChild(championCard);
                 
-                // Trigger animation after a short delay
+                // Simple fade-in animation
                 setTimeout(() => {
-                    championCard.classList.add('animate-in');
-                }, index * 50); // Stagger by 50ms
+                    championCard.style.transition = 'all 0.5s ease';
+                    championCard.style.opacity = '1';
+                    championCard.style.transform = 'translateY(0)';
+                }, index * 30); // Faster stagger
             });
-
-            // Setup lazy loading for images
-            setupLazyLoading();
         }
 
-        // Create champion card element
+        // Create champion card element for direct loading
         function createChampionCard(champion) {
             const card = document.createElement('div');
             card.className = 'champion-card';
@@ -1543,7 +2361,9 @@
             
             card.innerHTML = `
                 <div class="champion-splash">
-                    <img class="champion-image" data-src="${champion.splash}" alt="${champion.name}">
+                    <img class="champion-image"
+                         src="${champion.splash}"
+                         alt="${champion.name}">
                     <div class="champion-position-badges">
                         ${champion.roles.map(role => `<span class="champion-position-badge">${role}</span>`).join('')}
                     </div>
@@ -1559,9 +2379,9 @@
                             <div class="champion-stat-label">Obtížnost</div>
                             <div class="champion-stat-value">${champion.difficulty}</div>
                         </div>
-                        <div class="champion-stat damage-stat" data-level="${champion.damage}">
-                            <div class="champion-stat-label">Poškození</div>
-                            <div class="champion-stat-value">${champion.damage}</div>
+                        <div class="champion-stat damage-type-stat" data-type="${champion.damage}">
+                            <div class="champion-stat-label">Typ poškození</div>
+                            <div class="champion-stat-value">${champion.damage === 'Physical' ? 'Fyzické' : 'Magické'}</div>
                         </div>
                         <div class="champion-stat survivability-stat" data-level="${champion.survivability}">
                             <div class="champion-stat-label">Přežitelnost</div>
@@ -1574,30 +2394,50 @@
             return card;
         }
 
-        // Setup intersection observer for lazy loading
-        function setupLazyLoading() {
-            const imageObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.dataset.src;
-                        img.classList.add('loaded');
-                        observer.unobserve(img);
-                    }
-                });
-            }, {
-                rootMargin: '50px'
-            });
-
-            document.querySelectorAll('.champion-image[data-src]').forEach(img => {
-                imageObserver.observe(img);
-            });
-        }
+        // Improved initialization sequence
+        let initializationComplete = false;
 
         // Set random background when page loads
         document.addEventListener('DOMContentLoaded', async () => {
-            await loadChampionsData();
-            await setRandomHeroBackground();
+            try {
+                console.log('DOM loaded, starting initialization...');
+                
+                // Load champions data
+                await loadChampionsData();
+                
+                // Set random hero background
+                await setRandomHeroBackground();
+                
+                initializationComplete = true;
+                console.log('Initialization complete');
+            } catch (error) {
+                console.error('Initialization failed:', error);
+                // Show error message but don't break the page
+                const championsGrid = document.getElementById('champions-grid');
+                if (championsGrid && championsGrid.innerHTML.trim() === '') {
+                    championsGrid.innerHTML = `
+                        <div class="no-results">
+                            <span class="emoji">⚠️</span>
+                            <p>Chyba při inicializaci stránky.</p>
+                            <button onclick="window.location.reload()" style="margin-top: 15px; padding: 10px 20px; background: var(--primary-color); color: white; border: none; border-radius: 5px; cursor: pointer;">Obnovit stránku</button>
+                        </div>
+                    `;
+                }
+            }
+        });
+
+        // Fallback initialization for slow connections
+        window.addEventListener('load', async () => {
+            if (!initializationComplete) {
+                console.log('Fallback initialization triggered...');
+                try {
+                    await loadChampionsData();
+                    await setRandomHeroBackground();
+                    initializationComplete = true;
+                } catch (error) {
+                    console.error('Fallback initialization failed:', error);
+                }
+            }
         });
 
         // Champions data loaded from external file
@@ -1720,10 +2560,10 @@
 
             if (panel.classList.contains('open')) {
                 panel.classList.remove('open');
-                arrow.style.transform = 'rotate(0deg)';
+                arrow.textContent = '▼';
             } else {
                 panel.classList.add('open');
-                arrow.style.transform = 'rotate(180deg)';
+                arrow.textContent = '▲';
             }
         }
 
@@ -1890,7 +2730,7 @@
             displayChampions(champions);
         }
 
-        // Function to display champions (extracted from showChampions)
+        // Function to display champions (simplified)
         async function displayChampions(champions) {
             const championsGrid = document.getElementById('champions-grid');
 
@@ -1908,19 +2748,20 @@
             // Clear existing content
             championsGrid.innerHTML = '';
             
-            // Create and animate champion cards
+            // Create and animate champion cards with simple approach
             champions.forEach((champion, index) => {
                 const championCard = createChampionCard(champion);
+                championCard.style.opacity = '0';
+                championCard.style.transform = 'translateY(20px)';
                 championsGrid.appendChild(championCard);
                 
-                // Trigger animation after a short delay
+                // Simple fade-in animation
                 setTimeout(() => {
-                    championCard.classList.add('animate-in');
-                }, index * 30); // Faster stagger for filtering
+                    championCard.style.transition = 'all 0.5s ease';
+                    championCard.style.opacity = '1';
+                    championCard.style.transform = 'translateY(0)';
+                }, index * 20); // Fast stagger for filtering
             });
-
-            // Setup lazy loading for new images
-            setupLazyLoading();
         }
 
         // Function to show champions for a specific position (updated)
@@ -2005,37 +2846,7 @@
             if (allCountEl) allCountEl.textContent = unifiedChampions.length;
         }
 
-        // Initialize champions section with All champions
-        window.addEventListener('load', function() {
-            // Direct initialization
-            if (typeof allChampions !== 'undefined' && allChampions && allChampions.length > 0) {
-                updateChampionCounts();
-                showFilteredChampions(); // Use the new filtering system
-            } else {
-                // Fallback: try multiple times
-                let attempts = 0;
-                const maxAttempts = 50; // 5 seconds max
-
-                function tryInitialize() {
-                    attempts++;
-
-                    if (typeof allChampions !== 'undefined' && allChampions && allChampions.length > 0) {
-                        updateChampionCounts();
-                        showFilteredChampions(); // Use the new filtering system
-                    } else if (attempts < maxAttempts) {
-                        setTimeout(tryInitialize, 100);
-                    } else {
-                        // Show error message to user
-                        const championsGrid = document.getElementById('champions-grid');
-                        if (championsGrid) {
-                            championsGrid.innerHTML = '<p style="text-align: center; color: red;">Chyba při načítání šampionů. Obnovte stránku.</p>';
-                        }
-                    }
-                }
-
-                tryInitialize();
-            }
-        });
+        // Duplicate window load event listener removed - handled in main initialization above
 
         // Champion Modal Functions
         async function openChampionModal(championId) {
@@ -2043,8 +2854,9 @@
             if (!modal) return;
 
             try {
-                // Show modal with loading state
+                // Show modal with enhanced animation
                 modal.style.display = 'block';
+                modal.classList.add('show');
                 document.body.style.overflow = 'hidden';
 
                 // Show loading in modal body
@@ -2058,11 +2870,22 @@
                 // Fetch champion details from API
                 const championDetails = await datadragonAPI.getChampionDetails(championId);
 
-                // Update modal header
-                document.getElementById('modal-champion-image').src = championDetails.square;
-                document.getElementById('modal-champion-image').alt = championDetails.name;
-                document.getElementById('modal-champion-name').textContent = championDetails.name;
-                document.getElementById('modal-champion-title').textContent = championDetails.title;
+                // Update modal header with splash background
+                const modalHeader = document.querySelector('.champion-modal-header');
+                modalHeader.innerHTML = `
+                    <div class="modal-splash-background" style="background-image: url('${championDetails.splash}')"></div>
+                    <div class="modal-splash-overlay"></div>
+                    <div class="modal-header-content">
+                        <button class="champion-modal-close" onclick="closeChampionModal()">&times;</button>
+                        <div class="champion-modal-title">
+                            <img id="modal-champion-image" src="${championDetails.square}" alt="${championDetails.name}" class="modal-champion-image">
+                            <div class="modal-champion-info">
+                                <h2 id="modal-champion-name">${championDetails.name}</h2>
+                                <p id="modal-champion-title">${championDetails.title}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
 
                 // Restore modal body structure
                 modalBody.innerHTML = `
@@ -2078,7 +2901,7 @@
                             <p id="modal-champion-lore"></p>
                         </div>
                         <div class="champion-stats-detailed">
-                            <h3>Statistiky</h3>
+                            <h3>Detailní statistiky</h3>
                             <div id="modal-champion-stats"></div>
                         </div>
                     </div>
@@ -2107,28 +2930,83 @@
                 // Populate overview tab
                 document.getElementById('modal-champion-lore').textContent = championDetails.lore;
                 
-                // Populate stats
+                // Helper function to create star rating
+                function createStarRating(value, maxValue = 100) {
+                    const rating = Math.round((value / maxValue) * 5);
+                    let stars = '';
+                    for (let i = 1; i <= 5; i++) {
+                        stars += `<span class="star ${i <= rating ? '' : 'empty'}">★</span>`;
+                    }
+                    return `<div class="star-rating">${stars}</div>`;
+                }
+
+                // Helper function to create stat bar
+                function createStatBar(value, maxValue = 100) {
+                    const percentage = Math.min((value / maxValue) * 100, 100);
+                    return `<div class="stat-bar"><div class="stat-fill" style="width: ${percentage}%"></div></div>`;
+                }
+
+                // Populate enhanced stats
                 const statsContainer = document.getElementById('modal-champion-stats');
                 statsContainer.innerHTML = `
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                        <div class="stat-item">
-                            <strong>Zdraví:</strong> ${championDetails.stats.hp} (+${championDetails.stats.hpperlevel} za úroveň)
+                    <div class="stat-item-enhanced">
+                        <div class="stat-header">
+                            <span class="stat-name">Zdraví</span>
+                            <span class="stat-value">${Math.round(championDetails.stats.hp)}</span>
                         </div>
-                        <div class="stat-item">
-                            <strong>Mana:</strong> ${championDetails.stats.mp} (+${championDetails.stats.mpperlevel} za úroveň)
+                        ${createStarRating(championDetails.stats.hp, 800)}
+                        ${createStatBar(championDetails.stats.hp, 800)}
+                        <small style="color: var(--medium-text); margin-top: 5px; display: block;">+${championDetails.stats.hpperlevel} za úroveň</small>
+                    </div>
+
+                    <div class="stat-item-enhanced">
+                        <div class="stat-header">
+                            <span class="stat-name">Mana</span>
+                            <span class="stat-value">${Math.round(championDetails.stats.mp)}</span>
                         </div>
-                        <div class="stat-item">
-                            <strong>Útok:</strong> ${championDetails.stats.attackdamage} (+${championDetails.stats.attackdamageperlevel} za úroveň)
+                        ${createStarRating(championDetails.stats.mp, 500)}
+                        ${createStatBar(championDetails.stats.mp, 500)}
+                        <small style="color: var(--medium-text); margin-top: 5px; display: block;">+${championDetails.stats.mpperlevel} za úroveň</small>
+                    </div>
+
+                    <div class="stat-item-enhanced">
+                        <div class="stat-header">
+                            <span class="stat-name">Útok</span>
+                            <span class="stat-value">${Math.round(championDetails.stats.attackdamage)}</span>
                         </div>
-                        <div class="stat-item">
-                            <strong>Rychlost útoku:</strong> ${championDetails.stats.attackspeed}
+                        ${createStarRating(championDetails.stats.attackdamage, 80)}
+                        ${createStatBar(championDetails.stats.attackdamage, 80)}
+                        <small style="color: var(--medium-text); margin-top: 5px; display: block;">+${championDetails.stats.attackdamageperlevel} za úroveň</small>
+                    </div>
+
+                    <div class="stat-item-enhanced">
+                        <div class="stat-header">
+                            <span class="stat-name">Rychlost útoku</span>
+                            <span class="stat-value">${championDetails.stats.attackspeed.toFixed(2)}</span>
                         </div>
-                        <div class="stat-item">
-                            <strong>Brnění:</strong> ${championDetails.stats.armor} (+${championDetails.stats.armorperlevel} za úroveň)
+                        ${createStarRating(championDetails.stats.attackspeed, 1.0)}
+                        ${createStatBar(championDetails.stats.attackspeed * 100, 100)}
+                        <small style="color: var(--medium-text); margin-top: 5px; display: block;">+${(championDetails.stats.attackspeedperlevel * 100).toFixed(1)}% za úroveň</small>
+                    </div>
+
+                    <div class="stat-item-enhanced">
+                        <div class="stat-header">
+                            <span class="stat-name">Brnění</span>
+                            <span class="stat-value">${Math.round(championDetails.stats.armor)}</span>
                         </div>
-                        <div class="stat-item">
-                            <strong>Magická odolnost:</strong> ${championDetails.stats.spellblock} (+${championDetails.stats.spellblockperlevel} za úroveň)
+                        ${createStarRating(championDetails.stats.armor, 50)}
+                        ${createStatBar(championDetails.stats.armor, 50)}
+                        <small style="color: var(--medium-text); margin-top: 5px; display: block;">+${championDetails.stats.armorperlevel} za úroveň</small>
+                    </div>
+
+                    <div class="stat-item-enhanced">
+                        <div class="stat-header">
+                            <span class="stat-name">Magická odolnost</span>
+                            <span class="stat-value">${Math.round(championDetails.stats.spellblock)}</span>
                         </div>
+                        ${createStarRating(championDetails.stats.spellblock, 50)}
+                        ${createStatBar(championDetails.stats.spellblock, 50)}
+                        <small style="color: var(--medium-text); margin-top: 5px; display: block;">+${championDetails.stats.spellblockperlevel} za úroveň</small>
                     </div>
                 `;
 
@@ -2167,12 +3045,19 @@
 
                 // Populate skins
                 const skinsContainer = document.getElementById('modal-skins');
-                skinsContainer.innerHTML = championDetails.skins.map(skin => `
-                    <div class="skin-item">
+                skinsContainer.innerHTML = championDetails.skins.map((skin, index) => `
+                    <div class="skin-item" style="animation-delay: ${index * 0.1}s;">
                         <img src="${skin.loading}" alt="${skin.name}" class="skin-image">
                         <div class="skin-name">${skin.name || 'Classic'}</div>
                     </div>
                 `).join('');
+
+                // Trigger skin animations after a short delay
+                setTimeout(() => {
+                    document.querySelectorAll('.skin-item').forEach(skin => {
+                        skin.classList.add('animate-in');
+                    });
+                }, 100);
 
             } catch (error) {
                 console.error('Failed to load champion details:', error);
@@ -2190,7 +3075,10 @@
         function closeChampionModal() {
             const modal = document.getElementById('champion-modal');
             if (modal) {
-                modal.style.display = 'none';
+                modal.classList.remove('show');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 400); // Wait for animation to complete
                 document.body.style.overflow = 'auto';
             }
         }
@@ -2301,6 +3189,31 @@
             // Apply filters and show results
             showAdvancedFilteredChampions();
             updateAdvancedFilterResults();
+            updateActiveFilterCount();
+        }
+
+        // Function to update active filter count badge
+        function updateActiveFilterCount() {
+            const filterCount = document.getElementById('active-filters-count');
+            if (!filterCount) return;
+
+            let activeCount = 0;
+
+            // Count active filters
+            if (advancedFilters.search) activeCount++;
+            if (advancedFilters.difficulty.length > 0) activeCount++;
+            if (advancedFilters.damage.length > 0) activeCount++;
+            if (advancedFilters.survivability.length > 0) activeCount++;
+            if (advancedFilters.rangeType.length > 0) activeCount++;
+            if (advancedFilters.championClass.length > 0) activeCount++;
+            if (advancedFilters.roles.length > 0) activeCount++;
+
+            if (activeCount > 0) {
+                filterCount.textContent = activeCount;
+                filterCount.classList.add('active');
+            } else {
+                filterCount.classList.remove('active');
+            }
         }
 
         // Function to reset advanced filters
@@ -2469,6 +3382,87 @@
             // Apply all filters using new system
             applyAdvancedFilters();
         };
+
+        // Simple champion card creation for direct loading
+        function createSimpleChampionCard(champion) {
+            const card = document.createElement('div');
+            card.className = 'champion-card';
+            card.onclick = () => openChampionModal(champion.id || champion.name);
+            
+            card.innerHTML = `
+                <div class="champion-splash">
+                    <img class="champion-image"
+                         src="${champion.splash}"
+                         alt="${champion.name}"
+                         style="opacity: 1 !important; display: block !important;">
+                    <div class="champion-position-badges">
+                        ${champion.roles.map(role => `<span class="champion-position-badge">${role}</span>`).join('')}
+                    </div>
+                </div>
+                <div class="champion-info">
+                    <div class="champion-content">
+                        <h3 class="champion-name">${champion.name}</h3>
+                        <p class="champion-title">"${champion.title}"</p>
+                        <p class="champion-description">${champion.description}</p>
+                    </div>
+                    <div class="champion-stats">
+                        <div class="champion-stat" data-level="${champion.difficulty}">
+                            <div class="champion-stat-label">Obtížnost</div>
+                            <div class="champion-stat-value">${champion.difficulty}</div>
+                        </div>
+                        <div class="champion-stat damage-type-stat" data-type="${champion.damage}">
+                            <div class="champion-stat-label">Typ poškození</div>
+                            <div class="champion-stat-value">${champion.damage === 'Physical' ? 'Fyzické' : 'Magické'}</div>
+                        </div>
+                        <div class="champion-stat survivability-stat" data-level="${champion.survivability}">
+                            <div class="champion-stat-label">Přežitelnost</div>
+                            <div class="champion-stat-value">${champion.survivability}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Simple display champions for direct loading
+        async function displaySimpleChampions(champions) {
+            const championsGrid = document.getElementById('champions-grid');
+            if (!championsGrid) return;
+            
+            if (champions.length === 0) {
+                championsGrid.innerHTML = `
+                    <div class="no-results">
+                        <span class="emoji">😔</span>
+                        <p>Žádní šampioni nevyhovují vybraným filtrům.</p>
+                        <p>Zkuste změnit kritéria vyhledávání.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Clear existing content
+            championsGrid.innerHTML = '';
+            
+            // Create champion cards immediately
+            champions.forEach((champion, index) => {
+                const championCard = createSimpleChampionCard(champion);
+                championsGrid.appendChild(championCard);
+            });
+        }
+
+        // Use simple functions for direct champion loading
+        createChampionCard = createSimpleChampionCard;
+        displayChampions = displaySimpleChampions;
+
+        // Initialization for direct loading
+
+        // Enhanced loadChampionsData integration - REMOVED
+        // const originalLoadChampionsData = loadChampionsData; // This line is effectively removed by not reassigning loadChampionsData
+        // loadChampionsData = async function() { ... }; // This reassignment is removed.
+
+        // Performance monitoring - REMOVED
+        // Cleanup observers on page unload - REMOVED
 
     </script>
 </body>

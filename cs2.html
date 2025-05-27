@@ -318,6 +318,228 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
         }
+
+        /* ===== ANIMATED LAZY LOADING SYSTEM ===== */
+        
+        /* Base animation classes */
+        .lazy-element {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .lazy-element.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Specific animation types */
+        .fade-in {
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+
+        .fade-in.animate-in {
+            opacity: 1;
+        }
+
+        .slide-up {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-up.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-left.animate-in {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-right.animate-in {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scale-in.animate-in {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .rotate-in {
+            opacity: 0;
+            transform: rotate(-10deg) scale(0.8);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .rotate-in.animate-in {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        .flip-in {
+            opacity: 0;
+            transform: rotateY(-90deg);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .flip-in.animate-in {
+            opacity: 1;
+            transform: rotateY(0deg);
+        }
+
+        /* Staggered animations */
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        .stagger-6 { transition-delay: 0.6s; }
+        .stagger-7 { transition-delay: 0.7s; }
+        .stagger-8 { transition-delay: 0.8s; }
+        .stagger-9 { transition-delay: 0.9s; }
+        .stagger-10 { transition-delay: 1s; }
+
+        /* Special effects */
+        .glow-in {
+            opacity: 0;
+            filter: blur(10px);
+            transition: all 1s ease-out;
+        }
+
+        .glow-in.animate-in {
+            opacity: 1;
+            filter: blur(0px);
+        }
+
+        .bounce-in {
+            opacity: 0;
+            transform: translateY(-100px);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .bounce-in.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Text animations */
+        .text-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .text-reveal.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Image lazy loading with blur effect */
+        .lazy-image {
+            opacity: 0;
+            filter: blur(20px);
+            transition: all 0.8s ease-out;
+        }
+
+        .lazy-image.loaded {
+            opacity: 1;
+            filter: blur(0px);
+        }
+
+        /* Hero section animation */
+        .hero-content {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-content.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Section animations */
+        .section-animate {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section-animate.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Card grid animations */
+        .card-grid-animate .card-item {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-grid-animate .card-item.animate-in {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Weapon card animations */
+        .weapon-grid-animate .weapon-card {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .weapon-grid-animate .weapon-card.animate-in {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Progressive enhancement - disable animations for users who prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .lazy-element,
+            .fade-in,
+            .slide-up,
+            .slide-left,
+            .slide-right,
+            .scale-in,
+            .rotate-in,
+            .flip-in,
+            .glow-in,
+            .bounce-in,
+            .text-reveal,
+            .lazy-image,
+            .hero-content,
+            .section-animate,
+            .card-grid-animate .card-item,
+            .weapon-grid-animate .weapon-card {
+                transition: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+                filter: none !important;
+            }
+        }
     </style>
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -362,19 +584,19 @@
     </header>
 
     <section class="game-hero">
-        <div class="game-hero-content">
-            <h1 class="game-hero-title">Counter-Strike 2</h1>
-            <p class="game-hero-subtitle">Legendární taktická FPS střílečka od Valve</p>
+        <div class="game-hero-content hero-content">
+            <h1 class="game-hero-title text-reveal">Counter-Strike 2</h1>
+            <p class="game-hero-subtitle text-reveal stagger-1">Legendární taktická FPS střílečka od Valve</p>
         </div>
     </section>
 
-    <section class="game-info-section">
+    <section class="game-info-section section-animate">
         <div class="container">
-            <h2 class="section-title">O hře Counter-Strike 2</h2>
-            <p>Counter-Strike 2 (CS2) je taktická střílečka z pohledu prvé osoby, která je pokračováním legendárního Counter-Strike: Global Offensive. Hra staví proti sobě dva týmy - teroristy a protiteroristickou jednotku - v různých herních režimech. CS2 přináší vylepšenou grafiku, fyziku, zvuky a nový systém kouřových granátů díky přechodu na Source 2 engine.</p>
+            <h2 class="section-title slide-up">O hře Counter-Strike 2</h2>
+            <p class="slide-up stagger-1">Counter-Strike 2 (CS2) je taktická střílečka z pohledu prvé osoby, která je pokračováním legendárního Counter-Strike: Global Offensive. Hra staví proti sobě dva týmy - teroristy a protiteroristickou jednotku - v různých herních režimech. CS2 přináší vylepšenou grafiku, fyziku, zvuky a nový systém kouřových granátů díky přechodu na Source 2 engine.</p>
 
-            <div class="game-info-grid">
-                <div class="game-info-card">
+            <div class="game-info-grid card-grid-animate">
+                <div class="game-info-card card-item stagger-2">
                     <h3>Základní informace</h3>
                     <ul>
                         <li><strong>Vývojář:</strong> Valve Corporation</li>
@@ -387,7 +609,7 @@
                     </ul>
                 </div>
 
-                <div class="game-info-card">
+                <div class="game-info-card card-item stagger-3">
                     <h3>Herní mechaniky</h3>
                     <p>Counter-Strike 2 je známý svou hloubkou a vysokým stropem dovedností. Klíčové herní mechaniky zahrnují:</p>
                     <ul>
@@ -403,16 +625,16 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="section section-animate">
         <div class="container">
-            <h2 class="section-title">Mapy v Counter-Strike 2</h2>
-            <p>CS2 obsahuje řadu ikonických map, které byly vylepšeny pro Source 2 engine. Každá mapa má své unikátní rozvržení a vyžaduje specifické strategie.</p>
+            <h2 class="section-title slide-up">Mapy v Counter-Strike 2</h2>
+            <p class="slide-up stagger-1">CS2 obsahuje řadu ikonických map, které byly vylepšeny pro Source 2 engine. Každá mapa má své unikátní rozvržení a vyžaduje specifické strategie.</p>
 
-            <div class="game-map-grid">
+            <div class="game-map-grid card-grid-animate">
     <!-- Ancient -->
-    <div class="game-map-card">
+    <div class="game-map-card card-item stagger-2">
         <div class="game-map-image">
-            <img src="img/maps/ancient.jpg" alt="Ancient">
+            <img src="img/maps/ancient.jpg" alt="Ancient" class="lazy-image">
         </div>
         <div class="game-map-content">
             <h3 class="game-map-title">Ancient</h3>
@@ -420,18 +642,18 @@
         </div>
     </div>
     <!-- Anubis -->
-    <div class="game-map-card">
+    <div class="game-map-card card-item stagger-3">
         <div class="game-map-image">
-            <img src="img/maps/anubis.jpg" alt="Anubis">
+            <img src="img/maps/anubis.jpg" alt="Anubis" class="lazy-image">
         </div>
         <div class="game-map-content">
             <h3 class="game-map-title">Anubis</h3>
             <p class="game-map-desc">Egyptian-themed map with water features, vertical gameplay, and unique rotations between bombsites.</p>
         </div>
     </div>
-                <div class="game-map-card">
+                <div class="game-map-card card-item stagger-4">
                     <div class="game-map-image">
-                        <img src="img/maps/dust2.jpg" alt="Dust II">
+                        <img src="img/maps/dust2.jpg" alt="Dust II" class="lazy-image">
                     </div>
                     <div class="game-map-content">
                         <h3 class="game-map-title">Dust II</h3>
@@ -492,12 +714,12 @@
         </div>
     </section>
 
-    <section class="weapons-section">
+    <section class="weapons-section section-animate">
         <div class="container">
-            <h2 class="section-title">Zbraně a vybavení</h2>
-            <p>CS2 nabízí širokou škálu zbraní a vybavení, které si hráči mohou zakoupit na začátku každého kola podle své ekonomické situace a strategie.</p>
+            <h2 class="section-title slide-up">Zbraně a vybavení</h2>
+            <p class="slide-up stagger-1">CS2 nabízí širokou škálu zbraní a vybavení, které si hráči mohou zakoupit na začátku každého kola podle své ekonomické situace a strategie.</p>
 
-            <div class="weapon-categories">
+            <div class="weapon-categories fade-in stagger-2">
                 <button type="button" class="weapon-category active" onclick="showWeapon('Pistole')">Pistole</button>
                 <button type="button" class="weapon-category" onclick="showWeapon('SMG')">SMG</button>
                 <button type="button" class="weapon-category" onclick="showWeapon('Pušky')">Pušky</button>
@@ -510,10 +732,10 @@
                 <h3>Pistole</h3>
                 <p>Pistole jsou základní zbraně, které každý hráč dostane na začátku hry. Jsou také důležité pro eco kola, kdy tým nemá dostatek peněz na plný nákup.</p>
 
-                <div class="weapons-grid">
-                    <div class="weapon-card">
+                <div class="weapons-grid weapon-grid-animate">
+                    <div class="weapon-card card-item stagger-3">
                         <div class="weapon-image">
-                            <img src="img/weapons/desert-eagle.jpg" alt="Desert Eagle" style="object-fit: contain;">
+                            <img src="img/weapons/desert-eagle.jpg" alt="Desert Eagle" style="object-fit: contain;" class="lazy-image">
                         </div>
                         <h4 class="weapon-name">Desert Eagle</h4>
                         <p class="weapon-price">$700</p>
@@ -525,9 +747,9 @@
                         </div>
                     </div>
 
-                    <div class="weapon-card">
+                    <div class="weapon-card card-item stagger-4">
                         <div class="weapon-image">
-                            <img src="img/weapons/usp-s.jpg" alt="USP-S" style="object-fit: contain;">
+                            <img src="img/weapons/usp-s.jpg" alt="USP-S" style="object-fit: contain;" class="lazy-image">
                         </div>
                         <h4 class="weapon-name">USP-S</h4>
                         <p class="weapon-price">CT Startovní</p>
@@ -1078,6 +1300,150 @@
             const clickedTab = Array.from(tabs).find(t => t.textContent === categoryName);
             if (clickedTab) clickedTab.classList.add('active');
         }
+
+        // ===== ANIMATED LAZY LOADING SYSTEM =====
+        
+        // Intersection Observer for lazy loading animations
+        const lazyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                    lazyObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '50px'
+        });
+
+        // Image lazy loading observer
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                    }
+                    img.classList.add('loaded');
+                    imageObserver.unobserve(img);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '100px'
+        });
+
+        // Initialize lazy loading
+        function initLazyLoading() {
+            // Observe all elements with lazy loading classes
+            const lazyElements = document.querySelectorAll(`
+                .lazy-element,
+                .fade-in,
+                .slide-up,
+                .slide-left,
+                .slide-right,
+                .scale-in,
+                .rotate-in,
+                .flip-in,
+                .glow-in,
+                .bounce-in,
+                .text-reveal,
+                .hero-content,
+                .section-animate,
+                .card-item
+            `);
+
+            lazyElements.forEach(element => {
+                lazyObserver.observe(element);
+            });
+
+            // Observe lazy images
+            const lazyImages = document.querySelectorAll('.lazy-image');
+            lazyImages.forEach(img => {
+                imageObserver.observe(img);
+            });
+
+            // Add staggered delays to card grids
+            const cardGrids = document.querySelectorAll('.card-grid-animate, .weapon-grid-animate');
+            cardGrids.forEach(grid => {
+                const cards = grid.querySelectorAll('.card-item');
+                cards.forEach((card, index) => {
+                    if (!card.classList.contains('stagger-1') &&
+                        !card.classList.contains('stagger-2') &&
+                        !card.classList.contains('stagger-3') &&
+                        !card.classList.contains('stagger-4') &&
+                        !card.classList.contains('stagger-5')) {
+                        card.style.transitionDelay = `${(index % 6) * 0.1}s`;
+                    }
+                });
+            });
+        }
+
+        // Enhanced weapon card creation with lazy loading
+        const originalCreateWeaponCardsHTML = createWeaponCardsHTML;
+        createWeaponCardsHTML = function(weapons) {
+            let html = '';
+
+            weapons.forEach((weapon, index) => {
+                const imgSrc = weapon.image ? weapon.image : 'img/cs2.jpg';
+                html += `
+                    <div class="weapon-card scale-in" style="transition-delay: ${index * 0.05}s">
+                        <div class="weapon-image">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PC9zdmc+"
+                                 data-src="${imgSrc}"
+                                 alt="${weapon.name}"
+                                 style="object-fit: contain;"
+                                 class="lazy-image">
+                        </div>
+                        <h4 class="weapon-name">${weapon.name}</h4>
+                        <p class="weapon-price">${weapon.price}</p>
+                        <p class="weapon-stats">${weapon.stats}</p>
+                        <div class="weapon-details">
+                            <p><strong>Poškození:</strong> ${weapon.damage}</p>
+                            <p><strong>Přesnost:</strong> ${weapon.accuracy}</p>
+                            <p><strong>Tým:</strong> ${weapon.team}</p>
+                            ${weapon.duration ? `<p><strong>Trvání:</strong> ${weapon.duration}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            return html;
+        };
+
+        // Enhanced showWeapon function with lazy loading
+        const originalShowWeapon = showWeapon;
+        showWeapon = function(categoryName) {
+            originalShowWeapon(categoryName);
+            
+            // Re-initialize lazy loading for new weapon cards
+            setTimeout(() => {
+                const newCards = document.querySelectorAll('.weapon-card:not(.animate-in)');
+                newCards.forEach(card => {
+                    lazyObserver.observe(card);
+                });
+                
+                const newImages = document.querySelectorAll('.weapon-image img:not(.loaded)');
+                newImages.forEach(img => {
+                    imageObserver.observe(img);
+                });
+            }, 100);
+        };
+
+        // Initialize lazy loading when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            initLazyLoading();
+            
+            // Trigger hero animation immediately
+            setTimeout(() => {
+                const heroContent = document.querySelector('.hero-content');
+                if (heroContent) {
+                    heroContent.classList.add('animate-in');
+                }
+            }, 300);
+        });
+
     </script>
 </body>
 </html>

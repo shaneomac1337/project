@@ -14,14 +14,22 @@ class DataDragonAPI {
         if (this.version) return this.version;
         
         try {
-            const response = await fetch(`${this.baseUrl}/api/versions.json`);
+            const cacheBuster = new Date().getTime();
+            const response = await fetch(`${this.baseUrl}/api/versions.json?v=${cacheBuster}`);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
             const versions = await response.json();
             this.version = versions[0]; // Latest version is first
+            console.log(`Using DataDragon version: ${this.version}`);
             return this.version;
         } catch (error) {
             console.error('Failed to fetch latest version:', error);
             // Fallback to a known version
             this.version = '15.10.1';
+            console.warn(`Using fallback version: ${this.version}`);
             return this.version;
         }
     }
@@ -30,7 +38,17 @@ class DataDragonAPI {
     async getAllChampions() {
         try {
             const version = await this.getLatestVersion();
-            const response = await fetch(`${this.baseUrl}/cdn/${version}/data/en_US/champion.json`);
+            
+            // Add cache busting for hard refresh scenarios
+            const cacheBuster = new Date().getTime();
+            const url = `${this.baseUrl}/cdn/${version}/data/cs_CZ/champion.json?v=${cacheBuster}`;
+            
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
             const data = await response.json();
             
             // Convert to our format
@@ -43,7 +61,7 @@ class DataDragonAPI {
                 splash: `${this.baseUrl}/cdn/img/champion/splash/${champion.id}_0.jpg`,
                 square: `${this.baseUrl}/cdn/${version}/img/champion/${champion.id}.png`,
                 difficulty: this.mapDifficulty(champion.info.difficulty),
-                damage: this.mapDamage(champion.info.attack),
+                damage: this.mapDamageType(champion.name, champion.tags),
                 survivability: this.mapSurvivability(champion.info.defense),
                 roles: this.mapRoles(champion.tags, champion.name),
                 rangeType: this.mapRangeType(champion.name, champion.tags),
@@ -72,7 +90,7 @@ class DataDragonAPI {
 
         try {
             const version = await this.getLatestVersion();
-            const response = await fetch(`${this.baseUrl}/cdn/${version}/data/en_US/champion/${championId}.json`);
+            const response = await fetch(`${this.baseUrl}/cdn/${version}/data/cs_CZ/champion/${championId}.json`);
             const data = await response.json();
             
             const champion = data.data[championId];
@@ -127,11 +145,81 @@ class DataDragonAPI {
         return 'Velmi vysoká';
     }
 
-    mapDamage(attack) {
-        if (attack <= 3) return 'Nízké';
-        if (attack <= 6) return 'Střední';
-        if (attack <= 8) return 'Vysoké';
-        return 'Velmi vysoké';
+    mapDamageType(championName, tags) {
+        // Champions that primarily deal magic damage
+        const magicDamageChampions = new Set([
+            // Mages
+            'Ahri', 'Anivia', 'Annie', 'Aurelion Sol', 'Aurora', 'Azir', 'Brand', 'Cassiopeia',
+            'Heimerdinger', 'Hwei', 'Kassadin', 'Lissandra', 'Lux', 'Malzahar', 'Neeko',
+            'Orianna', 'Ryze', 'Swain', 'Syndra', 'Twisted Fate', 'Veigar', 'Vel\'Koz',
+            'Vex', 'Viktor', 'Xerath', 'Ziggs', 'Zoe',
+            
+            // AP Assassins
+            'Akali', 'Diana', 'Ekko', 'Evelynn', 'Fizz', 'Katarina', 'LeBlanc', 'Sylas',
+            
+            // AP Supports
+            'Bard', 'Janna', 'Karma', 'Lulu', 'Milio', 'Morgana', 'Nami', 'Seraphine',
+            'Sona', 'Soraka', 'Yuumi', 'Zilean', 'Zyra',
+            
+            // AP Tanks/Fighters
+            'Ammu', 'Cho\'Gath', 'Dr. Mundo', 'Galio', 'Gragas', 'Maokai', 'Mordekaiser',
+            'Rumble', 'Singed', 'Vladimir', 'Volibear', 'Zac',
+            
+            // Hybrid but primarily magic
+            'Corki', 'Kayle', 'Teemo', 'Shyvana', 'Warwick'
+        ]);
+
+        // Champions that primarily deal physical damage
+        const physicalDamageChampions = new Set([
+            // ADCs
+            'Aphelios', 'Ashe', 'Caitlyn', 'Draven', 'Ezreal', 'Jhin', 'Jinx', 'Kai\'Sa',
+            'Kalista', 'Kog\'Maw', 'Lucian', 'Miss Fortune', 'Nilah', 'Samira', 'Sivir',
+            'Smolder', 'Tristana', 'Twitch', 'Varus', 'Vayne', 'Xayah', 'Zeri',
+            
+            // AD Assassins
+            'Kha\'Zix', 'Naafiri', 'Nocturne', 'Pyke', 'Qiyana', 'Rengar', 'Shaco', 'Talon', 'Zed',
+            
+            // AD Fighters/Bruisers
+            'Aatrox', 'Ambessa', 'Camille', 'Darius', 'Fiora', 'Gangplank', 'Garen', 'Gwen',
+            'Illaoi', 'Irelia', 'Jax', 'Jayce', 'K\'Sante', 'Kled', 'Master Yi', 'Olaf',
+            'Pantheon', 'Quinn', 'Renekton', 'Riven', 'Sett', 'Trundle', 'Tryndamere',
+            'Urgot', 'Wukong', 'Yasuo', 'Yone', 'Yorick',
+            
+            // Tanks (mostly physical)
+            'Alistar', 'Braum', 'Leona', 'Malphite', 'Nautilus', 'Ornn', 'Poppy', 'Rammus',
+            'Rell', 'Sejuani', 'Shen', 'Sion', 'Tahm Kench', 'Taric', 'Thresh',
+            
+            // Junglers (mostly physical)
+            'Bel\'Veth', 'Briar', 'Graves', 'Hecarim', 'Jarvan IV', 'Kayn', 'Kindred',
+            'Lee Sin', 'Lillia', 'Nidalee', 'Nunu & Willump', 'Rek\'Sai', 'Skarner',
+            'Udyr', 'Vi', 'Viego', 'Xin Zhao'
+        ]);
+
+        // Check explicit mappings first
+        if (magicDamageChampions.has(championName)) {
+            return 'Magic';
+        }
+        
+        if (physicalDamageChampions.has(championName)) {
+            return 'Physical';
+        }
+
+        // Fallback to tag-based logic
+        if (tags.includes('Mage')) {
+            return 'Magic';
+        }
+        
+        if (tags.includes('Marksman') || tags.includes('Fighter') || tags.includes('Assassin')) {
+            return 'Physical';
+        }
+
+        // Default fallback for tanks and supports
+        if (tags.includes('Tank') || tags.includes('Support')) {
+            return 'Physical'; // Most tanks are physical-based
+        }
+
+        // Final fallback
+        return 'Physical';
     }
 
     mapSurvivability(defense) {
