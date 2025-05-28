@@ -272,6 +272,12 @@
             margin-top: 40px;
             position: relative;
             z-index: 1;
+            max-width: 100%;
+        }
+
+        .champions-grid .champion-card {
+            max-width: 400px;
+            justify-self: center;
         }
 
         .champion-card {
@@ -283,7 +289,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             cursor: pointer;
             position: relative;
-            height: 400px;
+            height: 450px;
             will-change: transform;
             transform: translateZ(0);
         }
@@ -316,12 +322,22 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center top;
             transition: transform 0.3s ease;
             will-change: transform;
         }
 
         .champion-card:hover .champion-splash img {
             transform: scale(1.03);
+        }
+
+        /* Champion-specific image positioning */
+        .champion-card[data-champion="Garen"] .champion-splash img {
+            object-position: right top;
+        }
+
+        .champion-card[data-champion="Fizz"] .champion-splash img {
+            object-position: right top;
         }
 
         .champion-info {
@@ -420,6 +436,109 @@
             transform: translateY(-50%);
             color: var(--primary-color);
             font-size: 1.3rem;
+        }
+
+        /* Position Filters Styling */
+        .position-filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.95) 0%, rgba(30, 30, 30, 0.95) 100%);
+            border-radius: 20px;
+            border: 2px solid rgba(110, 79, 246, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .position-filter-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(110, 79, 246, 0.02));
+            border: 2px solid rgba(110, 79, 246, 0.3);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .position-filter-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(110, 79, 246, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .position-filter-item:hover {
+            transform: translateY(-5px) scale(1.05);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(110, 79, 246, 0.4);
+            background: linear-gradient(135deg, rgba(110, 79, 246, 0.1), rgba(0, 210, 255, 0.05));
+        }
+
+        .position-filter-item:hover::before {
+            left: 100%;
+        }
+
+        .position-filter-item.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-color: var(--accent-color);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(110, 79, 246, 0.6);
+        }
+
+        .position-filter-item.active .position-icon,
+        .position-filter-item.active .position-label,
+        .position-filter-item.active .position-count {
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .position-icon {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .position-filter-item:hover .position-icon {
+            transform: scale(1.2);
+        }
+
+        .position-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--light-text);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .position-count {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4px 12px;
+            border-radius: 12px;
+            min-width: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(110, 79, 246, 0.3);
+        }
+
+        .position-filter-item.active .position-count {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
         .advanced-filters {
@@ -572,21 +691,27 @@
             right: 12px;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
             z-index: 3;
+            max-width: 80px;
         }
 
         .champion-position-badge {
             background: rgba(110, 79, 246, 0.95);
             color: white;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.75rem;
+            padding: 3px 6px;
+            border-radius: 10px;
+            font-size: 0.65rem;
             font-weight: 700;
             text-transform: uppercase;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.2);
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-width: fit-content;
+            text-align: center;
+            line-height: 1;
         }
 
         /* Role-specific colors */
@@ -638,14 +763,103 @@
         }
 
         /* Specific stat value colors */
-        .champion-stat[data-level="1"] .champion-stat-value,
-        .champion-stat[data-level="2"] .champion-stat-value { color: #ff6b6b; }
-        .champion-stat[data-level="3"] .champion-stat-value { color: #ffd93d; }
-        .champion-stat[data-level="4"] .champion-stat-value,
-        .champion-stat[data-level="5"] .champion-stat-value { color: #6bcf7f; }
+        /* Difficulty: Low (green) → High (red) */
+        .champion-stat[data-stat="difficulty"][data-level="Nízká"] .champion-stat-value { color: #6bcf7f; }
+        .champion-stat[data-stat="difficulty"][data-level="Střední"] .champion-stat-value { color: #ffd93d; }
+        .champion-stat[data-stat="difficulty"][data-level="Vysoká"] .champion-stat-value,
+        .champion-stat[data-stat="difficulty"][data-level="Velmi vysoká"] .champion-stat-value { color: #ff6b6b; }
+
+        /* Survivability: Low (red) → High (green) */
+        .champion-stat[data-stat="survivability"][data-level="Nízká"] .champion-stat-value { color: #ff6b6b; }
+        .champion-stat[data-stat="survivability"][data-level="Střední"] .champion-stat-value { color: #ffd93d; }
+        .champion-stat[data-stat="survivability"][data-level="Vysoká"] .champion-stat-value,
+        .champion-stat[data-stat="survivability"][data-level="Velmi vysoká"] .champion-stat-value { color: #6bcf7f; }
 
         .champion-stat[data-type="Physical"] .champion-stat-value { color: #ff8c42; }
         .champion-stat[data-type="Magic"] .champion-stat-value { color: #4ecdc4; }
+
+        /* Progress Bar Styling */
+        .champion-stat-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .champion-stat-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .champion-stat-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Difficulty Progress Bars */
+        .champion-stat[data-stat="difficulty"] .champion-stat-fill[data-level="Nízká"] {
+            width: 25%;
+            background: linear-gradient(90deg, #6bcf7f, #5bb36f);
+        }
+
+        .champion-stat[data-stat="difficulty"] .champion-stat-fill[data-level="Střední"] {
+            width: 50%;
+            background: linear-gradient(90deg, #ffd93d, #e6c235);
+        }
+
+        .champion-stat[data-stat="difficulty"] .champion-stat-fill[data-level="Vysoká"] {
+            width: 75%;
+            background: linear-gradient(90deg, #ff6b6b, #e55555);
+        }
+
+        .champion-stat[data-stat="difficulty"] .champion-stat-fill[data-level="Velmi vysoká"] {
+            width: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #cc0000);
+        }
+
+        /* Survivability Progress Bars */
+        .champion-stat[data-stat="survivability"] .champion-stat-fill[data-level="Nízká"] {
+            width: 25%;
+            background: linear-gradient(90deg, #ff6b6b, #e55555);
+        }
+
+        .champion-stat[data-stat="survivability"] .champion-stat-fill[data-level="Střední"] {
+            width: 50%;
+            background: linear-gradient(90deg, #ffd93d, #e6c235);
+        }
+
+        .champion-stat[data-stat="survivability"] .champion-stat-fill[data-level="Vysoká"] {
+            width: 75%;
+            background: linear-gradient(90deg, #6bcf7f, #5bb36f);
+        }
+
+        .champion-stat[data-stat="survivability"] .champion-stat-fill[data-level="Velmi vysoká"] {
+            width: 100%;
+            background: linear-gradient(90deg, #6bcf7f, #4a9c5a);
+        }
+
+        /* Hover effects for progress bars */
+        .champion-card:hover .champion-stat-fill {
+            transform: scaleY(1.5);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
 
         /* Enhanced Modal Styling - League of Legends Style */
         .modal {
@@ -1413,6 +1627,12 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
+            max-width: 100%;
+        }
+
+        .skins-grid .skin-item {
+            max-width: 280px;
+            justify-self: center;
         }
 
         .skin-item {
@@ -1601,6 +1821,30 @@
         }
 
         @media (max-width: 768px) {
+            .position-filters {
+                gap: 10px;
+                padding: 15px;
+            }
+
+            .position-filter-item {
+                min-width: 80px;
+                padding: 12px 15px;
+            }
+
+            .position-icon {
+                font-size: 1.5rem;
+                margin-bottom: 6px;
+            }
+
+            .position-label {
+                font-size: 0.8rem;
+            }
+
+            .position-count {
+                font-size: 1rem;
+                padding: 3px 10px;
+            }
+
             .champion-overview {
                 grid-template-columns: 1fr;
             }
@@ -1829,6 +2073,40 @@
                     <i class="fas fa-search search-icon"></i>
                 </div>
 
+                <!-- Always Visible Position Filters -->
+                <div class="position-filters">
+                    <div class="position-filter-item active" data-position="all" onclick="filterByPosition('all')">
+                        <div class="position-icon">🎮</div>
+                        <div class="position-label">Všechny</div>
+                        <div class="position-count" id="count-all">0</div>
+                    </div>
+                    <div class="position-filter-item" data-position="Top" onclick="filterByPosition('Top')">
+                        <div class="position-icon">⚔️</div>
+                        <div class="position-label">Top</div>
+                        <div class="position-count" id="count-top">0</div>
+                    </div>
+                    <div class="position-filter-item" data-position="Jungle" onclick="filterByPosition('Jungle')">
+                        <div class="position-icon">🌲</div>
+                        <div class="position-label">Jungle</div>
+                        <div class="position-count" id="count-jungle">0</div>
+                    </div>
+                    <div class="position-filter-item" data-position="Mid" onclick="filterByPosition('Mid')">
+                        <div class="position-icon">⭐</div>
+                        <div class="position-label">Mid</div>
+                        <div class="position-count" id="count-mid">0</div>
+                    </div>
+                    <div class="position-filter-item" data-position="ADC" onclick="filterByPosition('ADC')">
+                        <div class="position-icon">🏹</div>
+                        <div class="position-label">ADC</div>
+                        <div class="position-count" id="count-adc">0</div>
+                    </div>
+                    <div class="position-filter-item" data-position="Support" onclick="filterByPosition('Support')">
+                        <div class="position-icon">🛡️</div>
+                        <div class="position-label">Support</div>
+                        <div class="position-count" id="count-support">0</div>
+                    </div>
+                </div>
+
                 <div class="advanced-filters">
                     <button class="toggle-filters-btn" onclick="toggleAdvancedFilters()">
                         Pokročilé filtry <span class="toggle-arrow">▼</span>
@@ -1841,11 +2119,10 @@
                                 <label for="difficulty-filter">Obtížnost:</label>
                                 <select id="difficulty-filter" onchange="applyFilters()">
                                     <option value="">Všechny</option>
-                                    <option value="1">Velmi snadná (1)</option>
-                                    <option value="2">Snadná (2)</option>
-                                    <option value="3">Střední (3)</option>
-                                    <option value="4">Těžká (4)</option>
-                                    <option value="5">Velmi těžká (5)</option>
+                                    <option value="Nízká">Nízká</option>
+                                    <option value="Střední">Střední</option>
+                                    <option value="Vysoká">Vysoká</option>
+                                    <option value="Velmi vysoká">Velmi vysoká</option>
                                 </select>
                             </div>
 
@@ -1862,11 +2139,10 @@
                                 <label for="survivability-filter">Přežitelnost:</label>
                                 <select id="survivability-filter" onchange="applyFilters()">
                                     <option value="">Všechny</option>
-                                    <option value="1">Velmi nízká (1)</option>
-                                    <option value="2">Nízká (2)</option>
-                                    <option value="3">Střední (3)</option>
-                                    <option value="4">Vysoká (4)</option>
-                                    <option value="5">Velmi vysoká (5)</option>
+                                    <option value="Nízká">Nízká</option>
+                                    <option value="Střední">Střední</option>
+                                    <option value="Vysoká">Vysoká</option>
+                                    <option value="Velmi vysoká">Velmi vysoká</option>
                                 </select>
                             </div>
 
@@ -2143,6 +2419,9 @@
                 // Display champions with animation
                 await displayChampionsWithAnimation(allChampions);
 
+                // Update position counts
+                updatePositionCounts();
+
                 console.log(`Loaded ${allChampions.length} champions from DataDragon API`);
             } catch (error) {
                 console.error('Failed to load champions:', error);
@@ -2189,6 +2468,7 @@
         function createChampionCard(champion) {
             const card = document.createElement('div');
             card.className = 'champion-card';
+            card.setAttribute('data-champion', champion.name);
             card.onclick = () => openChampionModal(champion.id || champion.name);
 
             card.innerHTML = `
@@ -2206,17 +2486,23 @@
                     <p class="champion-title">"${champion.title}"</p>
                     <p class="champion-description">${champion.description}</p>
                     <div class="champion-stats">
-                        <div class="champion-stat" data-level="${champion.difficulty}">
+                        <div class="champion-stat" data-stat="difficulty" data-level="${champion.difficulty}">
                             <div class="champion-stat-label">Obtížnost</div>
                             <div class="champion-stat-value">${champion.difficulty}</div>
+                            <div class="champion-stat-bar">
+                                <div class="champion-stat-fill" data-level="${champion.difficulty}"></div>
+                            </div>
                         </div>
                         <div class="champion-stat damage-type-stat" data-type="${champion.damage}">
                             <div class="champion-stat-label">Typ poškození</div>
                             <div class="champion-stat-value">${champion.damage === 'Physical' ? 'Fyzické' : 'Magické'}</div>
                         </div>
-                        <div class="champion-stat survivability-stat" data-level="${champion.survivability}">
+                        <div class="champion-stat survivability-stat" data-stat="survivability" data-level="${champion.survivability}">
                             <div class="champion-stat-label">Přežitelnost</div>
                             <div class="champion-stat-value">${champion.survivability}</div>
+                            <div class="champion-stat-bar">
+                                <div class="champion-stat-fill" data-level="${champion.survivability}"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2234,7 +2520,8 @@
             rangeType: '',
             championClass: '',
             region: '',
-            roles: []
+            roles: [],
+            selectedPosition: 'all'
         };
 
         // Function to toggle advanced filters panel
@@ -2308,8 +2595,15 @@
                 rangeType: '',
                 championClass: '',
                 region: '',
-                roles: []
+                roles: [],
+                selectedPosition: 'all'
             };
+
+            // Reset position filter UI
+            document.querySelectorAll('.position-filter-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector('[data-position="all"]').classList.add('active');
 
             showFilteredChampions();
             updateFilterCount();
@@ -2343,6 +2637,13 @@
             }
 
             const filteredChampions = allChampions.filter(champion => {
+                // Position filter (always visible filters)
+                if (currentFilters.selectedPosition !== 'all') {
+                    if (!champion.roles || !champion.roles.includes(currentFilters.selectedPosition)) {
+                        return false;
+                    }
+                }
+
                 // Search filter
                 if (currentFilters.search) {
                     const searchTerm = currentFilters.search.toLowerCase();
@@ -2352,7 +2653,7 @@
                 }
 
                 // Difficulty filter
-                if (currentFilters.difficulty && champion.difficulty.toString() !== currentFilters.difficulty) {
+                if (currentFilters.difficulty && champion.difficulty !== currentFilters.difficulty) {
                     return false;
                 }
 
@@ -2362,7 +2663,7 @@
                 }
 
                 // Survivability filter
-                if (currentFilters.survivability && champion.survivability.toString() !== currentFilters.survivability) {
+                if (currentFilters.survivability && champion.survivability !== currentFilters.survivability) {
                     return false;
                 }
 
@@ -2381,7 +2682,7 @@
                     return false;
                 }
 
-                // Roles filter
+                // Roles filter (from advanced filters)
                 if (currentFilters.roles.length > 0) {
                     const hasMatchingRole = currentFilters.roles.some(role => champion.roles.includes(role));
                     if (!hasMatchingRole) return false;
@@ -2394,6 +2695,55 @@
 
             // Show results count
             console.log(`Showing ${filteredChampions.length} of ${allChampions.length} champions`);
+        }
+
+        // Position filtering functions
+        function filterByPosition(position) {
+            // Update active position filter
+            currentFilters.selectedPosition = position;
+            
+            // Update UI
+            document.querySelectorAll('.position-filter-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`[data-position="${position}"]`).classList.add('active');
+            
+            // Apply filters
+            showFilteredChampions();
+            updateFilterCount();
+        }
+
+        // Function to update position counts
+        function updatePositionCounts() {
+            if (!allChampions || allChampions.length === 0) return;
+
+            const counts = {
+                all: allChampions.length,
+                Top: 0,
+                Jungle: 0,
+                Mid: 0,
+                ADC: 0,
+                Support: 0
+            };
+
+            // Count champions by position
+            allChampions.forEach(champion => {
+                if (champion.roles && Array.isArray(champion.roles)) {
+                    champion.roles.forEach(role => {
+                        if (counts.hasOwnProperty(role)) {
+                            counts[role]++;
+                        }
+                    });
+                }
+            });
+
+            // Update count displays
+            document.getElementById('count-all').textContent = counts.all;
+            document.getElementById('count-top').textContent = counts.Top;
+            document.getElementById('count-jungle').textContent = counts.Jungle;
+            document.getElementById('count-mid').textContent = counts.Mid;
+            document.getElementById('count-adc').textContent = counts.ADC;
+            document.getElementById('count-support').textContent = counts.Support;
         }
 
         // Enhanced Modal functions with animations
@@ -2669,7 +3019,7 @@
                                     ).join('')}
                                 </div>
                                 <div class="stat-bar-container">
-                                    <div class="stat-bar" style="width: ${(stat.value / stat.maxValue) * 100}%"></div>
+                                    <div class="stat-bar animate-on-load" data-target-width="${(stat.value / stat.maxValue) * 100}"></div>
                                 </div>
                                 <div class="stat-per-level">${stat.perLevel}</div>
                             </div>
