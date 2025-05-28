@@ -656,10 +656,20 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(10px);
+            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.98) 100%);
+            backdrop-filter: blur(15px) saturate(1.5);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            animation: modalBackdropEntry 0.8s ease-out forwards;
+        }
+
+        @keyframes modalBackdropEntry {
+            0% {
+                background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
+            }
+            100% {
+                background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.98) 100%);
+            }
         }
 
         .modal.show {
@@ -670,21 +680,50 @@
             position: relative;
             margin: 1% auto;
             padding: 0;
-            border-radius: 20px;
+            border-radius: 25px;
             width: 95%;
-            max-width: 1200px;
+            max-width: 1400px;
             max-height: 98vh;
             overflow: hidden;
-            border: 2px solid rgba(110, 79, 246, 0.5);
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
-            transform: scale(0.8) translateY(50px);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid transparent;
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.98), rgba(30, 30, 30, 0.95));
+            box-shadow:
+                0 50px 100px rgba(0, 0, 0, 0.9),
+                0 0 80px rgba(110, 79, 246, 0.3),
+                inset 0 0 100px rgba(110, 79, 246, 0.1);
+            transform: scale(0.7) translateY(100px) rotateX(15deg);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
+            backdrop-filter: blur(20px);
+            position: relative;
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg,
+                var(--primary-color),
+                var(--accent-color),
+                var(--secondary-color),
+                var(--primary-color));
+            background-size: 400% 400%;
+            border-radius: 25px;
+            z-index: -1;
+            animation: borderGradientFlow 4s ease-in-out infinite;
+        }
+
+        @keyframes borderGradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .modal.show .modal-content {
-            transform: scale(1) translateY(0);
+            transform: scale(1) translateY(0) rotateX(0deg);
         }
 
         .modal-background {
@@ -695,8 +734,10 @@
             height: 100%;
             background-size: cover;
             background-position: center;
-            filter: blur(3px) brightness(0.3);
+            filter: blur(3px) brightness(0.4) saturate(1.2);
             z-index: 1;
+            transition: all 0.8s ease;
+            opacity: 0.7;
         }
 
         .modal-overlay {
@@ -705,11 +746,20 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg,
-                rgba(18, 18, 18, 0.95) 0%,
-                rgba(30, 30, 30, 0.9) 50%,
-                rgba(18, 18, 18, 0.95) 100%);
+            background:
+                radial-gradient(circle at 20% 20%, var(--champion-primary, rgba(110, 79, 246, 0.2)) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--champion-secondary, rgba(0, 210, 255, 0.2)) 0%, transparent 50%),
+                linear-gradient(135deg,
+                    rgba(18, 18, 18, 0.85) 0%,
+                    rgba(30, 30, 30, 0.75) 50%,
+                    rgba(18, 18, 18, 0.85) 100%);
             z-index: 2;
+            animation: overlayPulse 6s ease-in-out infinite;
+        }
+
+        @keyframes overlayPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.95; }
         }
 
         .modal-content-inner {
@@ -723,38 +773,86 @@
 
         .close {
             position: absolute;
-            top: 20px;
-            right: 25px;
+            top: 25px;
+            right: 30px;
             color: var(--light-text);
-            font-size: 32px;
+            font-size: 28px;
             font-weight: bold;
             cursor: pointer;
             z-index: 10;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(30, 30, 30, 0.6));
+            border: 2px solid rgba(110, 79, 246, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .close::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .close:hover {
-            color: var(--primary-color);
-            background: rgba(110, 79, 246, 0.2);
-            transform: scale(1.1);
+            color: white;
+            background: linear-gradient(135deg, rgba(110, 79, 246, 0.9), rgba(0, 210, 255, 0.7));
+            transform: scale(1.15) rotate(90deg);
+            box-shadow: 0 15px 40px rgba(110, 79, 246, 0.6);
+            border-color: var(--accent-color);
+        }
+
+        .close:hover::before {
+            opacity: 1;
         }
 
         .modal-header {
             position: relative;
-            padding: 25px;
+            padding: 40px;
             display: flex;
             align-items: center;
-            gap: 20px;
-            min-height: 120px;
+            gap: 30px;
+            min-height: 180px;
             flex-shrink: 0;
-            background: linear-gradient(135deg, rgba(110, 79, 246, 0.1) 0%, rgba(0, 210, 255, 0.05) 100%);
+            background:
+                linear-gradient(135deg, rgba(110, 79, 246, 0.15) 0%, rgba(0, 210, 255, 0.1) 100%),
+                radial-gradient(circle at top left, rgba(255, 71, 87, 0.1) 0%, transparent 50%);
+            border-bottom: 1px solid rgba(110, 79, 246, 0.3);
+            overflow: hidden;
+        }
+
+        .modal-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(110, 79, 246, 0.1) 25%,
+                rgba(0, 210, 255, 0.1) 50%,
+                rgba(255, 71, 87, 0.05) 75%,
+                transparent 100%);
+            animation: headerShimmer 8s ease-in-out infinite;
+        }
+
+        @keyframes headerShimmer {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(50%); }
         }
 
         .modal-champion-image {
@@ -762,53 +860,181 @@
             position: relative;
         }
 
+        .modal-champion-image::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg,
+                var(--champion-primary, var(--primary-color)),
+                var(--champion-secondary, var(--accent-color)),
+                var(--champion-accent, var(--secondary-color)),
+                var(--champion-primary, var(--primary-color)));
+            background-size: 400% 400%;
+            border-radius: 20px;
+            z-index: -1;
+            animation: borderGradientFlow 3s ease-in-out infinite;
+            opacity: 0.8;
+        }
+
         .modal-champion-image img {
-            width: 80px;
-            height: 80px;
-            border-radius: 12px;
+            width: 100px;
+            height: 100px;
+            border-radius: 15px;
             object-fit: cover;
-            border: 3px solid rgba(110, 79, 246, 0.8);
-            box-shadow: 0 0 20px rgba(110, 79, 246, 0.4), 0 8px 25px rgba(0, 0, 0, 0.6);
-            transition: all 0.3s ease;
+            border: 4px solid rgba(255, 255, 255, 0.9);
+            box-shadow:
+                0 0 30px rgba(110, 79, 246, 0.6),
+                0 15px 40px rgba(0, 0, 0, 0.8),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 1;
         }
 
         .modal-champion-image:hover img {
-            transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(110, 79, 246, 0.6), 0 12px 35px rgba(0, 0, 0, 0.8);
+            transform: scale(1.15) rotate(5deg);
+            box-shadow:
+                0 0 50px rgba(110, 79, 246, 0.9),
+                0 25px 60px rgba(0, 0, 0, 0.9),
+                inset 0 0 30px rgba(255, 255, 255, 0.2);
             border-color: var(--accent-color);
         }
 
         .modal-champion-info {
             flex: 1;
-            animation: slideInFromLeft 0.6s ease-out 0.2s both;
+            animation: slideInFromLeft 0.8s ease-out 0.3s both;
+            position: relative;
+        }
+
+        .modal-champion-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -20px;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg,
+                var(--champion-primary, var(--primary-color)),
+                var(--champion-secondary, var(--accent-color)),
+                var(--champion-accent, var(--secondary-color)));
+            border-radius: 2px;
+            animation: heightGrow 1s ease-out 0.5s both;
+        }
+
+        @keyframes heightGrow {
+            0% { height: 0%; }
+            100% { height: 100%; }
         }
 
         .modal-champion-info h2 {
             color: var(--light-text);
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-            letter-spacing: 1px;
-            background: linear-gradient(45deg, #6e4ff6, #00d2ff);
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+            text-shadow:
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(110, 79, 246, 0.6);
+            letter-spacing: 2px;
+            background: linear-gradient(45deg,
+                var(--champion-primary, #6e4ff6),
+                var(--champion-secondary, #00d2ff),
+                var(--champion-accent, #ff4757));
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: titleGradientShift 4s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes titleGradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .modal-champion-info h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg,
+                var(--champion-primary, var(--primary-color)),
+                var(--champion-secondary, var(--accent-color)));
+            animation: underlineGrow 1s ease-out 0.8s both;
+        }
+
+        @keyframes underlineGrow {
+            0% { width: 0%; }
+            100% { width: 60%; }
         }
 
         .modal-champion-info p {
-            color: var(--primary-color);
+            color: var(--accent-color);
             font-style: italic;
-            font-size: 1rem;
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-shadow:
+                1px 1px 2px rgba(0, 0, 0, 0.8),
+                0 0 15px rgba(0, 210, 255, 0.4);
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 210, 255, 0.4); }
+            100% { text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 210, 255, 0.8); }
         }
 
         .modal-roles {
             display: flex;
-            gap: 8px;
+            gap: 12px;
             flex-wrap: wrap;
-            animation: fadeInUp 0.6s ease-out 0.4s both;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .modal-roles .champion-position-badge {
+            background: linear-gradient(135deg,
+                var(--champion-primary, rgba(110, 79, 246, 0.9)),
+                var(--champion-secondary, rgba(0, 210, 255, 0.7)));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px var(--champion-primary, rgba(110, 79, 246, 0.4));
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-roles .champion-position-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .modal-roles .champion-position-badge:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px var(--champion-primary, rgba(110, 79, 246, 0.6));
+            background: linear-gradient(135deg,
+                var(--champion-secondary, rgba(0, 210, 255, 0.9)),
+                var(--champion-primary, rgba(110, 79, 246, 0.7)));
+        }
+
+        .modal-roles .champion-position-badge:hover::before {
+            left: 100%;
         }
 
         .modal-tabs {
@@ -2222,6 +2448,110 @@
             }
         }
 
+        // Function to extract dominant colors from champion splash art
+        function extractColorsFromImage(imageUrl) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                
+                img.onload = function() {
+                    try {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = 100;
+                        canvas.height = 100;
+                        
+                        ctx.drawImage(img, 0, 0, 100, 100);
+                        const imageData = ctx.getImageData(0, 0, 100, 100);
+                        const data = imageData.data;
+                        
+                        // Extract color samples
+                        const colors = [];
+                        for (let i = 0; i < data.length; i += 16) { // Sample every 4th pixel
+                            const r = data[i];
+                            const g = data[i + 1];
+                            const b = data[i + 2];
+                            const a = data[i + 3];
+                            
+                            if (a > 128) { // Only consider non-transparent pixels
+                                const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+                                const saturation = Math.max(r, g, b) - Math.min(r, g, b);
+                                
+                                // Filter for vibrant colors
+                                if (brightness > 50 && brightness < 200 && saturation > 30) {
+                                    colors.push({ r, g, b, brightness, saturation });
+                                }
+                            }
+                        }
+                        
+                        // Sort by saturation and brightness
+                        colors.sort((a, b) => (b.saturation + b.brightness) - (a.saturation + a.brightness));
+                        
+                        // Get dominant colors and desaturate them slightly
+                        const primary = colors[0] || { r: 110, g: 79, b: 246 };
+                        const secondary = colors[Math.floor(colors.length * 0.3)] || { r: 0, g: 210, b: 255 };
+                        const accent = colors[Math.floor(colors.length * 0.6)] || { r: 255, g: 71, b: 87 };
+                        
+                        // Function to desaturate colors slightly for more elegant look
+                        const desaturate = (color, factor = 0.7) => {
+                            const gray = (color.r + color.g + color.b) / 3;
+                            return {
+                                r: Math.round(color.r + (gray - color.r) * (1 - factor)),
+                                g: Math.round(color.g + (gray - color.g) * (1 - factor)),
+                                b: Math.round(color.b + (gray - color.b) * (1 - factor))
+                            };
+                        };
+                        
+                        const primaryDesaturated = desaturate(primary, 0.8);
+                        const secondaryDesaturated = desaturate(secondary, 0.75);
+                        const accentDesaturated = desaturate(accent, 0.7);
+                        
+                        resolve({
+                            primary: `rgba(${primaryDesaturated.r}, ${primaryDesaturated.g}, ${primaryDesaturated.b}, 0.8)`,
+                            secondary: `rgba(${secondaryDesaturated.r}, ${secondaryDesaturated.g}, ${secondaryDesaturated.b}, 0.7)`,
+                            accent: `rgba(${accentDesaturated.r}, ${accentDesaturated.g}, ${accentDesaturated.b}, 0.6)`,
+                            primaryShadow: `rgba(${primaryDesaturated.r}, ${primaryDesaturated.g}, ${primaryDesaturated.b}, 0.3)`,
+                            secondaryShadow: `rgba(${secondaryDesaturated.r}, ${secondaryDesaturated.g}, ${secondaryDesaturated.b}, 0.25)`
+                        });
+                    } catch (error) {
+                        console.warn('Color extraction failed, using defaults:', error);
+                        resolve({
+                            primary: 'rgba(110, 79, 246, 0.7)',
+                            secondary: 'rgba(0, 210, 255, 0.6)',
+                            accent: 'rgba(255, 71, 87, 0.5)',
+                            primaryShadow: 'rgba(110, 79, 246, 0.3)',
+                            secondaryShadow: 'rgba(0, 210, 255, 0.25)'
+                        });
+                    }
+                };
+                
+                img.onerror = function() {
+                    console.warn('Image loading failed, using default colors');
+                    resolve({
+                        primary: 'rgba(110, 79, 246, 0.7)',
+                        secondary: 'rgba(0, 210, 255, 0.6)',
+                        accent: 'rgba(255, 71, 87, 0.5)',
+                        primaryShadow: 'rgba(110, 79, 246, 0.3)',
+                        secondaryShadow: 'rgba(0, 210, 255, 0.25)'
+                    });
+                };
+                
+                img.src = imageUrl;
+            });
+        }
+
+        // Function to apply champion colors to modal
+        function applyChampionColors(colors) {
+            const modal = document.getElementById('champion-modal');
+            if (modal) {
+                modal.style.setProperty('--champion-primary', colors.primary);
+                modal.style.setProperty('--champion-secondary', colors.secondary);
+                modal.style.setProperty('--champion-accent', colors.accent);
+                modal.style.setProperty('--champion-primary-shadow', colors.primaryShadow);
+                modal.style.setProperty('--champion-secondary-shadow', colors.secondaryShadow);
+            }
+        }
+
         async function loadChampionDetails(championId) {
             try {
                 const api = ensureDataDragonAPI();
@@ -2243,6 +2573,17 @@
                     const modalBackground = document.getElementById('modal-background');
                     if (modalBackground) {
                         modalBackground.style.backgroundImage = `url('${championDetails.splash}')`;
+                    }
+
+                    // Extract and apply champion colors
+                    if (championDetails.splash) {
+                        try {
+                            const colors = await extractColorsFromImage(championDetails.splash);
+                            applyChampionColors(colors);
+                            console.log('Applied champion-specific colors:', colors);
+                        } catch (error) {
+                            console.warn('Failed to extract champion colors:', error);
+                        }
                     }
 
                     // Find champion in allChampions for additional data
