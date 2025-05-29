@@ -494,6 +494,7 @@
             border-color: var(--accent-color);
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 15px 40px rgba(110, 79, 246, 0.6);
+            position: relative;
         }
 
         .position-filter-item.active .position-icon,
@@ -501,6 +502,41 @@
         .position-filter-item.active .position-count {
             color: white;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Multi-select indicator */
+        .position-filter-item.active:not([data-position="all"])::after {
+            content: '✓';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent-color);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            animation: checkmarkPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes checkmarkPop {
+            0% {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2) rotate(-90deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
         }
 
         .position-icon {
@@ -633,24 +669,67 @@
             display: block;
         }
 
-        .role-checkboxes {
+        .role-checkboxes, .filter-checkboxes {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 8px;
         }
 
-        .role-checkboxes label {
+        .role-checkboxes label, .filter-checkboxes label {
             display: flex;
             align-items: center;
             color: var(--medium-text);
             font-weight: normal;
             cursor: pointer;
             margin-bottom: 0;
+            padding: 3px 8px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            font-size: 0.85rem;
+            white-space: nowrap;
         }
 
-        .role-checkboxes input[type="checkbox"] {
-            margin-right: 8px;
+        .role-checkboxes label:hover, .filter-checkboxes label:hover {
+            background: rgba(110, 79, 246, 0.1);
+            border-color: rgba(110, 79, 246, 0.3);
+            color: var(--light-text);
+        }
+
+        .role-checkboxes input[type="checkbox"], .filter-checkboxes input[type="checkbox"] {
+            margin-right: 6px;
             accent-color: var(--primary-color);
+            transform: scale(0.9);
+        }
+
+        .role-checkboxes input[type="checkbox"]:checked + span,
+        .filter-checkboxes input[type="checkbox"]:checked + span {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Compact filter group styling */
+        .filter-group {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid rgba(110, 79, 246, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .filter-group:hover {
+            border-color: rgba(110, 79, 246, 0.3);
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        .filter-group > label {
+            color: var(--light-text) !important;
+            font-weight: 600 !important;
+            margin-bottom: 8px !important;
+            display: block !important;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .filter-actions {
@@ -792,9 +871,10 @@
         .champion-stat-fill {
             height: 100%;
             border-radius: 2px;
-            transition: all 0.3s ease;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             position: relative;
             overflow: hidden;
+            width: 0%;
         }
 
         .champion-stat-fill::after {
@@ -804,13 +884,50 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: shimmer 2s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite 0.5s;
         }
 
         @keyframes shimmer {
             0% { left: -100%; }
             100% { left: 100%; }
+        }
+
+        /* Champion card progress bar animation on load */
+        .champion-card.animate-progress .champion-stat-fill[data-level="Nízká"] {
+            animation: fillProgress25 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+        }
+
+        .champion-card.animate-progress .champion-stat-fill[data-level="Střední"] {
+            animation: fillProgress50 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+        }
+
+        .champion-card.animate-progress .champion-stat-fill[data-level="Vysoká"] {
+            animation: fillProgress75 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+        }
+
+        .champion-card.animate-progress .champion-stat-fill[data-level="Velmi vysoká"] {
+            animation: fillProgress100 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+        }
+
+        @keyframes fillProgress25 {
+            0% { width: 0%; }
+            100% { width: 25%; }
+        }
+
+        @keyframes fillProgress50 {
+            0% { width: 0%; }
+            100% { width: 50%; }
+        }
+
+        @keyframes fillProgress75 {
+            0% { width: 0%; }
+            100% { width: 75%; }
+        }
+
+        @keyframes fillProgress100 {
+            0% { width: 0%; }
+            100% { width: 100%; }
         }
 
         /* Difficulty Progress Bars */
@@ -875,6 +992,16 @@
             opacity: 0;
             transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             animation: modalBackdropEntry 0.8s ease-out forwards;
+        }
+
+        .modal.loading .modal-content-inner {
+            pointer-events: none;
+        }
+
+        .modal.loading .modal-champion-info h2,
+        .modal.loading .modal-champion-info p,
+        .modal.loading .modal-champion-image img {
+            transition: opacity 0.3s ease;
         }
 
         @keyframes modalBackdropEntry {
@@ -1445,9 +1572,24 @@
             height: 100%;
             background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
             border-radius: 4px;
-            transition: width 1s ease-out;
+            transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 0 10px rgba(110, 79, 246, 0.3);
+        }
+
+        .stat-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0.1) 100%);
+            border-radius: 4px;
         }
 
         .stat-bar::after {
@@ -1457,8 +1599,25 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: shimmerBar 2s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            animation: shimmerBar 2.5s infinite 1s;
+        }
+
+        .stat-bar.animate-on-load {
+            animation: progressBarGrow 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        @keyframes progressBarGrow {
+            0% {
+                width: 0%;
+                box-shadow: 0 0 5px rgba(110, 79, 246, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(110, 79, 246, 0.6);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(110, 79, 246, 0.3);
+            }
         }
 
         .stat-stars {
@@ -1469,12 +1628,35 @@
         .stat-star {
             color: #444;
             font-size: 1.2rem;
-            transition: color 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: scale(1);
         }
 
         .stat-star.filled {
             color: #ffd700;
-            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .stat-star.star-animate {
+            animation: starFillUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes starFillUp {
+            0% {
+                transform: scale(0.5) rotate(-180deg);
+                color: #444;
+                text-shadow: none;
+            }
+            50% {
+                transform: scale(1.3) rotate(-90deg);
+                color: #ffed4e;
+                text-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                color: #ffd700;
+                text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.4);
+            }
         }
 
         .stat-per-level {
@@ -1931,6 +2113,330 @@
                 margin-bottom: 10px;
             }
         }
+
+        /* API Status Indicator Styling */
+        .api-status-indicator {
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.95) 0%, rgba(30, 30, 30, 0.95) 100%);
+            border: 2px solid rgba(110, 79, 246, 0.3);
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .api-status-indicator:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 15px 40px rgba(110, 79, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .api-status-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .api-status-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(110, 79, 246, 0.4);
+        }
+
+        .api-status-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .api-status-label {
+            font-size: 0.9rem;
+            color: var(--medium-text);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .api-status-message {
+            font-size: 1.1rem;
+            color: var(--light-text);
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .api-version-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding-left: 15px;
+            border-left: 2px solid rgba(110, 79, 246, 0.3);
+        }
+
+        .api-version-label {
+            font-size: 0.8rem;
+            color: var(--medium-text);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .api-version-number {
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-top: 2px;
+            text-shadow: 0 0 10px rgba(110, 79, 246, 0.5);
+        }
+
+        /* API Status States */
+        .api-status-indicator.loading .api-status-icon {
+            background: linear-gradient(135deg, #ffd93d, #ff8c42);
+        }
+
+        .api-status-indicator.success .api-status-icon {
+            background: linear-gradient(135deg, #6bcf7f, #4ecdc4);
+        }
+
+        .api-status-indicator.success .api-status-icon i {
+            animation: none;
+        }
+
+        .api-status-indicator.error .api-status-icon {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+        }
+
+        .api-status-indicator.error .api-status-icon i {
+            animation: none;
+        }
+
+        /* Responsive design for API status */
+        @media (max-width: 768px) {
+            .api-status-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .api-version-info {
+                border-left: none;
+                border-top: 2px solid rgba(110, 79, 246, 0.3);
+                padding-left: 0;
+                padding-top: 10px;
+                align-items: center;
+            }
+        }
+
+        /* API Control Panel - Integrated Design */
+        .api-control-panel {
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.95) 0%, rgba(30, 30, 30, 0.95) 100%);
+            border: 2px solid rgba(110, 79, 246, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 700px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .api-control-panel:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 15px 40px rgba(110, 79, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .api-status-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .api-status-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(110, 79, 246, 0.4);
+        }
+
+        .api-status-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .api-status-label {
+            font-size: 0.9rem;
+            color: var(--medium-text);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .api-status-message {
+            font-size: 1.1rem;
+            color: var(--light-text);
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .api-version-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding-left: 15px;
+            border-left: 2px solid rgba(110, 79, 246, 0.3);
+        }
+
+        .api-version-label {
+            font-size: 0.8rem;
+            color: var(--medium-text);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .api-version-number {
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-top: 2px;
+            text-shadow: 0 0 10px rgba(110, 79, 246, 0.5);
+        }
+
+        .language-control-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-left: 30px;
+            border-left: 2px solid rgba(0, 210, 255, 0.3);
+        }
+
+        .language-control-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.4);
+        }
+
+        .language-control-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .language-control-label {
+            font-size: 0.9rem;
+            color: var(--medium-text);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .language-select-integrated {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(30, 30, 30, 0.8));
+            border: 2px solid rgba(0, 210, 255, 0.3);
+            border-radius: 8px;
+            color: var(--light-text);
+            padding: 8px 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 150px;
+        }
+
+        .language-select-integrated:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+        }
+
+        .language-select-integrated:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
+        }
+
+        .language-select-integrated option {
+            background: rgba(18, 18, 18, 0.95);
+            color: var(--light-text);
+            padding: 8px;
+        }
+
+        /* API Control Panel States */
+        .api-control-panel.loading .api-status-icon {
+            background: linear-gradient(135deg, #ffd93d, #ff8c42);
+        }
+
+        .api-control-panel.success .api-status-icon {
+            background: linear-gradient(135deg, #6bcf7f, #4ecdc4);
+        }
+
+        .api-control-panel.success .api-status-icon i {
+            animation: none;
+        }
+
+        .api-control-panel.error .api-status-icon {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+        }
+
+        .api-control-panel.error .api-status-icon i {
+            animation: none;
+        }
+
+        /* Responsive design for API control panel */
+        @media (max-width: 768px) {
+            .api-control-panel {
+                flex-direction: column;
+                gap: 20px;
+                padding: 15px;
+            }
+
+            .language-control-section {
+                border-left: none;
+                border-top: 2px solid rgba(0, 210, 255, 0.3);
+                padding-left: 0;
+                padding-top: 20px;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .api-status-section {
+                justify-content: center;
+            }
+
+            .language-control-content {
+                align-items: center;
+            }
+        }
     </style>
 
     <!-- Firebase SDK -->
@@ -2040,7 +2546,7 @@
 
                 <div class="game-map-card">
                     <div class="game-map-image">
-                        <img src="img/lol-howling-abyss-artwork.jpg" alt="Howling Abyss">
+                        <img src="img/lol-bridge-of-progress.jpg" alt="Howling Abyss">
                     </div>
                     <div class="game-map-content">
                         <h3 class="game-map-title">Howling Abyss</h3>
@@ -2065,6 +2571,47 @@
         <div class="container">
             <h2 class="section-title">Šampioni League of Legends</h2>
             <p>Prozkoumejte všechny šampiony v League of Legends načtené přímo z oficiálního API Riot Games.</p>
+            
+            <!-- API Status and Language Control Panel -->
+            <div class="api-control-panel" id="api-control-panel">
+                <div class="api-status-section">
+                    <div class="api-status-icon">
+                        <i class="fas fa-sync-alt fa-spin" id="api-icon"></i>
+                    </div>
+                    <div class="api-status-text">
+                        <span class="api-status-label">API Status:</span>
+                        <span class="api-status-message" id="api-message">Načítání...</span>
+                    </div>
+                    <div class="api-version-info" id="api-version" style="display: none;">
+                        <span class="api-version-label">DataDragon:</span>
+                        <span class="api-version-number" id="api-version-number">-</span>
+                    </div>
+                </div>
+                
+                <div class="language-control-section">
+                    <div class="language-control-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="language-control-content">
+                        <span class="language-control-label">Jazyk dat:</span>
+                        <select id="language-select" onchange="changeLanguage(this.value)" class="language-select-integrated">
+                            <option value="cs_CZ">🇨🇿 Čeština</option>
+                            <option value="en_US">🇺🇸 English</option>
+                            <option value="de_DE">🇩🇪 Deutsch</option>
+                            <option value="es_ES">🇪🇸 Español</option>
+                            <option value="fr_FR">🇫🇷 Français</option>
+                            <option value="it_IT">🇮🇹 Italiano</option>
+                            <option value="pl_PL">🇵🇱 Polski</option>
+                            <option value="pt_BR">🇧🇷 Português</option>
+                            <option value="ru_RU">🇷🇺 Русский</option>
+                            <option value="tr_TR">🇹🇷 Türkçe</option>
+                            <option value="ja_JP">🇯🇵 日本語</option>
+                            <option value="ko_KR">🇰🇷 한국어</option>
+                            <option value="zh_CN">🇨🇳 中文</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
             <!-- Champion Search and Filters -->
             <div class="champion-search-container">
@@ -2075,32 +2622,32 @@
 
                 <!-- Always Visible Position Filters -->
                 <div class="position-filters">
-                    <div class="position-filter-item active" data-position="all" onclick="filterByPosition('all')">
+                    <div class="position-filter-item active" data-position="all" onclick="togglePositionFilter('all')">
                         <div class="position-icon">🎮</div>
                         <div class="position-label">Všechny</div>
                         <div class="position-count" id="count-all">0</div>
                     </div>
-                    <div class="position-filter-item" data-position="Top" onclick="filterByPosition('Top')">
+                    <div class="position-filter-item" data-position="Top" onclick="togglePositionFilter('Top')">
                         <div class="position-icon">⚔️</div>
                         <div class="position-label">Top</div>
                         <div class="position-count" id="count-top">0</div>
                     </div>
-                    <div class="position-filter-item" data-position="Jungle" onclick="filterByPosition('Jungle')">
+                    <div class="position-filter-item" data-position="Jungle" onclick="togglePositionFilter('Jungle')">
                         <div class="position-icon">🌲</div>
                         <div class="position-label">Jungle</div>
                         <div class="position-count" id="count-jungle">0</div>
                     </div>
-                    <div class="position-filter-item" data-position="Mid" onclick="filterByPosition('Mid')">
+                    <div class="position-filter-item" data-position="Mid" onclick="togglePositionFilter('Mid')">
                         <div class="position-icon">⭐</div>
                         <div class="position-label">Mid</div>
                         <div class="position-count" id="count-mid">0</div>
                     </div>
-                    <div class="position-filter-item" data-position="ADC" onclick="filterByPosition('ADC')">
+                    <div class="position-filter-item" data-position="ADC" onclick="togglePositionFilter('ADC')">
                         <div class="position-icon">🏹</div>
                         <div class="position-label">ADC</div>
                         <div class="position-count" id="count-adc">0</div>
                     </div>
-                    <div class="position-filter-item" data-position="Support" onclick="filterByPosition('Support')">
+                    <div class="position-filter-item" data-position="Support" onclick="togglePositionFilter('Support')">
                         <div class="position-icon">🛡️</div>
                         <div class="position-label">Support</div>
                         <div class="position-count" id="count-support">0</div>
@@ -2116,76 +2663,70 @@
                     <div id="filters-panel" class="filters-panel">
                         <div class="filters-grid">
                             <div class="filter-group">
-                                <label for="difficulty-filter">Obtížnost:</label>
-                                <select id="difficulty-filter" onchange="applyFilters()">
-                                    <option value="">Všechny</option>
-                                    <option value="Nízká">Nízká</option>
-                                    <option value="Střední">Střední</option>
-                                    <option value="Vysoká">Vysoká</option>
-                                    <option value="Velmi vysoká">Velmi vysoká</option>
-                                </select>
+                                <label>Obtížnost:</label>
+                                <div class="filter-checkboxes">
+                                    <label><input type="checkbox" value="Nízká" onchange="applyFilters()"> Nízká</label>
+                                    <label><input type="checkbox" value="Střední" onchange="applyFilters()"> Střední</label>
+                                    <label><input type="checkbox" value="Vysoká" onchange="applyFilters()"> Vysoká</label>
+                                    <label><input type="checkbox" value="Velmi vysoká" onchange="applyFilters()"> Velmi vysoká</label>
+                                </div>
                             </div>
 
                             <div class="filter-group">
-                                <label for="damage-filter">Typ poškození:</label>
-                                <select id="damage-filter" onchange="applyFilters()">
-                                    <option value="">Všechny</option>
-                                    <option value="Physical">Fyzické</option>
-                                    <option value="Magic">Magické</option>
-                                </select>
+                                <label>Typ poškození:</label>
+                                <div class="filter-checkboxes">
+                                    <label><input type="checkbox" value="Physical" onchange="applyFilters()"> Fyzické</label>
+                                    <label><input type="checkbox" value="Magic" onchange="applyFilters()"> Magické</label>
+                                </div>
                             </div>
 
                             <div class="filter-group">
-                                <label for="survivability-filter">Přežitelnost:</label>
-                                <select id="survivability-filter" onchange="applyFilters()">
-                                    <option value="">Všechny</option>
-                                    <option value="Nízká">Nízká</option>
-                                    <option value="Střední">Střední</option>
-                                    <option value="Vysoká">Vysoká</option>
-                                    <option value="Velmi vysoká">Velmi vysoká</option>
-                                </select>
+                                <label>Přežitelnost:</label>
+                                <div class="filter-checkboxes">
+                                    <label><input type="checkbox" value="Nízká" onchange="applyFilters()"> Nízká</label>
+                                    <label><input type="checkbox" value="Střední" onchange="applyFilters()"> Střední</label>
+                                    <label><input type="checkbox" value="Vysoká" onchange="applyFilters()"> Vysoká</label>
+                                    <label><input type="checkbox" value="Velmi vysoká" onchange="applyFilters()"> Velmi vysoká</label>
+                                </div>
                             </div>
 
                             <div class="filter-group">
-                                <label for="range-filter">Typ dosahu:</label>
-                                <select id="range-filter" onchange="applyFilters()">
-                                    <option value="">Všechny</option>
-                                    <option value="Melee">Melee</option>
-                                    <option value="Ranged">Ranged</option>
-                                </select>
+                                <label>Typ dosahu:</label>
+                                <div class="filter-checkboxes">
+                                    <label><input type="checkbox" value="Melee" onchange="applyFilters()"> Melee</label>
+                                    <label><input type="checkbox" value="Ranged" onchange="applyFilters()"> Ranged</label>
+                                </div>
                             </div>
 
                             <div class="filter-group">
-                                <label for="class-filter">Třída šampiona:</label>
-                                <select id="class-filter" onchange="applyFilters()">
-                                    <option value="">Všechny</option>
-                                    <option value="Assassin">Assassin</option>
-                                    <option value="Fighter">Fighter</option>
-                                    <option value="Mage">Mage</option>
-                                    <option value="Marksman">Marksman</option>
-                                    <option value="Support">Support</option>
-                                    <option value="Tank">Tank</option>
-                                </select>
+                                <label>Třída šampiona:</label>
+                                <div class="filter-checkboxes">
+                                    <label><input type="checkbox" value="Assassin" onchange="applyFilters()"> Assassin</label>
+                                    <label><input type="checkbox" value="Fighter" onchange="applyFilters()"> Fighter</label>
+                                    <label><input type="checkbox" value="Mage" onchange="applyFilters()"> Mage</label>
+                                    <label><input type="checkbox" value="Marksman" onchange="applyFilters()"> Marksman</label>
+                                    <label><input type="checkbox" value="Support" onchange="applyFilters()"> Support</label>
+                                    <label><input type="checkbox" value="Tank" onchange="applyFilters()"> Tank</label>
+                                </div>
                             </div>
 
                             <div class="filter-group">
-                                <label for="region-filter">Region:</label>
-                                <select id="region-filter" onchange="applyFilters()">
-                                    <option value="">Všechny</option>
-                                    <option value="Bandle City">Bandle City</option>
-                                    <option value="Bilgewater">Bilgewater</option>
-                                    <option value="Demacia">Demacia</option>
-                                    <option value="Freljord">Freljord</option>
-                                    <option value="Ionia">Ionia</option>
-                                    <option value="Ixtal">Ixtal</option>
-                                    <option value="Noxus">Noxus</option>
-                                    <option value="Piltover">Piltover</option>
-                                    <option value="Shadow Isles">Shadow Isles</option>
-                                    <option value="Shurima">Shurima</option>
-                                    <option value="Targon">Targon</option>
-                                    <option value="The Void">The Void</option>
-                                    <option value="Zaun">Zaun</option>
-                                </select>
+                                <label>Region:</label>
+                                <div class="filter-checkboxes">
+                                    <label><input type="checkbox" value="Bandle City" onchange="applyFilters()"> Bandle City</label>
+                                    <label><input type="checkbox" value="Bilgewater" onchange="applyFilters()"> Bilgewater</label>
+                                    <label><input type="checkbox" value="Demacia" onchange="applyFilters()"> Demacia</label>
+                                    <label><input type="checkbox" value="Freljord" onchange="applyFilters()"> Freljord</label>
+                                    <label><input type="checkbox" value="Ionia" onchange="applyFilters()"> Ionia</label>
+                                    <label><input type="checkbox" value="Ixtal" onchange="applyFilters()"> Ixtal</label>
+                                    <label><input type="checkbox" value="Noxus" onchange="applyFilters()"> Noxus</label>
+                                    <label><input type="checkbox" value="Piltover" onchange="applyFilters()"> Piltover</label>
+                                    <label><input type="checkbox" value="Shadow Isles" onchange="applyFilters()"> Shadow Isles</label>
+                                    <label><input type="checkbox" value="Shurima" onchange="applyFilters()"> Shurima</label>
+                                    <label><input type="checkbox" value="Targon" onchange="applyFilters()"> Targon</label>
+                                    <label><input type="checkbox" value="The Void" onchange="applyFilters()"> The Void</label>
+                                    <label><input type="checkbox" value="Zaun" onchange="applyFilters()"> Zaun</label>
+                                </div>
                             </div>
                         </div>
 
@@ -2383,12 +2924,105 @@
             }
         }
 
+        // Global variable for current language
+        let currentLanguage = 'cs_CZ';
+
+        // Language change function
+        async function changeLanguage(newLanguage) {
+            if (newLanguage === currentLanguage) return;
+            
+            console.log(`Changing language from ${currentLanguage} to ${newLanguage}`);
+            currentLanguage = newLanguage;
+            
+            // Update API status to show language change
+            updateApiStatus('loading', 'Načítání v novém jazyce...');
+            
+            // Clear current champions data
+            allChampions = [];
+            
+            // Update the DataDragon API instance with new language
+            if (window.datadragonAPI) {
+                window.datadragonAPI.setLocale(newLanguage);
+            }
+            
+            // Reload champions data with new language
+            await loadChampionsData();
+            
+            // Save language preference to localStorage
+            localStorage.setItem('lol-language-preference', newLanguage);
+        }
+
+        // Load language preference from localStorage
+        function loadLanguagePreference() {
+            const savedLanguage = localStorage.getItem('lol-language-preference');
+            if (savedLanguage) {
+                currentLanguage = savedLanguage;
+                const languageSelect = document.getElementById('language-select');
+                if (languageSelect) {
+                    languageSelect.value = savedLanguage;
+                }
+                
+                // Update the DataDragon API instance with saved language
+                if (window.datadragonAPI) {
+                    window.datadragonAPI.setLocale(savedLanguage);
+                }
+            }
+        }
+
+        // Update API status indicator
+        function updateApiStatus(status, message, version = null) {
+            const apiControlPanel = document.getElementById('api-control-panel');
+            const apiIcon = document.getElementById('api-icon');
+            const apiMessage = document.getElementById('api-message');
+            const apiVersionInfo = document.getElementById('api-version');
+            const apiVersionNumber = document.getElementById('api-version-number');
+
+            if (!apiControlPanel) return;
+
+            // Remove all status classes
+            apiControlPanel.classList.remove('loading', 'success', 'error');
+            
+            // Add new status class
+            apiControlPanel.classList.add(status);
+
+            // Update icon
+            if (apiIcon) {
+                switch (status) {
+                    case 'loading':
+                        apiIcon.className = 'fas fa-sync-alt fa-spin';
+                        break;
+                    case 'success':
+                        apiIcon.className = 'fas fa-check-circle';
+                        break;
+                    case 'error':
+                        apiIcon.className = 'fas fa-exclamation-triangle';
+                        break;
+                }
+            }
+
+            // Update message
+            if (apiMessage) {
+                apiMessage.textContent = message;
+            }
+
+            // Update version info
+            if (version && apiVersionInfo && apiVersionNumber) {
+                apiVersionNumber.textContent = version;
+                apiVersionInfo.style.display = 'flex';
+            } else if (apiVersionInfo) {
+                apiVersionInfo.style.display = 'none';
+            }
+        }
+
         // Load champions data from API
         async function loadChampionsData() {
             if (isLoading) return;
             isLoading = true;
 
             try {
+                // Update API status to loading
+                updateApiStatus('loading', 'Načítání dat z API...');
+
                 // Show skeleton loading
                 showSkeletonLoading();
 
@@ -2422,10 +3056,18 @@
                 // Update position counts
                 updatePositionCounts();
 
+                // Get API version for status display
+                const apiVersion = window.datadragonAPI?.version || 'Unknown';
+                updateApiStatus('success', `Načteno ${allChampions.length} šampionů`, apiVersion);
+
                 console.log(`Loaded ${allChampions.length} champions from DataDragon API`);
             } catch (error) {
                 console.error('Failed to load champions:', error);
                 hideSkeletonLoading();
+                
+                // Update API status to error
+                updateApiStatus('error', 'Chyba při načítání dat');
+                
                 const championsGrid = document.getElementById('champions-grid');
                 if (championsGrid) {
                     championsGrid.innerHTML = `
@@ -2455,11 +3097,16 @@
                 championCard.style.transform = 'translateY(20px)';
                 championsGrid.appendChild(championCard);
 
-                // Simple fade-in animation
+                // Simple fade-in animation with progress bar animation
                 setTimeout(() => {
                     championCard.style.transition = 'all 0.5s ease';
                     championCard.style.opacity = '1';
                     championCard.style.transform = 'translateY(0)';
+                    
+                    // Trigger progress bar animations after card is visible
+                    setTimeout(() => {
+                        championCard.classList.add('animate-progress');
+                    }, 200);
                 }, Math.min(index * 20, 500)); // Reduced stagger with max delay
             });
         }
@@ -2514,14 +3161,14 @@
         // Global variables for filtering
         let currentFilters = {
             search: '',
-            difficulty: '',
-            damage: '',
-            survivability: '',
-            rangeType: '',
-            championClass: '',
-            region: '',
+            difficulty: [],
+            damage: [],
+            survivability: [],
+            rangeType: [],
+            championClass: [],
+            region: [],
             roles: [],
-            selectedPosition: 'all'
+            selectedPositions: ['all'] // Changed to array for multi-select
         };
 
         // Function to toggle advanced filters panel
@@ -2538,65 +3185,87 @@
             }
         }
 
-        // Function to apply all filters
+        // Enhanced function to apply all filters with multi-select support
         function applyFilters() {
             // Get all filter values
             const searchInput = document.getElementById('search-input');
-            const difficultyFilter = document.getElementById('difficulty-filter');
-            const damageFilter = document.getElementById('damage-filter');
-            const survivabilityFilter = document.getElementById('survivability-filter');
-            const rangeFilter = document.getElementById('range-filter');
-            const classFilter = document.getElementById('class-filter');
-            const regionFilter = document.getElementById('region-filter');
+            
+            // Get checked values from each filter group using more specific selectors
+            const allCheckboxes = document.querySelectorAll('.filter-checkboxes input[type="checkbox"]:checked');
             const roleCheckboxes = document.querySelectorAll('.role-checkboxes input[type="checkbox"]:checked');
+
+            // Group checked values by type
+            const checkedValues = {
+                difficulty: [],
+                damage: [],
+                survivability: [],
+                rangeType: [],
+                championClass: [],
+                region: []
+            };
+
+            // Categorize checked values by finding their parent filter group
+            allCheckboxes.forEach(checkbox => {
+                const value = checkbox.value;
+                const filterGroup = checkbox.closest('.filter-group');
+                const groupLabel = filterGroup.querySelector('label').textContent.toLowerCase();
+                
+                if (groupLabel.includes('obtížnost')) {
+                    checkedValues.difficulty.push(value);
+                } else if (groupLabel.includes('poškození')) {
+                    checkedValues.damage.push(value);
+                } else if (groupLabel.includes('přežitelnost')) {
+                    checkedValues.survivability.push(value);
+                } else if (groupLabel.includes('dosahu')) {
+                    checkedValues.rangeType.push(value);
+                } else if (groupLabel.includes('třída')) {
+                    checkedValues.championClass.push(value);
+                } else if (groupLabel.includes('region')) {
+                    checkedValues.region.push(value);
+                }
+            });
 
             // Update current filters
             currentFilters.search = searchInput ? searchInput.value.toLowerCase().trim() : '';
-            currentFilters.difficulty = difficultyFilter ? difficultyFilter.value : '';
-            currentFilters.damage = damageFilter ? damageFilter.value : '';
-            currentFilters.survivability = survivabilityFilter ? survivabilityFilter.value : '';
-            currentFilters.rangeType = rangeFilter ? rangeFilter.value : '';
-            currentFilters.championClass = classFilter ? classFilter.value : '';
-            currentFilters.region = regionFilter ? regionFilter.value : '';
+            currentFilters.difficulty = checkedValues.difficulty;
+            currentFilters.damage = checkedValues.damage;
+            currentFilters.survivability = checkedValues.survivability;
+            currentFilters.rangeType = checkedValues.rangeType;
+            currentFilters.championClass = checkedValues.championClass;
+            currentFilters.region = checkedValues.region;
             currentFilters.roles = Array.from(roleCheckboxes).map(cb => cb.value);
+
+            // Debug log to check champion class filtering
+            if (checkedValues.championClass.length > 0) {
+                console.log('Champion class filters:', checkedValues.championClass);
+            }
 
             // Apply filters and show results
             showFilteredChampions();
             updateFilterCount();
         }
 
-        // Function to clear all filters
+        // Enhanced function to clear all filters
         function clearAllFilters() {
-            // Clear all inputs
+            // Clear search input
             const searchInput = document.getElementById('search-input');
-            const difficultyFilter = document.getElementById('difficulty-filter');
-            const damageFilter = document.getElementById('damage-filter');
-            const survivabilityFilter = document.getElementById('survivability-filter');
-            const rangeFilter = document.getElementById('range-filter');
-            const classFilter = document.getElementById('class-filter');
-            const regionFilter = document.getElementById('region-filter');
-            const roleCheckboxes = document.querySelectorAll('.role-checkboxes input[type="checkbox"]');
-
             if (searchInput) searchInput.value = '';
-            if (difficultyFilter) difficultyFilter.value = '';
-            if (damageFilter) damageFilter.value = '';
-            if (survivabilityFilter) survivabilityFilter.value = '';
-            if (rangeFilter) rangeFilter.value = '';
-            if (classFilter) classFilter.value = '';
-            if (regionFilter) regionFilter.value = '';
-            roleCheckboxes.forEach(cb => cb.checked = false);
+
+            // Clear all checkboxes in filter groups and role filters
+            const allCheckboxes = document.querySelectorAll('.filter-checkboxes input[type="checkbox"], .role-checkboxes input[type="checkbox"]');
+            allCheckboxes.forEach(cb => cb.checked = false);
 
             // Reset filters and show all champions
             currentFilters = {
                 search: '',
-                difficulty: '',
-                damage: '',
-                survivability: '',
-                rangeType: '',
-                championClass: '',
-                region: '',
+                difficulty: [],
+                damage: [],
+                survivability: [],
+                rangeType: [],
+                championClass: [],
+                region: [],
                 roles: [],
-                selectedPosition: 'all'
+                selectedPositions: ['all']
             };
 
             // Reset position filter UI
@@ -2609,19 +3278,20 @@
             updateFilterCount();
         }
 
-        // Function to update active filter count
+        // Enhanced function to update active filter count
         function updateFilterCount() {
             const filterCount = document.getElementById('active-filters-count');
             let activeCount = 0;
 
             if (currentFilters.search) activeCount++;
-            if (currentFilters.difficulty) activeCount++;
-            if (currentFilters.damage) activeCount++;
-            if (currentFilters.survivability) activeCount++;
-            if (currentFilters.rangeType) activeCount++;
-            if (currentFilters.championClass) activeCount++;
-            if (currentFilters.region) activeCount++;
+            if (currentFilters.difficulty.length > 0) activeCount++;
+            if (currentFilters.damage.length > 0) activeCount++;
+            if (currentFilters.survivability.length > 0) activeCount++;
+            if (currentFilters.rangeType.length > 0) activeCount++;
+            if (currentFilters.championClass.length > 0) activeCount++;
+            if (currentFilters.region.length > 0) activeCount++;
             if (currentFilters.roles.length > 0) activeCount++;
+            if (currentFilters.selectedPositions.length > 0 && !currentFilters.selectedPositions.includes('all')) activeCount++;
 
             if (filterCount) {
                 filterCount.textContent = activeCount;
@@ -2637,9 +3307,9 @@
             }
 
             const filteredChampions = allChampions.filter(champion => {
-                // Position filter (always visible filters)
-                if (currentFilters.selectedPosition !== 'all') {
-                    if (!champion.roles || !champion.roles.includes(currentFilters.selectedPosition)) {
+                // Position filter (always visible filters) - now supports multiple selections
+                if (!currentFilters.selectedPositions.includes('all')) {
+                    if (!champion.roles || !champion.roles.some(role => currentFilters.selectedPositions.includes(role))) {
                         return false;
                     }
                 }
@@ -2652,33 +3322,39 @@
                     if (!matchesName && !matchesTitle) return false;
                 }
 
-                // Difficulty filter
-                if (currentFilters.difficulty && champion.difficulty !== currentFilters.difficulty) {
+                // Difficulty filter (multi-select)
+                if (currentFilters.difficulty.length > 0 && !currentFilters.difficulty.includes(champion.difficulty)) {
                     return false;
                 }
 
-                // Damage type filter
-                if (currentFilters.damage && champion.damage !== currentFilters.damage) {
+                // Damage type filter (multi-select)
+                if (currentFilters.damage.length > 0 && !currentFilters.damage.includes(champion.damage)) {
                     return false;
                 }
 
-                // Survivability filter
-                if (currentFilters.survivability && champion.survivability !== currentFilters.survivability) {
+                // Survivability filter (multi-select)
+                if (currentFilters.survivability.length > 0 && !currentFilters.survivability.includes(champion.survivability)) {
                     return false;
                 }
 
-                // Range type filter
-                if (currentFilters.rangeType && champion.rangeType !== currentFilters.rangeType) {
+                // Range type filter (multi-select)
+                if (currentFilters.rangeType.length > 0 && !currentFilters.rangeType.includes(champion.rangeType)) {
                     return false;
                 }
 
-                // Champion class filter
-                if (currentFilters.championClass && !champion.tags.includes(currentFilters.championClass)) {
-                    return false;
+                // Champion class filter (multi-select) - fixed to use correct property
+                if (currentFilters.championClass.length > 0) {
+                    // Check both tags array and championClass property
+                    const hasMatch = (champion.tags && champion.tags.some(tag => currentFilters.championClass.includes(tag))) ||
+                                    (champion.championClass && currentFilters.championClass.includes(champion.championClass));
+                    
+                    if (!hasMatch) {
+                        return false;
+                    }
                 }
 
-                // Region filter
-                if (currentFilters.region && champion.region !== currentFilters.region) {
+                // Region filter (multi-select)
+                if (currentFilters.region.length > 0 && !currentFilters.region.includes(champion.region)) {
                     return false;
                 }
 
@@ -2697,20 +3373,55 @@
             console.log(`Showing ${filteredChampions.length} of ${allChampions.length} champions`);
         }
 
-        // Position filtering functions
-        function filterByPosition(position) {
-            // Update active position filter
-            currentFilters.selectedPosition = position;
-            
-            // Update UI
-            document.querySelectorAll('.position-filter-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            document.querySelector(`[data-position="${position}"]`).classList.add('active');
+        // Enhanced multi-select position filtering functions
+        function togglePositionFilter(position) {
+            if (position === 'all') {
+                // If "all" is clicked, clear all other selections and select only "all"
+                currentFilters.selectedPositions = ['all'];
+                
+                // Update UI - remove active from all, add to "all"
+                document.querySelectorAll('.position-filter-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelector('[data-position="all"]').classList.add('active');
+            } else {
+                // Remove "all" if it's selected and we're selecting a specific position
+                if (currentFilters.selectedPositions.includes('all')) {
+                    currentFilters.selectedPositions = [];
+                    document.querySelector('[data-position="all"]').classList.remove('active');
+                }
+                
+                // Toggle the specific position
+                const positionIndex = currentFilters.selectedPositions.indexOf(position);
+                const positionElement = document.querySelector(`[data-position="${position}"]`);
+                
+                if (positionIndex > -1) {
+                    // Remove position if already selected
+                    currentFilters.selectedPositions.splice(positionIndex, 1);
+                    positionElement.classList.remove('active');
+                } else {
+                    // Add position if not selected
+                    currentFilters.selectedPositions.push(position);
+                    positionElement.classList.add('active');
+                }
+                
+                // If no positions are selected, default back to "all"
+                if (currentFilters.selectedPositions.length === 0) {
+                    currentFilters.selectedPositions = ['all'];
+                    document.querySelector('[data-position="all"]').classList.add('active');
+                }
+            }
             
             // Apply filters
             showFilteredChampions();
             updateFilterCount();
+            
+            console.log('Selected positions:', currentFilters.selectedPositions);
+        }
+
+        // Legacy function for backward compatibility
+        function filterByPosition(position) {
+            togglePositionFilter(position);
         }
 
         // Function to update position counts
@@ -2751,6 +3462,9 @@
             console.log('Opening modal for champion:', championId);
             const modal = document.getElementById('champion-modal');
             if (modal) {
+                // Clear previous content immediately
+                clearModalContent();
+                
                 modal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
 
@@ -2762,6 +3476,38 @@
                 // Load champion details
                 loadChampionDetails(championId);
             }
+        }
+
+        // Function to clear modal content
+        function clearModalContent() {
+            // Clear champion info
+            const nameEl = document.getElementById('modal-champion-name');
+            const titleEl = document.getElementById('modal-champion-title');
+            const descEl = document.getElementById('modal-champion-description');
+            const splashEl = document.getElementById('modal-champion-splash');
+            const rolesEl = document.getElementById('modal-champion-roles');
+            const statsEl = document.getElementById('modal-champion-stats');
+            const passiveEl = document.getElementById('modal-passive');
+            const abilitiesEl = document.getElementById('modal-abilities');
+            const skinsEl = document.getElementById('modal-skins');
+            const backgroundEl = document.getElementById('modal-background');
+
+            if (nameEl) nameEl.textContent = 'Loading...';
+            if (titleEl) titleEl.textContent = '';
+            if (descEl) descEl.textContent = 'Loading champion details...';
+            if (splashEl) {
+                splashEl.src = '';
+                splashEl.alt = '';
+            }
+            if (rolesEl) rolesEl.innerHTML = '';
+            if (statsEl) statsEl.innerHTML = '<p>Loading stats...</p>';
+            if (passiveEl) passiveEl.innerHTML = '<p>Loading passive ability...</p>';
+            if (abilitiesEl) abilitiesEl.innerHTML = '<p>Loading abilities...</p>';
+            if (skinsEl) skinsEl.innerHTML = '<p>Loading skins...</p>';
+            if (backgroundEl) backgroundEl.style.backgroundImage = '';
+
+            // Reset to overview tab
+            showModalTab('overview');
         }
 
         function closeChampionModal() {
@@ -2904,17 +3650,48 @@
 
         async function loadChampionDetails(championId) {
             try {
+                // Show loading state
+                const modal = document.getElementById('champion-modal');
+                if (modal) {
+                    modal.classList.add('loading');
+                }
+
                 const api = ensureDataDragonAPI();
                 const championDetails = await api.getChampionDetails(championId);
 
                 if (championDetails) {
-                    // Update modal content
-                    document.getElementById('modal-champion-name').textContent = championDetails.name || 'Unknown';
-                    document.getElementById('modal-champion-title').textContent = championDetails.title || '';
-                    document.getElementById('modal-champion-description').textContent = championDetails.lore || championDetails.description || 'No description available';
+                    // Add a small delay to prevent flashing
+                    await new Promise(resolve => setTimeout(resolve, 100));
+
+                    // Update modal content with fade-in effect
+                    const nameEl = document.getElementById('modal-champion-name');
+                    const titleEl = document.getElementById('modal-champion-title');
+                    const descEl = document.getElementById('modal-champion-description');
+
+                    if (nameEl) {
+                        nameEl.style.opacity = '0';
+                        nameEl.textContent = championDetails.name || 'Unknown';
+                        setTimeout(() => nameEl.style.opacity = '1', 50);
+                    }
+                    
+                    if (titleEl) {
+                        titleEl.style.opacity = '0';
+                        titleEl.textContent = championDetails.title || '';
+                        setTimeout(() => titleEl.style.opacity = '1', 100);
+                    }
+                    
+                    if (descEl) {
+                        descEl.style.opacity = '0';
+                        descEl.textContent = championDetails.lore || championDetails.description || 'No description available';
+                        setTimeout(() => descEl.style.opacity = '1', 150);
+                    }
 
                     const splashImg = document.getElementById('modal-champion-splash');
                     if (splashImg) {
+                        splashImg.style.opacity = '0';
+                        splashImg.onload = () => {
+                            setTimeout(() => splashImg.style.opacity = '1', 50);
+                        };
                         splashImg.src = championDetails.square || championDetails.splash;
                         splashImg.alt = championDetails.name;
                     }
@@ -3019,21 +3796,43 @@
                                     ).join('')}
                                 </div>
                                 <div class="stat-bar-container">
-                                    <div class="stat-bar animate-on-load" data-target-width="${(stat.value / stat.maxValue) * 100}"></div>
+                                    <div class="stat-bar animate-on-load" data-target-width="${(stat.value / stat.maxValue) * 100}" style="width: 0%;"></div>
                                 </div>
                                 <div class="stat-per-level">${stat.perLevel}</div>
                             </div>
                         `).join('');
 
-                        // Animate stat bars after a delay
+                        // Animate stat bars and stars after a delay
                         setTimeout(() => {
                             const statBars = statsContainer.querySelectorAll('.stat-bar');
+                            const statStars = statsContainer.querySelectorAll('.stat-stars');
+                            
                             statBars.forEach((bar, index) => {
                                 setTimeout(() => {
-                                    bar.style.width = bar.style.width; // Trigger animation
+                                    const targetWidth = bar.getAttribute('data-target-width');
+                                    bar.style.width = targetWidth + '%';
                                 }, index * 200);
                             });
-                        }, 500);
+
+                            // Animate stars filling up
+                            statStars.forEach((starsContainer, index) => {
+                                const stars = starsContainer.querySelectorAll('.stat-star');
+                                const filledStars = starsContainer.querySelectorAll('.stat-star.filled');
+                                
+                                // Reset all stars to unfilled
+                                stars.forEach(star => star.classList.remove('filled', 'star-animate'));
+                                
+                                // Animate filled stars one by one
+                                filledStars.forEach((star, starIndex) => {
+                                    setTimeout(() => {
+                                        const originalStar = stars[starIndex];
+                                        if (originalStar) {
+                                            originalStar.classList.add('filled', 'star-animate');
+                                        }
+                                    }, (index * 200) + (starIndex * 150));
+                                });
+                            });
+                        }, 800);
                     }
 
                     // Load abilities if available
@@ -3048,9 +3847,24 @@
                     if (championDetails.skins) {
                         loadChampionSkins(championDetails.skins);
                     }
+
+                    // Remove loading state
+                    setTimeout(() => {
+                        const modal = document.getElementById('champion-modal');
+                        if (modal) {
+                            modal.classList.remove('loading');
+                        }
+                    }, 300);
                 }
             } catch (error) {
                 console.error('Failed to load champion details:', error);
+                
+                // Remove loading state on error
+                const modal = document.getElementById('champion-modal');
+                if (modal) {
+                    modal.classList.remove('loading');
+                }
+                
                 // Show error message in modal
                 const statsContainer = document.getElementById('modal-champion-stats');
                 if (statsContainer) {
@@ -3259,6 +4073,9 @@
         document.addEventListener('DOMContentLoaded', async () => {
             try {
                 console.log('DOM loaded, starting enhanced initialization...');
+
+                // Load language preference first
+                loadLanguagePreference();
 
                 // Initialize scroll animations first
                 initializeLeagueAnimations();

@@ -2,9 +2,10 @@
 // Handles all API calls to Riot's DataDragon service
 
 class DataDragonAPI {
-    constructor() {
+    constructor(locale = 'cs_CZ') {
         this.baseUrl = 'https://ddragon.leagueoflegends.com';
         this.version = null;
+        this.locale = locale;
         this.champions = new Map();
         this.championDetails = new Map();
     }
@@ -41,7 +42,7 @@ class DataDragonAPI {
             
             // Add cache busting for hard refresh scenarios
             const cacheBuster = new Date().getTime();
-            const url = `${this.baseUrl}/cdn/${version}/data/cs_CZ/champion.json?v=${cacheBuster}`;
+            const url = `${this.baseUrl}/cdn/${version}/data/${this.locale}/champion.json?v=${cacheBuster}`;
             
             const response = await fetch(url);
             
@@ -90,7 +91,7 @@ class DataDragonAPI {
 
         try {
             const version = await this.getLatestVersion();
-            const response = await fetch(`${this.baseUrl}/cdn/${version}/data/cs_CZ/champion/${championId}.json`);
+            const response = await fetch(`${this.baseUrl}/cdn/${version}/data/${this.locale}/champion/${championId}.json`);
             const data = await response.json();
             
             const champion = data.data[championId];
@@ -134,6 +135,22 @@ class DataDragonAPI {
         } catch (error) {
             console.error(`Failed to fetch champion details for ${championId}:`, error);
             throw error;
+        }
+    }
+
+    // Clear cache when locale changes
+    clearCache() {
+        this.champions.clear();
+        this.championDetails.clear();
+        console.log('DataDragon cache cleared for locale change');
+    }
+
+    // Set new locale and clear cache
+    setLocale(newLocale) {
+        if (this.locale !== newLocale) {
+            console.log(`Changing DataDragon locale from ${this.locale} to ${newLocale}`);
+            this.locale = newLocale;
+            this.clearCache();
         }
     }
 
