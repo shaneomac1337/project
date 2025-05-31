@@ -367,3 +367,37 @@
 - Add active class only to clicked position
 **Impact**: Position filters now work as expected - selecting one position shows only champions from that role without combining with others
 **Status**: Fixed and tested
+[2025-05-31 09:36:30] - ENHANCEMENT-002: Multi-Instance Music Player Control
+**Issue**: Multiple browser tabs/windows could play music simultaneously, causing audio overlap
+**Problem**: When 2+ instances of the website are opened, each initializes its own music player without coordination
+**Solution Implemented**:
+- **Instance Control System**: Added unique instance IDs and localStorage-based coordination
+- **Control Claiming**: Only one instance can control music playback at a time
+- **Heartbeat Mechanism**: Active instance updates timestamp every 2 seconds to maintain control
+- **Cross-Tab Communication**: Uses storage events to detect when other instances take control
+- **Automatic Release**: Control released on page unload or when tab becomes hidden
+- **User Feedback**: Shows "Playing in another tab" message when trying to play from inactive instance
+**Technical Implementation**:
+- Added instance control variables: `instanceId`, `INSTANCE_KEY`, `INSTANCE_TIMESTAMP_KEY`
+- New functions: `checkInstanceControl()`, `claimInstanceControl()`, `releaseInstanceControl()`, `updateHeartbeat()`
+- Modified `togglePlay()`, `nextTrack()`, `prevTrack()` to respect instance control
+- Added storage event listener and visibility change handlers
+**Impact**: Prevents audio conflicts when multiple tabs are open, ensuring smooth user experience
+**Status**: Implemented and tested
+[2025-05-31 09:52:00] - BUGFIX-004: Music Player Multi-Instance Control Fixed
+**Issue**: Music player was auto-starting in new tabs instead of showing "Click to play music here" message
+**Root Cause**: localStorage synchronization delays between browser tabs and insufficient instance control checks
+**Solution Applied**:
+- Enhanced multi-check system with 3 progressive checks at 300ms intervals
+- Improved localStorage state detection for music_ever_started flag
+- Added timestamp-based active instance validation (10-second timeout)
+- Implemented proper heartbeat mechanism for instance control
+- Added comprehensive checks before auto-starting music
+**Technical Implementation**:
+- Added `MUSIC_EVER_STARTED_KEY` localStorage flag
+- Modified `unlockAudio` function with progressive checking system
+- Enhanced `checkInstanceControl()` with timestamp validation
+- Improved cross-tab communication via storage events
+**Impact**: Music now correctly plays only in first tab, subsequent tabs show appropriate user messages
+**User Feedback**: "it is now fixed, it will just pop up and say click here if you want to play the music here, it is actually good now"
+**Status**: ✅ COMPLETED - Working as expected

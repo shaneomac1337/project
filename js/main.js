@@ -464,6 +464,112 @@ document.addEventListener('DOMContentLoaded', function() {
     let shuffledPlaylist = [];
     let currentShuffleIndex = 0;
 
+    // Multi-instance control
+    let isInstanceActive = false;
+    const INSTANCE_KEY = 'komplexaci_trax_active_instance';
+    const INSTANCE_TIMESTAMP_KEY = 'komplexaci_trax_timestamp';
+    const MUSIC_EVER_STARTED_KEY = 'komplexaci_trax_ever_started';
+    const instanceId = Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+
+    // Check if this instance should be the active one
+    function checkInstanceControl() {
+        const activeInstance = localStorage.getItem(INSTANCE_KEY);
+        const timestamp = localStorage.getItem(INSTANCE_TIMESTAMP_KEY);
+        const now = Date.now();
+        
+        console.log(`[${instanceId}] Checking control - Active: ${activeInstance}, Timestamp: ${timestamp}, Age: ${timestamp ? now - parseInt(timestamp) : 'N/A'}ms`);
+        
+        // If this instance is already active, keep control
+        if (activeInstance === instanceId) {
+            console.log(`[${instanceId}] Already have control`);
+            return true;
+        }
+        
+        // If no active instance, we can take control
+        if (!activeInstance || !timestamp) {
+            console.log(`[${instanceId}] Can take control (no active instance)`);
+            return true;
+        }
+        
+        // If timestamp is very old (>10 seconds), the other instance is likely closed
+        const age = now - parseInt(timestamp);
+        if (age > 10000) {
+            console.log(`[${instanceId}] Can take control (timestamp too old: ${age}ms)`);
+            return true;
+        }
+        
+        console.log(`[${instanceId}] Cannot take control (instance ${activeInstance} is active, age: ${age}ms)`);
+        return false;
+    }
+
+    // Claim control for this instance
+    function claimInstanceControl() {
+        const now = Date.now();
+        localStorage.setItem(INSTANCE_KEY, instanceId);
+        localStorage.setItem(INSTANCE_TIMESTAMP_KEY, now.toString());
+        isInstanceActive = true;
+        console.log(`[${instanceId}] CLAIMED CONTROL at ${now}`);
+        
+        // Immediately pause any other instances that might be playing
+        window.dispatchEvent(new StorageEvent('storage', {
+            key: INSTANCE_KEY,
+            newValue: instanceId,
+            storageArea: localStorage
+        }));
+    }
+
+    // Release control from this instance
+    function releaseInstanceControl() {
+        const activeInstance = localStorage.getItem(INSTANCE_KEY);
+        if (activeInstance === instanceId) {
+            localStorage.removeItem(INSTANCE_KEY);
+            localStorage.removeItem(INSTANCE_TIMESTAMP_KEY);
+            console.log(`[${instanceId}] RELEASED CONTROL`);
+        }
+        isInstanceActive = false;
+    }
+
+    // Update heartbeat to keep control
+    function updateHeartbeat() {
+        if (isInstanceActive) {
+            const now = Date.now();
+            localStorage.setItem(INSTANCE_TIMESTAMP_KEY, now.toString());
+            // Only log heartbeat when playing to reduce console spam
+            if (isPlaying) {
+                console.log(`[${instanceId}] Heartbeat updated at ${now}`);
+            }
+        }
+    }
+
+    // Listen for storage changes to detect when other instances take control
+    window.addEventListener('storage', function(e) {
+        if (e.key === INSTANCE_KEY) {
+            const activeInstance = localStorage.getItem(INSTANCE_KEY);
+            console.log(`[${instanceId}] Storage change detected - new active instance: ${activeInstance}`);
+            
+            if (activeInstance && activeInstance !== instanceId && isPlaying) {
+                console.log(`[${instanceId}] Another instance (${activeInstance}) took control, STOPPING playback`);
+                // Another instance took control, pause this one
+                isPlaying = false;
+                musicPlayer.pause();
+                updatePlayButton();
+                isInstanceActive = false;
+                
+                // Show notification in track name
+                if (trackName) {
+                    const originalText = trackName.textContent;
+                    trackName.textContent = "Paused by another tab";
+                    setTimeout(() => {
+                        trackName.textContent = originalText;
+                    }, 3000);
+                }
+            }
+        }
+    });
+
+    // Heartbeat interval to maintain control
+    setInterval(updateHeartbeat, 1000); // Update every 1 second for more responsive control
+
     // Function to show the Trax widget with optional auto-hide after 5 seconds
     function showTraxWidget(autoHide = false) {
         console.log('Showing Trax widget');
@@ -698,8 +804,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Toggle play/pause function
     function togglePlay() {
+        // Check if we can control the player (multi-instance check)
+        if (!isPlaying && !checkInstanceControl()) {
+            console.log('Another instance is controlling the music player');
+            // Show a brief notification that another tab is playing
+            if (trackName) {
+                const originalText = trackName.textContent;
+                trackName.textContent = "Playing in another tab";
+                setTimeout(() => {
+                    trackName.textContent = originalText;
+                }, 2000);
+            }
+            return;
+        }
+
         // Toggle playing state
         isPlaying = !isPlaying;
+
+        if (isPlaying) {
+            // Mark that music has been started at least once globally
+            localStorage.setItem(MUSIC_EVER_STARTED_KEY, 'true');
+            // Claim control when starting to play
+            claimInstanceControl();
+        } else {
+            // Release control when pausing
+            releaseInstanceControl();
+        }
 
         // Update button appearance
         updatePlayButton();
@@ -820,6 +950,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function prevTrack() {
         console.log('Previous track called');
 
+        // Check if we can control the player (multi-instance check)
+        if (!checkInstanceControl()) {
+            console.log('Another instance is controlling the music player');
+            return;
+        }
+
         // Always use sequential playback when manually navigating
         // Only the first track is shuffled
         currentTrack--;
@@ -839,6 +975,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Always play the previous track automatically when skipping
         isPlaying = true;
+        claimInstanceControl(); // Claim control when changing tracks
         updatePlayButton(); // Update the play button to show pause icon
 
         // Play the track
@@ -853,6 +990,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Next track function
     function nextTrack() {
         console.log('Next track called');
+
+        // Check if we can control the player (multi-instance check)
+        if (!checkInstanceControl()) {
+            console.log('Another instance is controlling the music player');
+            return;
+        }
 
         // Always use sequential playback when manually navigating
         // Only the first track is shuffled
@@ -873,6 +1016,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Always play the next track automatically when skipping
         isPlaying = true;
+        claimInstanceControl(); // Claim control when changing tracks
         updatePlayButton(); // Update the play button to show pause icon
 
         // Play the track
@@ -929,9 +1073,9 @@ document.addEventListener('DOMContentLoaded', function() {
         traxMiniIcon.addEventListener('click', function() {
             console.log('Mini icon clicked, showing widget');
             showTraxWidget();
-            // If music is not playing, start it
+            // If music is not playing, try to start it (respecting instance control)
             if (!isPlaying) {
-                togglePlay();
+                togglePlay(); // This now includes instance control check
             }
         });
     }
@@ -1007,6 +1151,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function initPlayer() {
         console.log('Initializing EA Trax player');
 
+        // Check if music has ever been started globally
+        const musicEverStarted = localStorage.getItem(MUSIC_EVER_STARTED_KEY);
+        console.log('During init - Music ever started globally:', musicEverStarted);
+
         // Set initial volume from slider
         musicPlayer.volume = volumeSlider.value; // Use slider value (0.2 = 20%)
 
@@ -1070,23 +1218,123 @@ document.addEventListener('DOMContentLoaded', function() {
         const unlockAudio = function(e) {
             console.log('User interaction detected, enabling audio', e.type);
 
-            // Show the widget
-            showTraxWidget(true); // Auto-hide after 5 seconds
-
             // Set first interaction flag
             hasFirstInteractionOccurred = true;
 
-            // Try to play
-            if (!isPlaying) {
-                isPlaying = true;
-                updatePlayButton();
-                tryToPlayAudio();
-            }
+            // Perform multiple checks with increasing delays to ensure we have accurate state
+            let checkCount = 0;
+            const maxChecks = 3;
+            
+            const performCheck = () => {
+                checkCount++;
+                console.log(`Check ${checkCount}/${maxChecks}`);
+                
+                // Re-check localStorage and instance state
+                const musicEverStarted = localStorage.getItem(MUSIC_EVER_STARTED_KEY);
+                const activeInstance = localStorage.getItem(INSTANCE_KEY);
+                const timestamp = localStorage.getItem(INSTANCE_TIMESTAMP_KEY);
+                const now = Date.now();
+                
+                console.log('Music ever started globally:', musicEverStarted);
+                console.log('Active instance found:', activeInstance);
+                console.log('Instance timestamp:', timestamp, 'Age:', timestamp ? now - parseInt(timestamp) : 'N/A');
 
-            // Remove event listeners after first interaction
-            document.removeEventListener('click', unlockAudio);
-            document.removeEventListener('touchstart', unlockAudio);
-            document.removeEventListener('keydown', unlockAudio);
+                // If there's an active instance with recent timestamp, don't auto-start
+                if (activeInstance && timestamp && (now - parseInt(timestamp)) < 5000) {
+                    console.log('Recent active instance detected - not auto-starting');
+                    // Show notification that music is playing elsewhere
+                    if (trackName) {
+                        const originalText = trackName.textContent;
+                        trackName.textContent = "Playing in another tab";
+                        setTimeout(() => {
+                            trackName.textContent = originalText;
+                        }, 3000);
+                    }
+                    // Show the widget briefly to indicate readiness, but don't play
+                    showTraxWidget(true);
+                    
+                    // Remove event listeners after first interaction
+                    document.removeEventListener('click', unlockAudio);
+                    document.removeEventListener('touchstart', unlockAudio);
+                    document.removeEventListener('keydown', unlockAudio);
+                    return;
+                }
+
+                // If music has been started before globally, don't auto-start in this new tab
+                if (musicEverStarted === 'true') {
+                    console.log('Music has been started in another tab before - not auto-starting here');
+                    // Show notification that music was started elsewhere
+                    if (trackName) {
+                        const originalText = trackName.textContent;
+                        trackName.textContent = "Click to play music here";
+                        setTimeout(() => {
+                            trackName.textContent = originalText;
+                        }, 4000);
+                    }
+                    // Show the widget briefly to indicate readiness, but don't play
+                    showTraxWidget(true);
+                    
+                    // Remove event listeners after first interaction
+                    document.removeEventListener('click', unlockAudio);
+                    document.removeEventListener('touchstart', unlockAudio);
+                    document.removeEventListener('keydown', unlockAudio);
+                    return;
+                }
+
+                // If we haven't completed all checks yet, try again with longer delay
+                if (checkCount < maxChecks) {
+                    setTimeout(performCheck, 300 * checkCount); // 300ms, 600ms delays
+                    return;
+                }
+
+                // Final check - if we can't control the player, don't auto-start
+                if (!checkInstanceControl()) {
+                    console.log('Cannot control player - not auto-starting');
+                    // Show notification that music is playing elsewhere
+                    if (trackName) {
+                        const originalText = trackName.textContent;
+                        trackName.textContent = "Playing in another tab";
+                        setTimeout(() => {
+                            trackName.textContent = originalText;
+                        }, 3000);
+                    }
+                    // Show the widget briefly to indicate readiness, but don't play
+                    showTraxWidget(true);
+                    
+                    // Remove event listeners after first interaction
+                    document.removeEventListener('click', unlockAudio);
+                    document.removeEventListener('touchstart', unlockAudio);
+                    document.removeEventListener('keydown', unlockAudio);
+                    return;
+                }
+
+                // This is the very first time music is being started - auto-start it
+                console.log('First time music is being started globally - auto-starting');
+                
+                // Mark that music has been started globally IMMEDIATELY
+                localStorage.setItem(MUSIC_EVER_STARTED_KEY, 'true');
+
+                // Show the widget
+                showTraxWidget(true); // Auto-hide after 5 seconds
+
+                // Claim control before starting to play
+                claimInstanceControl();
+
+                // Try to play
+                if (!isPlaying) {
+                    isPlaying = true;
+                    updatePlayButton();
+                    tryToPlayAudio();
+                }
+
+                // Remove event listeners after first interaction
+                document.removeEventListener('click', unlockAudio);
+                document.removeEventListener('touchstart', unlockAudio);
+                document.removeEventListener('keydown', unlockAudio);
+            };
+            
+            // Start the first check immediately
+            performCheck();
         };
 
         // Add event listeners for user interaction (click only - scroll will simulate a click)
@@ -1118,6 +1366,19 @@ document.addEventListener('DOMContentLoaded', function() {
         // Initialize the player
         initPlayer();
     }
+
+    // Release control when page is unloaded
+    window.addEventListener('beforeunload', function() {
+        releaseInstanceControl();
+    });
+
+    // Also release control when page becomes hidden (tab switch)
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden && isPlaying) {
+            // Don't pause, but release control so other tabs can take over
+            releaseInstanceControl();
+        }
+    });
 });
 
 // Toggle advanced filters visibility
