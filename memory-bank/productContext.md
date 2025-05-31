@@ -87,3 +87,23 @@ projekt/
 - Bug-free experience
 - Mobile-responsive design
 - Accessible user interface
+## Core Features
+- Daily context tracking
+- Session management
+- Statistics tracking
+- Roo-Code integration
+- Automated documentation updates
+
+## Architecture Overview
+- Enhanced Memory Bank: Core functionality for context retention
+- Memory Bank: Simplified interface to the enhanced system
+- Roo Integration: Connects memory bank with Roo-Code
+- UMB Command: CLI tool for updating memory bank files
+
+**[2025-05-31] PROJECT COMPLETION UPDATE**
+- **Status**: ✅ PRODUCTION READY
+- **Development Phase**: COMPLETED
+- **All Core Features**: Implemented and tested
+- **Bug Status**: All major bugs resolved
+- **User Experience**: Polished and professional
+- **Community Ready**: Website fully operational for Komplexáci gaming clan

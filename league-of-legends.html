@@ -504,40 +504,8 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
         }
 
-        /* Multi-select indicator */
-        .position-filter-item.active:not([data-position="all"])::after {
-            content: '✓';
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--accent-color);
-            color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: bold;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            animation: checkmarkPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+        /* Removed multi-select indicator for single-select behavior */
 
-        @keyframes checkmarkPop {
-            0% {
-                transform: scale(0) rotate(-180deg);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.2) rotate(-90deg);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1) rotate(0deg);
-                opacity: 1;
-            }
-        }
 
         .position-icon {
             font-size: 1.8rem;
@@ -3278,7 +3246,7 @@
             updateFilterCount();
         }
 
-        // Enhanced function to update active filter count
+        // Enhanced function to update active filter count (excludes basic position filters)
         function updateFilterCount() {
             const filterCount = document.getElementById('active-filters-count');
             let activeCount = 0;
@@ -3291,7 +3259,7 @@
             if (currentFilters.championClass.length > 0) activeCount++;
             if (currentFilters.region.length > 0) activeCount++;
             if (currentFilters.roles.length > 0) activeCount++;
-            if (currentFilters.selectedPositions.length > 0 && !currentFilters.selectedPositions.includes('all')) activeCount++;
+            // Removed position filter counting - basic position filters don't count as "advanced" filters
 
             if (filterCount) {
                 filterCount.textContent = activeCount;
@@ -3373,50 +3341,27 @@
             console.log(`Showing ${filteredChampions.length} of ${allChampions.length} champions`);
         }
 
-        // Enhanced multi-select position filtering functions
+        // Single-select position filtering functions
         function togglePositionFilter(position) {
-            if (position === 'all') {
-                // If "all" is clicked, clear all other selections and select only "all"
-                currentFilters.selectedPositions = ['all'];
-                
-                // Update UI - remove active from all, add to "all"
-                document.querySelectorAll('.position-filter-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-                document.querySelector('[data-position="all"]').classList.add('active');
-            } else {
-                // Remove "all" if it's selected and we're selecting a specific position
-                if (currentFilters.selectedPositions.includes('all')) {
-                    currentFilters.selectedPositions = [];
-                    document.querySelector('[data-position="all"]').classList.remove('active');
-                }
-                
-                // Toggle the specific position
-                const positionIndex = currentFilters.selectedPositions.indexOf(position);
-                const positionElement = document.querySelector(`[data-position="${position}"]`);
-                
-                if (positionIndex > -1) {
-                    // Remove position if already selected
-                    currentFilters.selectedPositions.splice(positionIndex, 1);
-                    positionElement.classList.remove('active');
-                } else {
-                    // Add position if not selected
-                    currentFilters.selectedPositions.push(position);
-                    positionElement.classList.add('active');
-                }
-                
-                // If no positions are selected, default back to "all"
-                if (currentFilters.selectedPositions.length === 0) {
-                    currentFilters.selectedPositions = ['all'];
-                    document.querySelector('[data-position="all"]').classList.add('active');
-                }
+            // Clear all active positions first
+            document.querySelectorAll('.position-filter-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Set the selected position as the only active one
+            currentFilters.selectedPositions = [position];
+            
+            // Add active class to the clicked position
+            const positionElement = document.querySelector(`[data-position="${position}"]`);
+            if (positionElement) {
+                positionElement.classList.add('active');
             }
             
             // Apply filters
             showFilteredChampions();
             updateFilterCount();
             
-            console.log('Selected positions:', currentFilters.selectedPositions);
+            console.log('Selected position:', position);
         }
 
         // Legacy function for backward compatibility

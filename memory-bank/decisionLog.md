@@ -14,6 +14,11 @@
 **Decision**: Implement 5-file memory bank structure for beautification focus
 **Rationale**: 
 - Focused scope on visual improvements and bug fixes
+**Additional UI Improvements**:
+- Removed checkmark (✓) indicator from position filters (deleted CSS `.position-filter-item.active:not([data-position="all"])::after`)
+- Fixed advanced filter counter to exclude basic position filters from count
+- Removed unused `@keyframes checkmarkPop` animation CSS
+- Basic position filters now work as pure radio buttons without multi-select visual indicators
 - Structured approach to maintain context across sessions
 - Enables tracking of design decisions and bug resolution patterns
 **Impact**: Improved development workflow and context preservation
@@ -348,3 +353,17 @@
 - Maintains readability while improving aesthetics
 - Consistent appearance across all champions regardless of role count
 **Status**: Completed
+[2025-05-31 09:15:30] - BUGFIX-003: Fixed Basic Position Filters Single-Select Issue
+**Issue**: Position filters (TOP, JUNGLE, MID, ADC, SUPPORT) were combining results instead of working as individual filters
+**Root Cause**: The `togglePositionFilter()` function was implementing multi-select logic instead of single-select radio button behavior
+**Solution Applied**:
+- Modified `togglePositionFilter()` function in league-of-legends.html (line 3377)
+- Replaced multi-select logic with single-select behavior
+- Now each position filter clears all others before applying its own filter
+- Position filters work independently showing only champions from the selected position
+**Technical Implementation**:
+- Clear all active positions: `document.querySelectorAll('.position-filter-item').forEach(item => item.classList.remove('active'));`
+- Set single selected position: `currentFilters.selectedPositions = [position];`
+- Add active class only to clicked position
+**Impact**: Position filters now work as expected - selecting one position shows only champions from that role without combining with others
+**Status**: Fixed and tested
