@@ -99,6 +99,24 @@
         
         hero.appendChild(orbsContainer);
     }
+// Create subtle particles for the YouTube section
+    function createVideoSectionParticles() {
+        const youtubeSection = document.querySelector('.youtube-section');
+        if (!youtubeSection) return;
+
+        const particleCount = 20;
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'youtube-particle';
+            particle.style.width = Math.random() * 3 + 1 + 'px';
+            particle.style.height = Math.random() * 3 + 1 + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+            youtubeSection.appendChild(particle);
+        }
+    }
     
     // Initialize enhanced visual effects
     createParticles();
@@ -1221,94 +1239,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Set first interaction flag
             hasFirstInteractionOccurred = true;
 
-            // Perform multiple checks with increasing delays to ensure we have accurate state
-            let checkCount = 0;
-            const maxChecks = 3;
-            
-            const performCheck = () => {
-                checkCount++;
-                console.log(`Check ${checkCount}/${maxChecks}`);
-                
-                // Re-check localStorage and instance state
-                const musicEverStarted = localStorage.getItem(MUSIC_EVER_STARTED_KEY);
-                const activeInstance = localStorage.getItem(INSTANCE_KEY);
-                const timestamp = localStorage.getItem(INSTANCE_TIMESTAMP_KEY);
-                const now = Date.now();
-                
-                console.log('Music ever started globally:', musicEverStarted);
-                console.log('Active instance found:', activeInstance);
-                console.log('Instance timestamp:', timestamp, 'Age:', timestamp ? now - parseInt(timestamp) : 'N/A');
+            const musicEverStarted = localStorage.getItem(MUSIC_EVER_STARTED_KEY);
 
-                // If there's an active instance with recent timestamp, don't auto-start
-                if (activeInstance && timestamp && (now - parseInt(timestamp)) < 5000) {
-                    console.log('Recent active instance detected - not auto-starting');
-                    // Show notification that music is playing elsewhere
-                    if (trackName) {
-                        const originalText = trackName.textContent;
-                        trackName.textContent = "Playing in another tab";
-                        setTimeout(() => {
-                            trackName.textContent = originalText;
-                        }, 3000);
-                    }
-                    // Show the widget briefly to indicate readiness, but don't play
-                    showTraxWidget(true);
-                    
-                    // Remove event listeners after first interaction
-                    document.removeEventListener('click', unlockAudio);
-                    document.removeEventListener('touchstart', unlockAudio);
-                    document.removeEventListener('keydown', unlockAudio);
-                    return;
-                }
-
-                // If music has been started before globally, don't auto-start in this new tab
-                if (musicEverStarted === 'true') {
-                    console.log('Music has been started in another tab before - not auto-starting here');
-                    // Show notification that music was started elsewhere
-                    if (trackName) {
-                        const originalText = trackName.textContent;
-                        trackName.textContent = "Click to play music here";
-                        setTimeout(() => {
-                            trackName.textContent = originalText;
-                        }, 4000);
-                    }
-                    // Show the widget briefly to indicate readiness, but don't play
-                    showTraxWidget(true);
-                    
-                    // Remove event listeners after first interaction
-                    document.removeEventListener('click', unlockAudio);
-                    document.removeEventListener('touchstart', unlockAudio);
-                    document.removeEventListener('keydown', unlockAudio);
-                    return;
-                }
-
-                // If we haven't completed all checks yet, try again with longer delay
-                if (checkCount < maxChecks) {
-                    setTimeout(performCheck, 300 * checkCount); // 300ms, 600ms delays
-                    return;
-                }
-
-                // Final check - if we can't control the player, don't auto-start
-                if (!checkInstanceControl()) {
-                    console.log('Cannot control player - not auto-starting');
-                    // Show notification that music is playing elsewhere
-                    if (trackName) {
-                        const originalText = trackName.textContent;
-                        trackName.textContent = "Playing in another tab";
-                        setTimeout(() => {
-                            trackName.textContent = originalText;
-                        }, 3000);
-                    }
-                    // Show the widget briefly to indicate readiness, but don't play
-                    showTraxWidget(true);
-                    
-                    // Remove event listeners after first interaction
-                    document.removeEventListener('click', unlockAudio);
-                    document.removeEventListener('touchstart', unlockAudio);
-                    document.removeEventListener('keydown', unlockAudio);
-                    return;
-                }
-
-                // This is the very first time music is being started - auto-start it
+            if (musicEverStarted !== 'true') {
+                // This is the very first time music is being started globally
                 console.log('First time music is being started globally - auto-starting');
                 
                 // Mark that music has been started globally IMMEDIATELY
@@ -1326,15 +1260,39 @@ document.addEventListener('DOMContentLoaded', function() {
                     updatePlayButton();
                     tryToPlayAudio();
                 }
+            } else {
+                // Music has been started before globally, do not auto-start in this new tab
+                console.log('Music has been started in another tab before - not auto-starting here');
+                
+                if (!checkInstanceControl()) {
+                    // Another instance is currently active
+                    console.log('Another instance is controlling the music player');
+                    if (trackName) {
+                        const originalText = trackName.textContent;
+                        trackName.textContent = "Playing in another tab";
+                        setTimeout(() => {
+                            trackName.textContent = originalText;
+                        }, 3000);
+                    }
+                } else {
+                    // No other active instance, but music has played before. Allow manual play.
+                    console.log('No active instance, but music played before. Click to play here.');
+                    if (trackName) {
+                        const originalText = trackName.textContent;
+                        trackName.textContent = "Click to play music here";
+                        setTimeout(() => {
+                            trackName.textContent = originalText;
+                        }, 4000);
+                    }
+                }
+                // Show the widget briefly to indicate readiness, but don't play
+                showTraxWidget(true);
+            }
 
-                // Remove event listeners after first interaction
-                document.removeEventListener('click', unlockAudio);
-                document.removeEventListener('touchstart', unlockAudio);
-                document.removeEventListener('keydown', unlockAudio);
-            };
-            
-            // Start the first check immediately
-            performCheck();
+            // Remove event listeners after first interaction
+            document.removeEventListener('click', unlockAudio);
+            document.removeEventListener('touchstart', unlockAudio);
+            document.removeEventListener('keydown', unlockAudio);
         };
 
         // Add event listeners for user interaction (click only - scroll will simulate a click)
@@ -1361,10 +1319,72 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Initialize player if all elements exist
+// Initialize video section particles if on the videotvorba page
+    if (window.location.pathname.includes('videotvorba.html')) {
+        createVideoSectionParticles();
+        initVideoPlayers(); // Initialize video player click functionality
+    }
     if (traxWidget && musicPlayer) {
         console.log('Initializing Komplexaci Trax player...');
         // Initialize the player
         initPlayer();
+    }
+
+    // Function to initialize video players for click-to-play
+    function initVideoPlayers() {
+        const videoItems = document.querySelectorAll('.video-item');
+
+        videoItems.forEach(item => {
+            const iframe = item.querySelector('iframe');
+            const videoOverlay = item.querySelector('.video-overlay');
+            const dataSrc = iframe.getAttribute('data-src');
+
+            // Set initial src for lazy loading (without autoplay)
+            // The IntersectionObserver will handle setting the actual src when in view
+            // For now, ensure it's empty or a placeholder to prevent immediate loading
+            iframe.src = ''; // Or a small placeholder video if desired
+
+            // Add click listener to the entire video item to trigger playback
+            item.addEventListener('click', function() {
+                if (dataSrc && iframe.src !== dataSrc + '?autoplay=1') { // Prevent re-playing if already playing
+                    // Construct autoplay URL
+                    const autoplaySrc = dataSrc + '?autoplay=1';
+                    
+                    // Set iframe src to trigger autoplay
+                    iframe.src = autoplaySrc;
+                    
+                    // Ensure autoplay is allowed (though usually handled by 'allow' attribute)
+                    iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture;');
+
+                    // Hide the overlay
+                    if (videoOverlay) {
+                        videoOverlay.style.opacity = '0';
+                        videoOverlay.style.pointerEvents = 'none'; // Ensure it's not clickable after play
+                    }
+                }
+            });
+
+            // Intersection Observer for lazy loading
+            const videoObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const lazyIframe = entry.target.querySelector('iframe');
+                        const lazyDataSrc = lazyIframe.getAttribute('data-src');
+                        if (lazyDataSrc) {
+                            // Set the actual src when in view, but without autoplay
+                            lazyIframe.src = lazyDataSrc;
+                            lazyIframe.removeAttribute('data-src'); // Remove data-src once loaded
+                        }
+                        observer.unobserve(entry.target); // Stop observing once loaded
+                    }
+                });
+            }, {
+                rootMargin: '0px 0px -100px 0px', // Load when 100px from bottom of viewport
+                threshold: 0.1
+            });
+
+            videoObserver.observe(item); // Observe the video item
+        });
     }
 
     // Release control when page is unloaded
