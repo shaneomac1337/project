@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WWE Games - Kompletní kolekce WWE/WWF her od legendárního SmackDown! na PlayStation až po moderní série">
+    <title>WWE Games | Komplexáci</title>
+ 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="apple-touch-icon" href="img/logo.png">
+    <meta name="theme-color" content="#6e4ff6">
+ 
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Schema.org Structured Data for Game -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGameSeries",
+      "name": "WWE Games Collection",
+      "description": "Kompletní kolekce WWE/WWF her od legendárního SmackDown! na PlayStation až po moderní série. Zažijte nostalgii wrestlingových klasik a epických zápasů.",
+      "url": "https://www.komplexaci.cz/wwe-games.html",
+      "image": "https://www.komplexaci.cz/img/wwe-main.jpg",
+      "genre": "Sports/Wrestling",
+      "operatingSystem": "PlayStation, PlayStation 2",
+      "applicationCategory": "Game",
+      "publisher": [
+        {
+          "@type": "Organization",
+          "name": "THQ"
+        },
+        {
+          "@type": "Organization", 
+          "name": "2K Sports"
+        }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.6",
+        "reviewCount": "2000000"
+      },
+      "playMode": ["SinglePlayer", "MultiPlayer"],
+      "gamePlatform": ["PlayStation", "PlayStation2"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "WWE Games | Komplexáci",
+      "url": "https://www.komplexaci.cz/wwe-games.html",
+      "description": "Kompletní kolekce WWE/WWF her od legendárního SmackDown! na PlayStation až po moderní série. Zažijte nostalgii wrestlingových klasik a epických zápasů.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Komplexáci",
+        "url": "https://www.komplexaci.cz"
+      },
+      "mainEntity": {
+        "@type": "VideoGameSeries",
+        "name": "WWE Games Collection",
+        "url": "https://www.komplexaci.cz/wwe-games.html"
+      }
+    }
+    </script>
+ 
+    <style>
+        /* WWE SmackDown! 2 Industrial 2000s Style */
+        body {
+            background:
+                radial-gradient(circle at 30% 20%, rgba(70, 130, 180, 0.08) 0%, transparent 60%),
+                radial-gradient(circle at 70% 80%, rgba(100, 149, 237, 0.06) 0%, transparent 60%),
+                linear-gradient(135deg, #0a0a0f 0%, #151520 25%, #1a1a2e 50%, #202040 75%, #0a0a0f 100%);
+            background-attachment: fixed;
+            font-family: 'Orbitron', 'Exo 2', monospace;
+            overflow-x: hidden;
+        }
+
+        /* Subtle Industrial Scanlines */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 3px,
+                    rgba(70, 130, 180, 0.02) 3px,
+                    rgba(70, 130, 180, 0.02) 4px
+                );
+            pointer-events: none;
+            z-index: 1000;
+            animation: industrialScan 0.2s linear infinite;
+        }
+
+        @keyframes industrialScan {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(4px); }
+        }
+
+        .game-hero {
+            position: relative;
+            height: 100vh;
+            background:
+                radial-gradient(ellipse at 25% 25%, rgba(70, 130, 180, 0.15) 0%, transparent 70%),
+                radial-gradient(ellipse at 75% 75%, rgba(100, 149, 237, 0.12) 0%, transparent 70%),
+                linear-gradient(135deg, rgba(10, 10, 15, 0.95), rgba(20, 25, 35, 0.9), rgba(15, 20, 30, 0.95)),
+                url('https://static.vecteezy.com/system/resources/previews/037/823/299/non_2x/ai-generated-spectacular-view-of-an-empty-professional-boxing-ring-in-a-grand-arena-with-empty-seats-photo.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--light-text);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .game-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(70, 130, 180, 0.03) 2px,
+                    rgba(70, 130, 180, 0.03) 3px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(100, 149, 237, 0.02) 2px,
+                    rgba(100, 149, 237, 0.02) 3px
+                );
+            z-index: 1;
+            animation: industrialGrid 12s linear infinite;
+        }
+
+        .game-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(45deg, transparent 40%, rgba(70, 130, 180, 0.05) 50%, transparent 60%);
+            z-index: 1;
+            animation: subtleSweep 20s ease-in-out infinite;
+        }
+
+        @keyframes industrialGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(3px, 3px); }
+        }
+
+        @keyframes subtleSweep {
+            0%, 100% { opacity: 0.2; transform: translateX(-100%); }
+            50% { opacity: 0.4; transform: translateX(100%); }
+        }
+
+        .game-hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 1100px;
+            padding: 40px 30px;
+            animation: heroContentFloat 10s ease-in-out infinite alternate;
+            background:
+                linear-gradient(135deg,
+                    rgba(70, 130, 180, 0.12) 0%,
+                    rgba(100, 149, 237, 0.08) 25%,
+                    rgba(135, 206, 235, 0.12) 50%,
+                    rgba(100, 149, 237, 0.08) 75%,
+                    rgba(70, 130, 180, 0.12) 100%
+                );
+            border: 3px solid rgba(70, 130, 180, 0.3);
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
+            box-shadow:
+                0 0 60px rgba(70, 130, 180, 0.3),
+                0 0 30px rgba(100, 149, 237, 0.2),
+                inset 0 0 40px rgba(70, 130, 180, 0.08),
+                inset 0 2px 0 rgba(255, 255, 255, 0.15),
+                inset 0 -2px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        .game-hero-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 20px,
+                    rgba(0, 255, 255, 0.03) 20px,
+                    rgba(0, 255, 255, 0.03) 22px
+                );
+            border-radius: 22px;
+            pointer-events: none;
+            animation: interfacePattern 15s linear infinite;
+        }
+
+        @keyframes interfacePattern {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(20px, 20px); }
+        }
+
+        @keyframes heroContentFloat {
+            0% { transform: translateY(0px) rotateX(0deg); }
+            100% { transform: translateY(-15px) rotateX(2deg); }
+        }
+
+        .game-hero-title {
+            font-size: 8rem;
+            margin-bottom: 35px;
+            text-transform: uppercase;
+            letter-spacing: 12px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            position: relative;
+            text-shadow:
+                0 0 8px rgba(70, 130, 180, 0.6),
+                0 0 16px rgba(100, 149, 237, 0.4),
+                0 0 24px rgba(70, 130, 180, 0.3),
+                0 0 32px rgba(100, 149, 237, 0.2);
+            background:
+                linear-gradient(45deg,
+                    #4682b4 0%,
+                    #5a9bd4 15%,
+                    #6495ed 30%,
+                    #7bb3f0 45%,
+                    #87ceeb 60%,
+                    #7bb3f0 75%,
+                    #6495ed 90%,
+                    #4682b4 100%
+                );
+            background-size: 600% 600%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: industrialGlow 5s ease-in-out infinite;
+        }
+
+        .game-hero-title::before {
+            content: 'WWE GAMES';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(70, 130, 180, 0.4), rgba(100, 149, 237, 0.3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            z-index: -1;
+            animation: titleShadow 4s ease-in-out infinite;
+        }
+
+        .game-hero-title::after {
+            content: 'WWE GAMES';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: hologramGlitch 3s infinite;
+        }
+
+        @keyframes industrialGlow {
+            0%, 100% {
+                background-position: 0% 50%;
+                filter: brightness(1) contrast(1.1);
+            }
+            25% {
+                background-position: 25% 75%;
+                filter: brightness(1.05) contrast(1.15);
+            }
+            50% {
+                background-position: 100% 50%;
+                filter: brightness(1.1) contrast(1.2);
+            }
+            75% {
+                background-position: 75% 25%;
+                filter: brightness(1.05) contrast(1.15);
+            }
+        }
+
+        @keyframes titleShadow {
+            0%, 100% {
+                transform: translate(2px, 2px);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(4px, 4px);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes hologramGlitch {
+            0%, 85%, 100% {
+                transform: translate(0);
+                opacity: 0;
+            }
+            5% {
+                transform: translate(-1px, 1px);
+                opacity: 0.3;
+            }
+            10% {
+                transform: translate(1px, -1px);
+                opacity: 0.6;
+            }
+            15% {
+                transform: translate(-1px, -1px);
+                opacity: 0.3;
+            }
+            20% {
+                transform: translate(1px, 1px);
+                opacity: 0;
+            }
+        }
+
+        .game-hero-subtitle {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            font-weight: 400;
+            font-family: 'Orbitron', monospace;
+            text-shadow:
+                0 0 8px rgba(70, 130, 180, 0.6),
+                0 0 16px rgba(100, 149, 237, 0.4);
+            color: #6495ed;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: subtitlePulse 4s ease-in-out infinite;
+        }
+
+        @keyframes subtitlePulse {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        .games-gallery {
+            padding: 100px 0;
+            background:
+                radial-gradient(circle at 15% 25%, rgba(70, 130, 180, 0.08) 0%, transparent 60%),
+                radial-gradient(circle at 85% 75%, rgba(100, 149, 237, 0.06) 0%, transparent 60%),
+                linear-gradient(135deg, rgba(10, 10, 15, 0.98) 0%, rgba(20, 25, 35, 0.98) 50%, rgba(10, 10, 15, 0.98) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .games-gallery::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 60px,
+                    rgba(70, 130, 180, 0.015) 60px,
+                    rgba(70, 130, 180, 0.015) 62px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 60px,
+                    rgba(100, 149, 237, 0.01) 60px,
+                    rgba(100, 149, 237, 0.01) 62px
+                );
+            opacity: 0.4;
+            z-index: 0;
+            animation: gridMove 25s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .game-card {
+            background:
+                linear-gradient(145deg,
+                    rgba(15, 20, 30, 0.95) 0%,
+                    rgba(25, 35, 50, 0.98) 20%,
+                    rgba(35, 45, 65, 0.95) 40%,
+                    rgba(45, 55, 80, 0.98) 60%,
+                    rgba(35, 45, 65, 0.95) 80%,
+                    rgba(15, 20, 30, 0.95) 100%
+                );
+            border-radius: 30px;
+            padding: 35px;
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.9),
+                0 0 30px rgba(70, 130, 180, 0.2),
+                0 0 15px rgba(100, 149, 237, 0.15),
+                inset 0 2px 0 rgba(255, 255, 255, 0.1),
+                inset 0 -2px 0 rgba(0, 0, 0, 0.6),
+                inset 2px 0 0 rgba(70, 130, 180, 0.08),
+                inset -2px 0 0 rgba(100, 149, 237, 0.06);
+            border: 3px solid rgba(70, 130, 180, 0.3);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+            backdrop-filter: blur(15px);
+        }
+
+        .game-card.animate-in {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                transparent,
+                rgba(70, 130, 180, 0.15),
+                rgba(100, 149, 237, 0.12),
+                rgba(70, 130, 180, 0.15),
+                transparent
+            );
+            transition: left 1s ease;
+            z-index: 1;
+        }
+
+        .game-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 18px,
+                    rgba(70, 130, 180, 0.02) 18px,
+                    rgba(70, 130, 180, 0.02) 19px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 18px,
+                    rgba(100, 149, 237, 0.015) 18px,
+                    rgba(100, 149, 237, 0.015) 19px
+                );
+            pointer-events: none;
+            z-index: 0;
+            border-radius: 27px;
+            animation: cardPattern 25s linear infinite;
+        }
+
+        @keyframes cardPattern {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(15px, 15px); }
+        }
+
+        .game-card:hover {
+            transform: translateY(-25px) scale(1.08) rotateX(8deg) rotateY(2deg);
+            box-shadow:
+                0 40px 120px rgba(70, 130, 180, 0.4),
+                0 0 50px rgba(100, 149, 237, 0.3),
+                0 0 25px rgba(70, 130, 180, 0.5),
+                inset 0 0 30px rgba(70, 130, 180, 0.12),
+                inset 0 0 15px rgba(100, 149, 237, 0.08);
+            border-color: #4682b4;
+            background:
+                linear-gradient(145deg,
+                    rgba(20, 30, 50, 0.98) 0%,
+                    rgba(35, 50, 75, 1) 20%,
+                    rgba(45, 60, 90, 0.98) 40%,
+                    rgba(55, 70, 105, 1) 60%,
+                    rgba(45, 60, 90, 0.98) 80%,
+                    rgba(20, 30, 50, 0.98) 100%
+                );
+        }
+
+        .game-card:hover::before {
+            left: 100%;
+        }
+
+        .game-cover-container {
+            position: relative;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .game-cover {
+            width: 210px;
+            height: 260px;
+            border-radius: 25px;
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.9),
+                0 0 40px rgba(0, 255, 255, 0.4),
+                0 0 20px rgba(255, 0, 255, 0.3),
+                inset 0 0 25px rgba(255, 255, 255, 0.1);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 3;
+            border: 4px solid rgba(0, 255, 255, 0.5);
+        }
+
+        .game-cover::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background:
+                linear-gradient(45deg,
+                    #00ffff 0%,
+                    #0099ff 20%,
+                    #ff00ff 40%,
+                    #ff0099 60%,
+                    #00ffff 80%,
+                    #0099ff 100%
+                );
+            background-size: 400% 400%;
+            border-radius: 25px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            animation: holoBorder 6s ease-in-out infinite;
+        }
+
+        @keyframes holoBorder {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .game-cover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(135deg,
+                    rgba(0, 255, 255, 0.3) 0%,
+                    transparent 30%,
+                    transparent 70%,
+                    rgba(255, 0, 255, 0.3) 100%
+                );
+            border-radius: 21px;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            mix-blend-mode: overlay;
+            animation: holoSweep 8s ease-in-out infinite;
+        }
+
+        @keyframes holoSweep {
+            0%, 100% { transform: translateX(-100%) rotate(-10deg); }
+            50% { transform: translateX(100%) rotate(10deg); }
+        }
+
+        .game-card:hover .game-cover {
+            transform: scale(1.2) rotateY(15deg) rotateX(10deg) translateZ(60px);
+            box-shadow:
+                0 50px 150px rgba(0, 255, 255, 0.7),
+                0 0 80px rgba(255, 0, 255, 0.5),
+                0 0 40px rgba(0, 255, 255, 0.8),
+                inset 0 0 40px rgba(255, 255, 255, 0.2);
+        }
+
+        .game-card:hover .game-cover::before {
+            opacity: 1;
+        }
+
+        .game-card:hover .game-cover::after {
+            opacity: 1;
+        }
+
+        .game-info {
+            text-align: center;
+        }
+
+        .game-title {
+            font-size: 1.7rem;
+            color: #6495ed;
+            margin-bottom: 10px;
+            font-weight: 800;
+            font-family: 'Orbitron', 'Exo 2', monospace;
+            text-shadow:
+                0 0 12px rgba(100, 149, 237, 0.6),
+                0 0 24px rgba(70, 130, 180, 0.3);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% {
+                text-shadow:
+                    0 0 12px rgba(100, 149, 237, 0.6),
+                    0 0 24px rgba(70, 130, 180, 0.3);
+            }
+            50% {
+                text-shadow:
+                    0 0 16px rgba(100, 149, 237, 0.8),
+                    0 0 32px rgba(70, 130, 180, 0.4);
+            }
+        }
+
+        .game-year {
+            font-size: 1.1rem;
+            color: #87ceeb;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-family: 'Orbitron', monospace;
+            text-shadow: 0 0 8px rgba(135, 206, 235, 0.6);
+        }
+
+        .game-platform {
+            display: inline-block;
+            background:
+                linear-gradient(45deg,
+                    rgba(70, 130, 180, 0.8),
+                    rgba(100, 149, 237, 0.8)
+                );
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: 'Orbitron', monospace;
+            box-shadow:
+                0 0 12px rgba(70, 130, 180, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .game-description {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+            font-family: 'Exo 2', sans-serif;
+            text-shadow: 0 0 4px rgba(70, 130, 180, 0.2);
+        }
+
+        .game-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            background:
+                linear-gradient(135deg,
+                    rgba(70, 130, 180, 0.08),
+                    rgba(100, 149, 237, 0.06)
+                );
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(70, 130, 180, 0.2);
+            box-shadow: inset 0 0 15px rgba(70, 130, 180, 0.08);
+        }
+
+        .game-features li {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            padding: 5px 0;
+            font-family: 'Exo 2', sans-serif;
+            text-shadow: 0 0 3px rgba(70, 130, 180, 0.2);
+        }
+
+        .game-features li::before {
+            content: '◆';
+            margin-right: 10px;
+            color: #6495ed;
+            text-shadow: 0 0 8px rgba(100, 149, 237, 0.6);
+            animation: featurePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes featurePulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        .era-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', monospace;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 4;
+            animation: badgeGlow 3s ease-in-out infinite;
+        }
+
+
+
+        @keyframes badgeGlow {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.9;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+        }
+
+        /* WWE Era Dividers - Futuristic 2000s Style */
+        .era-divider {
+            margin: 120px 0 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .era-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background:
+                linear-gradient(90deg,
+                    transparent,
+                    rgba(0, 255, 255, 0.8),
+                    rgba(255, 0, 255, 0.8),
+                    rgba(0, 255, 255, 0.8),
+                    transparent
+                );
+            transform: translateY(-50%);
+            z-index: 1;
+            box-shadow:
+                0 0 20px rgba(0, 255, 255, 0.6),
+                0 0 40px rgba(255, 0, 255, 0.4);
+            animation: lineGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes lineGlow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .era-title {
+            display: inline-block;
+            background:
+                linear-gradient(145deg,
+                    rgba(15, 20, 30, 0.98) 0%,
+                    rgba(25, 35, 50, 1) 15%,
+                    rgba(35, 45, 65, 0.98) 30%,
+                    rgba(45, 55, 80, 1) 45%,
+                    rgba(35, 45, 65, 0.98) 60%,
+                    rgba(25, 35, 50, 1) 75%,
+                    rgba(15, 20, 30, 0.98) 100%
+                );
+            padding: 30px 60px;
+            border-radius: 35px;
+            border: 4px solid rgba(70, 130, 180, 0.5);
+            position: relative;
+            z-index: 2;
+            box-shadow:
+                0 20px 80px rgba(0, 0, 0, 0.9),
+                0 0 40px rgba(70, 130, 180, 0.3),
+                0 0 20px rgba(100, 149, 237, 0.2),
+                inset 0 3px 0 rgba(255, 255, 255, 0.1),
+                inset 0 -3px 0 rgba(0, 0, 0, 0.6),
+                inset 3px 0 0 rgba(70, 130, 180, 0.08),
+                inset -3px 0 0 rgba(100, 149, 237, 0.06);
+            backdrop-filter: blur(20px);
+        }
+
+        .era-title::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #4682b4, #6495ed, #87ceeb, #6495ed);
+            border-radius: 30px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .era-divider:hover .era-title::before {
+            opacity: 0.8;
+            animation: borderPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes borderPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .era-title h2 {
+            font-size: 3rem;
+            margin: 0;
+            font-family: 'Orbitron', 'Exo 2', monospace;
+            background: linear-gradient(45deg, #4682b4, #6495ed, #87ceeb, #6495ed);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: industrialText 5s ease-in-out infinite;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow:
+                0 0 15px rgba(70, 130, 180, 0.6),
+                0 0 30px rgba(100, 149, 237, 0.4);
+            position: relative;
+        }
+
+        .era-subtitle {
+            font-size: 1.1rem;
+            color: #6495ed;
+            margin: 10px 0 0 0;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-family: 'Orbitron', monospace;
+            text-shadow: 0 0 8px rgba(100, 149, 237, 0.6);
+            animation: subtitleFlicker 5s ease-in-out infinite;
+        }
+
+        @keyframes industrialText {
+            0%, 100% {
+                background-position: 0% 50%;
+                filter: brightness(1) contrast(1.1);
+            }
+            50% {
+                background-position: 100% 50%;
+                filter: brightness(1.1) contrast(1.2);
+            }
+        }
+
+        @keyframes subtitleFlicker {
+            0%, 90%, 100% { opacity: 1; }
+            95% { opacity: 0.8; }
+        }
+
+        .era-description {
+            max-width: 900px;
+            margin: 25px auto 0;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            line-height: 1.7;
+            text-align: center;
+            font-family: 'Exo 2', sans-serif;
+            text-shadow: 0 0 8px rgba(70, 130, 180, 0.3);
+            padding: 20px;
+            background:
+                linear-gradient(135deg,
+                    rgba(70, 130, 180, 0.04),
+                    rgba(100, 149, 237, 0.03)
+                );
+            border-radius: 15px;
+            border: 1px solid rgba(70, 130, 180, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Section Title Styling */
+        .section-title {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 30px;
+            font-family: 'Orbitron', 'Exo 2', monospace;
+            background: linear-gradient(45deg, #4682b4, #6495ed, #87ceeb, #6495ed);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: industrialTitle 5s ease-in-out infinite;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow:
+                0 0 20px rgba(70, 130, 180, 0.6),
+                0 0 40px rgba(100, 149, 237, 0.4);
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes industrialTitle {
+            0%, 100% {
+                background-position: 0% 50%;
+                filter: brightness(1) contrast(1.1);
+            }
+            50% {
+                background-position: 100% 50%;
+                filter: brightness(1.1) contrast(1.2);
+            }
+        }
+
+        /* Additional Futuristic Effects */
+        .container {
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 25% 25%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 0, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* All eras use consistent SmackDown! 2 styling */
+
+
+
+
+
+
+
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 0 15px;
+            }
+
+            .game-hero-title {
+                font-size: 3.5rem;
+            }
+
+            .game-cover {
+                width: 160px;
+                height: 200px;
+            }
+
+            .game-features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .game-hero-title {
+                font-size: 2.8rem;
+            }
+
+            .game-cover {
+                width: 140px;
+                height: 175px;
+            }
+
+            .games-grid {
+                gap: 25px;
+            }
+        }
+
+        /* Futuristic Floating Particles */
+        .floating-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: cyberpunkFloat 12s infinite linear;
+            box-shadow:
+                0 0 10px rgba(0, 255, 255, 0.8),
+                0 0 20px rgba(255, 0, 255, 0.4);
+        }
+
+        .particle:nth-child(even) {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            animation-duration: 15s;
+            width: 4px;
+            height: 4px;
+        }
+
+        .particle:nth-child(3n) {
+            background: radial-gradient(circle, #00ffff, transparent);
+            animation-duration: 10s;
+            width: 8px;
+            height: 8px;
+        }
+
+        @keyframes cyberpunkFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+            5% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            95% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) translateX(50px) rotate(360deg) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Cyberpunk Grid Overlay */
+        .games-gallery::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+            animation: gridPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #FFD700, #FF4500);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-button:hover {
+            background: linear-gradient(45deg, #FF4500, #8B0000);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="particles-container" id="particles"></div>
+    
+    <!-- Floating Gaming Elements -->
+    <div class="floating-elements" id="floating-elements"></div>
+    
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="img/logo.png" alt="Komplexáci Logo" class="site-logo">
+                <h1>Komplexáci</h1>
+            </div>
+            <nav class="main-nav">
+                <button class="mobile-menu-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Domů</a></li>
+                    <li><a href="index.html#o-nas" class="nav-link">O nás</a></li>
+                    <li><a href="index.html#clenove" class="nav-link">Členové</a></li>
+                    <li class="has-submenu">
+                        <a href="index.html#hry" class="nav-link active">Hry <i class="fas fa-chevron-down submenu-arrow"></i></a>
+                        <ul class="submenu">
+                            <li><a href="league-of-legends.html" class="nav-link">League of Legends</a></li>
+                            <li><a href="cs2.html" class="nav-link">CS2</a></li>
+                            <li><a href="wwe-games.html" class="nav-link active">WWE Games</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="videotvorba.html" class="nav-link">VIDEOTVORBA</a></li>
+                    <li><a href="index.html#discord" class="nav-link">Discord</a></li>
+                    <li><a href="index.html#kontakt" class="nav-link">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="game-hero">
+        <div class="game-hero-content">
+            <h1 class="game-hero-title">WWE Games</h1>
+            <p class="game-hero-subtitle">Legendární kolekce wrestlingových klasik</p>
+            <p style="font-size: 1.2rem; color: var(--medium-text); max-width: 600px; margin: 0 auto;">
+                Od prvního WWF SmackDown! na PlayStation až po moderní série - zažijte nostalgii a epické zápasy, které definovaly žánr wrestlingových her.
+            </p>
+        </div>
+    </section>
+
+    <section class="games-gallery">
+        <div class="floating-particles" id="particles"></div>
+        <div class="container">
+            <h2 class="section-title">Legendární Kolekce WWE/WWF Her</h2>
+            <p style="text-align: center; color: var(--medium-text); font-size: 1.2rem; margin-bottom: 60px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Objevte kompletní historii wrestlingových klasik - od prvního WWF SmackDown! na PlayStation až po finální SmackDown vs. Raw 2011
+            </p>
+
+            <!-- ATTITUDE ERA (1997-2002) -->
+            <div class="era-divider attitude-era">
+                <div class="era-title">
+                    <h2>Attitude Era</h2>
+                    <p class="era-subtitle">November 1997 - May 2002</p>
+                </div>
+                <p class="era-description">
+                    Nejlegendárnější éra WWE/WWF historie! Doba Stone Cold Steve Austina, The Rocka, DX a Monday Night Wars.
+                    Hry z této éry zachycují surovou energii a rebelský duch, který definoval wrestling na přelomu tisíciletí.
+                </p>
+            </div>
+
+            <div class="games-grid">
+                <!-- WWF SmackDown! (1999) -->
+                <div class="game-card lazy-element">
+                    <div class="era-badge">Začátek Legendy</div>
+                    <div class="game-cover-container">
+                        <img src="https://cdn.mobygames.com/covers/4063807-wwf-smackdown-playstation-front-cover.jpg" alt="WWF SmackDown!" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWF SmackDown!</h3>
+                        <p class="game-year">1999</p>
+                        <div class="game-platform">PlayStation</div>
+                        <p class="game-description">
+                            Hra, která začala legendu! První WWF SmackDown! přinesla revoluci do wrestlingových her s intuitivním ovládáním a autentickou atmosférou WWE.
+                        </p>
+                        <ul class="game-features">
+                            <li>První hra série SmackDown!</li>
+                            <li>Revoluční ovládání</li>
+                            <li>Autentičtí WWE wrestleři</li>
+                            <li>Různé herní módy</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWF SmackDown! 2: Know Your Role (2000) -->
+                <div class="game-card lazy-element">
+                    <div class="era-badge">Zlatá Éra</div>
+                    <div class="game-cover-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/0/0a/WWFSmackDown2KnowYourRole.jpg" alt="WWF SmackDown! 2: Know Your Role" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWF SmackDown! 2: Know Your Role</h3>
+                        <p class="game-year">2000</p>
+                        <div class="game-platform">PlayStation</div>
+                        <p class="game-description">
+                            Pokračování, které zdokonalilo originál. Přidalo více wrestlerů, vylepšené animace a hlubší herní módy včetně Season Mode.
+                        </p>
+                        <ul class="game-features">
+                            <li>Rozšířený roster wrestlerů</li>
+                            <li>Vylepšený Season Mode</li>
+                            <li>Nové zápasové typy</li>
+                            <li>Lepší grafika a animace</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWF SmackDown! Just Bring It (2001) -->
+                <div class="game-card lazy-element">
+                    <div class="era-badge">PS2 Debut</div>
+                    <div class="game-cover-container">
+                        <img src="https://cdn.mobygames.com/covers/4064802-wwf-smackdown-just-bring-it-playstation-2-front-cover.jpg" alt="WWF SmackDown! Just Bring It" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWF SmackDown! Just Bring It</h3>
+                        <p class="game-year">2001</p>
+                        <div class="game-platform">PlayStation 2</div>
+                        <p class="game-description">
+                            První SmackDown! na PlayStation 2! Přechod na novou generaci konzolí přinesl dramatické vylepšení grafiky a nové možnosti.
+                        </p>
+                        <ul class="game-features">
+                            <li>První SmackDown! na PS2</li>
+                            <li>Výrazně vylepšená grafika</li>
+                            <li>Nové arény a prostředí</li>
+                            <li>Rozšířené customizace</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWE SmackDown! Shut Your Mouth (2002) -->
+                <div class="game-card lazy-element">
+                    <div class="era-badge">WWE Éra</div>
+                    <div class="game-cover-container">
+                        <img src="https://cdn.mobygames.com/covers/3891481-wwe-smackdown-shut-your-mouth-playstation-2-front-cover.jpg" alt="WWE SmackDown! Shut Your Mouth" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE SmackDown! Shut Your Mouth</h3>
+                        <p class="game-year">2002</p>
+                        <div class="game-platform">PlayStation 2</div>
+                        <p class="game-description">
+                            První hra pod značkou WWE! Přinesla kompletně přepracovaný Season Mode s branching storylines a více než 50 wrestlerů.
+                        </p>
+                        <ul class="game-features">
+                            <li>První hra pod značkou WWE</li>
+                            <li>Revoluční Season Mode</li>
+                            <li>Více než 50 wrestlerů</li>
+                            <li>Branching storylines</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RUTHLESS AGGRESSION ERA (2002-2008) -->
+            <div class="era-divider ruthless-era">
+                <div class="era-title">
+                    <h2>Ruthless Aggression Era</h2>
+                    <p class="era-subtitle">June 2002 - July 2008</p>
+                </div>
+                <p class="era-description">
+                    Éra nových hvězd jako John Cena, Batista, Randy Orton a Eddie Guerrero.
+                    Období inovací a experimentů, které přineslo některé z nejlepších wrestlingových her všech dob, včetně legendárního "Here Comes the Pain".
+                </p>
+            </div>
+
+            <div class="games-grid">
+
+                <!-- WWE SmackDown! Here Comes the Pain (2003) -->
+                <div class="game-card lazy-element">
+                    <div class="era-badge">Absolutní Klasika</div>
+                    <div class="game-cover-container">
+                        <img src="https://cdn.mobygames.com/covers/50036-wwe-smackdown-here-comes-the-pain-playstation-2-front-cover.jpg" alt="WWE SmackDown! Here Comes the Pain" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE SmackDown! Here Comes the Pain</h3>
+                        <p class="game-year">2003</p>
+                        <div class="game-platform">PlayStation 2</div>
+                        <p class="game-description">
+                            Považovaná za nejlepší hru série! Here Comes the Pain přinesla perfektní kombinaci gameplay, rosteru a funkcí. Absolutní klasika!
+                        </p>
+                        <ul class="game-features">
+                            <li>Nejlepší hra série</li>
+                            <li>Perfektní gameplay balance</li>
+                            <li>Legendární roster</li>
+                            <li>Ikonický Season Mode</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWE SmackDown vs. Raw (2004) -->
+                <div class="game-card lazy-element">
+                    <div class="era-badge">Nová Éra</div>
+                    <div class="game-cover-container">
+                        <img src="https://cdn.mobygames.com/covers/5835181-wwe-smackdown-vs-raw-playstation-2-front-cover.png" alt="WWE SmackDown vs. Raw" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE SmackDown vs. Raw</h3>
+                        <p class="game-year">2004</p>
+                        <div class="game-platform">PlayStation 2</div>
+                        <p class="game-description">
+                            Začátek nové éry! První hra pod názvem "vs. Raw" přinesla brand split a možnost hrát za obě značky WWE.
+                        </p>
+                        <ul class="game-features">
+                            <li>První hra "vs. Raw" série</li>
+                            <li>WWE Brand Split</li>
+                            <li>Dual storylines</li>
+                            <li>Vylepšené grafické engine</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWE SmackDown vs. Raw 2006 (2005) -->
+                <div class="game-card lazy-element">
+                    <div class="era-badge">GM Mode</div>
+                    <div class="game-cover-container">
+                        <img src="https://cdn.mobygames.com/covers/4856399-wwe-smackdown-vs-raw-2006-playstation-2-front-cover.jpg" alt="WWE SmackDown vs. Raw 2006" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE SmackDown vs. Raw 2006</h3>
+                        <p class="game-year">2005</p>
+                        <div class="game-platform">PlayStation 2, PSP</div>
+                        <p class="game-description">
+                            Přinesla General Manager Mode a možnost řídit celou značku WWE. První hra série také na PSP konzoli.
+                        </p>
+                        <ul class="game-features">
+                            <li>General Manager Mode</li>
+                            <li>První na PSP</li>
+                            <li>Vylepšené online funkce</li>
+                            <li>Rozšířené customizace</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWE SmackDown vs. Raw 2007 (2006) -->
+                <div class="game-card lazy-element">
+                    <div class="era-badge">HD Debut</div>
+                    <div class="game-cover-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/6/62/WWE_SmackDown_vs._Raw_2007.jpg" alt="WWE SmackDown vs. Raw 2007" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE SmackDown vs. Raw 2007</h3>
+                        <p class="game-year">2006</p>
+                        <div class="game-platform">PS2, PSP, Xbox 360</div>
+                        <p class="game-description">
+                            Debut na Xbox 360 s HD grafikou. Přinesla vylepšený physics engine a realistické pohyby wrestlerů.
+                        </p>
+                        <ul class="game-features">
+                            <li>První na Xbox 360</li>
+                            <li>HD grafika</li>
+                            <li>Vylepšený physics</li>
+                            <li>Realistické animace</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWE SmackDown vs. Raw 2008 (2007) -->
+                <div class="game-card lazy-element">
+                    <div class="era-badge">ECW Éra</div>
+                    <div class="game-cover-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/b/b4/SmackDown%21vsRAW2008.jpg" alt="WWE SmackDown vs. Raw 2008" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE SmackDown vs. Raw 2008</h3>
+                        <p class="game-year">2007</p>
+                        <div class="game-platform">PS2, PSP, Xbox 360, PS3</div>
+                        <p class="game-description">
+                            ECW brand byl přidán do hry! Featuring ECW Extreme Rules matches a nové fighting styles pro každého wrestlera.
+                        </p>
+                        <ul class="game-features">
+                            <li>ECW brand přidán</li>
+                            <li>Extreme Rules matches</li>
+                            <li>Fighting styles systém</li>
+                            <li>24/7 Mode</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BRAND EXTENSION & PG TRANSITION ERA (2007-2011) -->
+            <div class="era-divider brand-split-era">
+                <div class="era-title">
+                    <h2>Brand Extension & PG Era</h2>
+                    <p class="era-subtitle">2007 - 2011</p>
+                </div>
+                <p class="era-description">
+                    Období přechodu na family-friendly obsah, zavedení ECW jako třetí značky a revoluce s WWE Universe Mode.
+                    Konec legendární série SmackDown vs. Raw a příprava na novou generaci WWE her.
+                </p>
+            </div>
+
+            <div class="games-grid">
+                <!-- WWE SmackDown vs. Raw 2008 (2007) -->
+                <div class="game-card lazy-element">
+                    <div class="era-badge">ECW Debut</div>
+                    <div class="game-cover-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/b/b4/SmackDown%21vsRAW2008.jpg" alt="WWE SmackDown vs. Raw 2008" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE SmackDown vs. Raw 2008</h3>
+                        <p class="game-year">2007</p>
+                        <div class="game-platform">Multi-Platform</div>
+                        <p class="game-description">
+                            ECW brand byl přidán do hry! První hra s třemi značkami WWE a novými Extreme Rules matches.
+                        </p>
+                        <ul class="game-features">
+                            <li>ECW brand přidán</li>
+                            <li>Extreme Rules matches</li>
+                            <li>Fighting styles systém</li>
+                            <li>24/7 Mode</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWE SmackDown vs. Raw 2009 (2008) -->
+                <div class="game-card lazy-element">
+                    <div class="era-badge">PG Transition</div>
+                    <div class="game-cover-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/b/be/SmackDownvsRaw09.jpg" alt="WWE SmackDown vs. Raw 2009" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE SmackDown vs. Raw 2009</h3>
+                        <p class="game-year">2008</p>
+                        <div class="game-platform">Multi-Platform</div>
+                        <p class="game-description">
+                            Přechod na PG rating. Tag team wrestling dostal nový rozměr s kooperativními finishery a Road to WrestleMania.
+                        </p>
+                        <ul class="game-features">
+                            <li>PG rating debut</li>
+                            <li>Kooperativní finishery</li>
+                            <li>Road to WrestleMania</li>
+                            <li>Create-a-Finisher</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWE SmackDown vs. Raw 2010 (2009) -->
+                <div class="game-card lazy-element">
+                    <div class="era-badge">Universe Mode</div>
+                    <div class="game-cover-container">
+                        <img src="https://cdn.mobygames.com/covers/18285607-wwe-smackdown-vs-raw-2010-playstation-2-front-cover.jpg" alt="WWE SmackDown vs. Raw 2010" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE SmackDown vs. Raw 2010</h3>
+                        <p class="game-year">2009</p>
+                        <div class="game-platform">Multi-Platform</div>
+                        <p class="game-description">
+                            Revoluce s WWE Universe Mode - dynamický systém, který vytváří nekonečné storylines a rivalries.
+                        </p>
+                        <ul class="game-features">
+                            <li>WWE Universe Mode debut</li>
+                            <li>Dynamické storylines</li>
+                            <li>Vylepšené online</li>
+                            <li>Story Designer</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWE SmackDown vs. Raw 2011 (2010) -->
+                <div class="game-card lazy-element">
+                    <div class="era-badge">Finále Série</div>
+                    <div class="game-cover-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/7/79/Wwe_svr_11_cover_art.jpg" alt="WWE SmackDown vs. Raw 2011" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE SmackDown vs. Raw 2011</h3>
+                        <p class="game-year">2010</p>
+                        <div class="game-platform">Multi-Platform</div>
+                        <p class="game-description">
+                            Poslední hra legendární série SmackDown vs. Raw. Physics-based gameplay a WWE Universe 2.0.
+                        </p>
+                        <ul class="game-features">
+                            <li>Poslední SvR hra</li>
+                            <li>Physics-based gameplay</li>
+                            <li>WWE Universe 2.0</li>
+                            <li>Konec legendární série</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Komplexáci | Všechna práva vyhrazena</p>
+            <p style="font-size:0.95em; color:#bababa;">S láskou vytvořil Martin Pěnkava</p>
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Zpět na hlavní stránku
+            </a>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="js/main.js"></script>
+
+    <!-- Enhanced Animation and Particle Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Intersection Observer for lazy loading animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('animate-in');
+                        }, index * 200); // Stagger animation
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all lazy elements
+            document.querySelectorAll('.lazy-element').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Create futuristic floating particles
+            function createCyberpunkParticles() {
+                const particlesContainer = document.getElementById('particles');
+                if (!particlesContainer) return;
+
+                for (let i = 0; i < 25; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 12 + 's';
+                    particle.style.animationDuration = (10 + Math.random() * 8) + 's';
+
+                    // Add random cyberpunk colors
+                    const colors = [
+                        'linear-gradient(45deg, #00ffff, #ff00ff)',
+                        'linear-gradient(45deg, #ff00ff, #00ffff)',
+                        'radial-gradient(circle, #00ffff, transparent)',
+                        'radial-gradient(circle, #ff00ff, transparent)'
+                    ];
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+                    particlesContainer.appendChild(particle);
+                }
+            }
+
+            createCyberpunkParticles();
+
+            // Add hover sound effect simulation (visual feedback)
+            document.querySelectorAll('.game-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-15px) scale(1.03)';
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Dynamic background change for hero section
+            const heroSection = document.querySelector('.game-hero');
+            const backgrounds = [
+                'https://static.vecteezy.com/system/resources/previews/037/823/299/non_2x/ai-generated-spectacular-view-of-an-empty-professional-boxing-ring-in-a-grand-arena-with-empty-seats-photo.jpeg',
+                'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1920&h=1080&fit=crop',
+                'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1920&h=1080&fit=crop'
+            ];
+
+            let currentBg = 0;
+            setInterval(() => {
+                currentBg = (currentBg + 1) % backgrounds.length;
+                heroSection.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('${backgrounds[currentBg]}')`;
+            }, 10000);
+        });
+    </script>
+</body>
+</html>
