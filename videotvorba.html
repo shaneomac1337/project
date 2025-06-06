@@ -17,6 +17,723 @@
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <style>
+        /* YouTube Theme Aesthetic */
+        body {
+            background:
+                radial-gradient(circle at 20% 30%, rgba(255, 0, 0, 0.08) 0%, transparent 60%),
+                radial-gradient(circle at 80% 70%, rgba(40, 40, 40, 0.06) 0%, transparent 60%),
+                linear-gradient(135deg, #0f0f0f 0%, #181818 25%, #212121 50%, #282828 75%, #0f0f0f 100%);
+            background-attachment: fixed;
+            font-family: 'Roboto', 'Exo 2', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Subtle scanlines for desktop only */
+        @media (min-width: 769px) {
+            body::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background:
+                    repeating-linear-gradient(
+                        0deg,
+                        transparent,
+                        transparent 2px,
+                        rgba(255, 0, 0, 0.02) 2px,
+                        rgba(255, 0, 0, 0.02) 3px
+                    );
+                pointer-events: none;
+                z-index: 1000;
+                animation: streamingScan 0.2s linear infinite;
+            }
+        }
+
+        @keyframes streamingScan {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(3px); }
+        }
+
+        /* Enhanced YouTube Section */
+        .youtube-section {
+            padding: 80px 0;
+            background:
+                radial-gradient(ellipse at 25% 25%, rgba(255, 0, 0, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse at 75% 75%, rgba(40, 40, 40, 0.06) 0%, transparent 70%),
+                linear-gradient(135deg, rgba(15, 15, 15, 0.98) 0%, rgba(24, 24, 24, 0.98) 50%, rgba(15, 15, 15, 0.98) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Grid pattern for desktop only */
+        @media (min-width: 769px) {
+            .youtube-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background:
+                    repeating-linear-gradient(
+                        45deg,
+                        transparent,
+                        transparent 80px,
+                        rgba(255, 0, 0, 0.02) 80px,
+                        rgba(255, 0, 0, 0.02) 82px
+                    );
+                opacity: 0.4;
+                z-index: 0;
+                animation: youtubeGrid 40s linear infinite;
+            }
+        }
+
+        @keyframes youtubeGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
+        }
+
+        /* Sweep effect for desktop only */
+        @media (min-width: 769px) {
+            .youtube-section::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background:
+                    linear-gradient(45deg, transparent 40%, rgba(255, 0, 0, 0.04) 50%, transparent 60%);
+                z-index: 1;
+                animation: youtubeSweep 30s ease-in-out infinite;
+            }
+        }
+
+        @keyframes youtubeSweep {
+            0%, 100% { opacity: 0.2; transform: translateX(-100%); }
+            50% { opacity: 0.4; transform: translateX(100%); }
+        }
+
+        .section-title {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(45deg, #ff0000, #ffffff, #ff0000, #ffffff);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: youtubeTitle 8s ease-in-out infinite;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow:
+                0 0 20px rgba(255, 0, 0, 0.6),
+                0 0 40px rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes youtubeTitle {
+            0%, 100% {
+                background-position: 0% 50%;
+                filter: brightness(1) contrast(1.1);
+            }
+            50% {
+                background-position: 100% 50%;
+                filter: brightness(1.1) contrast(1.2);
+            }
+        }
+
+        .intro-text, .outro-text {
+            text-align: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            line-height: 1.7;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 20px;
+            background:
+                linear-gradient(135deg,
+                    rgba(255, 0, 0, 0.06),
+                    rgba(40, 40, 40, 0.08)
+                );
+            border-radius: 15px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            box-shadow:
+                0 0 20px rgba(255, 0, 0, 0.1),
+                inset 0 0 15px rgba(40, 40, 40, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Floating animation for desktop only */
+        @media (min-width: 769px) {
+            .intro-text, .outro-text {
+                animation: textFloat 10s ease-in-out infinite;
+            }
+        }
+
+        @keyframes textFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .video-item {
+            background:
+                linear-gradient(145deg,
+                    rgba(24, 24, 24, 0.98) 0%,
+                    rgba(33, 33, 33, 1) 20%,
+                    rgba(40, 40, 40, 0.98) 40%,
+                    rgba(48, 48, 48, 1) 60%,
+                    rgba(40, 40, 40, 0.98) 80%,
+                    rgba(24, 24, 24, 0.98) 100%
+                );
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.7),
+                0 0 30px rgba(255, 0, 0, 0.15),
+                0 0 15px rgba(255, 255, 255, 0.05),
+                inset 0 2px 0 rgba(255, 255, 255, 0.08),
+                inset 0 -2px 0 rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .video-item.animate-in {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .video-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                transparent,
+                rgba(255, 0, 0, 0.08),
+                rgba(255, 255, 255, 0.05),
+                rgba(255, 0, 0, 0.08),
+                transparent
+            );
+            transition: left 1.2s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .video-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 20px,
+                    rgba(255, 0, 0, 0.015) 20px,
+                    rgba(255, 0, 0, 0.015) 21px
+                );
+            pointer-events: none;
+            z-index: 0;
+            border-radius: 18px;
+            animation: videoPattern 40s linear infinite;
+        }
+
+        @keyframes videoPattern {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(18px, 18px); }
+        }
+
+        /* Hover effects for desktop only */
+        @media (min-width: 769px) {
+            .video-item:hover {
+                transform: translateY(-15px) scale(1.02);
+                box-shadow:
+                    0 30px 80px rgba(255, 0, 0, 0.3),
+                    0 0 40px rgba(255, 255, 255, 0.1),
+                    0 0 20px rgba(255, 0, 0, 0.4),
+                    inset 0 0 25px rgba(255, 0, 0, 0.08);
+                border-color: #ff0000;
+                background:
+                    linear-gradient(145deg,
+                        rgba(30, 30, 30, 1) 0%,
+                        rgba(40, 40, 40, 1) 20%,
+                        rgba(50, 50, 50, 1) 40%,
+                        rgba(60, 60, 60, 1) 60%,
+                        rgba(50, 50, 50, 1) 80%,
+                        rgba(30, 30, 30, 1) 100%
+                    );
+            }
+        }
+
+        /* Mobile-friendly interactions */
+        @media (max-width: 768px) {
+            .video-item:active {
+                transform: scale(0.98);
+                transition: transform 0.1s ease;
+            }
+        }
+
+        .video-item:hover::before {
+            left: 100%;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.6),
+                0 0 20px rgba(255, 0, 0, 0.3),
+                inset 0 0 15px rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            transition: all 0.6s ease;
+            z-index: 10;
+        }
+
+        .video-container::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background:
+                linear-gradient(45deg,
+                    #ff0000 0%,
+                    #ffffff 20%,
+                    #ff0000 40%,
+                    #ffffff 60%,
+                    #ff0000 80%,
+                    #ffffff 100%
+                );
+            background-size: 400% 400%;
+            border-radius: 15px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            animation: videoBorder 10s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes videoBorder {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Hover effects for desktop only */
+        @media (min-width: 769px) {
+            .video-item:hover .video-container {
+                transform: scale(1.01);
+                box-shadow:
+                    0 25px 70px rgba(255, 0, 0, 0.4),
+                    0 0 40px rgba(255, 255, 255, 0.2),
+                    inset 0 0 20px rgba(255, 0, 0, 0.2);
+            }
+
+            .video-item:hover .video-container::before {
+                opacity: 0.8;
+            }
+        }
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 13px;
+            transition: all 0.6s ease;
+            z-index: 15;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle,
+                    rgba(255, 0, 0, 0.8) 0%,
+                    rgba(0, 0, 0, 0.7) 50%,
+                    rgba(0, 0, 0, 0.9) 100%
+                );
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border-radius: 13px;
+            backdrop-filter: blur(2px);
+            z-index: 20;
+        }
+
+        /* Hover effects for desktop only */
+        @media (min-width: 769px) {
+            .video-overlay:hover {
+                opacity: 0;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Touch-friendly for mobile */
+        @media (max-width: 768px) {
+            .video-overlay:active {
+                opacity: 0.7;
+                transform: scale(0.98);
+            }
+        }
+
+        .play-icon {
+            font-size: 3.5rem;
+            color: #ffffff;
+            text-shadow:
+                0 0 15px rgba(255, 0, 0, 0.8),
+                0 0 30px rgba(255, 0, 0, 0.6);
+            animation: playPulse 3s ease-in-out infinite;
+            margin-bottom: 10px;
+        }
+
+        @keyframes playPulse {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow:
+                    0 0 15px rgba(255, 0, 0, 0.8),
+                    0 0 30px rgba(255, 0, 0, 0.6);
+            }
+            50% {
+                transform: scale(1.05);
+                text-shadow:
+                    0 0 20px rgba(255, 0, 0, 1),
+                    0 0 40px rgba(255, 0, 0, 0.8);
+            }
+        }
+
+        .watch-now-text {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow:
+                0 0 8px rgba(255, 0, 0, 0.8),
+                0 0 15px rgba(255, 0, 0, 0.6);
+            animation: textGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 1; }
+        }
+
+        .video-title {
+            font-size: 1.5rem;
+            color: #ff0000;
+            margin-bottom: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow:
+                0 0 10px rgba(255, 0, 0, 0.6),
+                0 0 20px rgba(255, 0, 0, 0.3);
+            font-family: 'Roboto', sans-serif;
+            animation: titleShimmer 5s ease-in-out infinite;
+            position: relative;
+            z-index: 25;
+        }
+
+        @keyframes titleShimmer {
+            0%, 100% {
+                text-shadow:
+                    0 0 10px rgba(255, 0, 0, 0.6),
+                    0 0 20px rgba(255, 0, 0, 0.3);
+            }
+            50% {
+                text-shadow:
+                    0 0 15px rgba(255, 0, 0, 0.8),
+                    0 0 30px rgba(255, 0, 0, 0.4);
+            }
+        }
+
+        .video-description {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            text-shadow: 0 0 3px rgba(255, 0, 0, 0.2);
+            position: relative;
+            z-index: 25;
+        }
+
+        .btn-youtube {
+            display: inline-block;
+            padding: 15px 35px;
+            background:
+                linear-gradient(45deg,
+                    #ff0000 0%,
+                    #cc0000 25%,
+                    #ff0000 50%,
+                    #cc0000 75%,
+                    #ff0000 100%
+                );
+            background-size: 400% 400%;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            text-shadow:
+                0 0 8px rgba(255, 255, 255, 0.3),
+                0 2px 4px rgba(0, 0, 0, 0.4);
+            box-shadow:
+                0 10px 30px rgba(255, 0, 0, 0.3),
+                0 0 15px rgba(255, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: youtubeButton 8s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .btn-youtube::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: left 0.6s ease;
+        }
+
+        /* Desktop hover effects */
+        @media (min-width: 769px) {
+            .btn-youtube:hover {
+                transform: translateY(-5px) scale(1.02);
+                box-shadow:
+                    0 20px 50px rgba(255, 0, 0, 0.5),
+                    0 0 30px rgba(255, 0, 0, 0.4),
+                    inset 0 0 15px rgba(255, 255, 255, 0.1);
+                text-shadow:
+                    0 0 12px rgba(255, 255, 255, 0.6),
+                    0 0 25px rgba(255, 0, 0, 0.6);
+            }
+        }
+
+        /* Mobile-friendly interactions */
+        @media (max-width: 768px) {
+            .btn-youtube:active {
+                transform: scale(0.98);
+                transition: transform 0.1s ease;
+            }
+        }
+
+        .btn-youtube:hover::before {
+            left: 100%;
+        }
+
+        @keyframes youtubeButton {
+            0%, 100% {
+                background-position: 0% 50%;
+                filter: brightness(1) contrast(1.1);
+            }
+            50% {
+                background-position: 100% 50%;
+                filter: brightness(1.1) contrast(1.2);
+            }
+        }
+
+        /* Floating Video Particles */
+        .floating-video-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .video-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(45deg, #ff0000, #ffffff);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: videoFloat 20s infinite linear;
+            box-shadow:
+                0 0 10px rgba(255, 0, 0, 0.6),
+                0 0 20px rgba(255, 0, 0, 0.3);
+            pointer-events: none;
+        }
+
+        .video-particle:nth-child(even) {
+            background: linear-gradient(45deg, #ffffff, #ff0000);
+            animation-duration: 25s;
+            width: 4px;
+            height: 4px;
+            pointer-events: none;
+        }
+
+        .video-particle:nth-child(3n) {
+            background: radial-gradient(circle, #ff0000, transparent);
+            animation-duration: 18s;
+            width: 8px;
+            height: 8px;
+            pointer-events: none;
+        }
+
+        @keyframes videoFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+            5% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+            95% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) translateX(60px) rotate(360deg) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .youtube-section {
+                padding: 60px 0;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                margin: 40px 0;
+            }
+
+            .section-title {
+                font-size: 2.8rem;
+                letter-spacing: 2px;
+                margin-bottom: 30px;
+            }
+
+            .video-item {
+                padding: 20px;
+                border-radius: 15px;
+            }
+
+            .video-container {
+                margin-bottom: 15px;
+            }
+
+            .intro-text, .outro-text {
+                font-size: 1.1rem;
+                padding: 18px;
+                margin-bottom: 30px;
+            }
+
+            .play-icon {
+                font-size: 3rem;
+            }
+
+            .watch-now-text {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 2.2rem;
+                letter-spacing: 1px;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .video-item {
+                padding: 15px;
+            }
+
+            .video-title {
+                font-size: 1.2rem;
+            }
+
+            .video-description {
+                font-size: 0.9rem;
+            }
+
+            .btn-youtube {
+                padding: 12px 25px;
+                font-size: 0.95rem;
+                letter-spacing: 0.5px;
+            }
+
+            .intro-text, .outro-text {
+                font-size: 1rem;
+                padding: 15px;
+            }
+
+            .play-icon {
+                font-size: 2.5rem;
+            }
+
+            .watch-now-text {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+
     <!-- Schema.org Structured Data for VideoObject -->
     <script type="application/ld+json">
     {
@@ -166,15 +883,15 @@
     </header>
 
     <section id="youtube-channel" class="section youtube-section">
+        <div class="floating-video-particles" id="video-particles"></div>
         <div class="container">
             <h2 class="section-title">VIDEOTVORBA - KompG Official</h2>
             <div class="youtube-content">
                 <p class="intro-text">Vítejte na domovské stránce YouTube kanálu KompG Official! Ponořte se do světa našich herních videí, sestřihů a epických momentů. Připravte se na nezapomenutelný zážitek!</p>
                 
                 <div class="video-grid">
-                    <div class="video-item">
+                    <div class="video-item lazy-element">
                         <div class="video-container">
-                            <!-- Replace with actual video ID from KompG Official channel -->
                             <iframe data-src="https://www.youtube.com/embed/_9fs_i4kW28" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
                             <div class="video-overlay">
                                 <i class="fas fa-play-circle play-icon"></i>
@@ -185,7 +902,7 @@
                         <p class="video-description">Záběry z jízdy v Assetto Corsa. Zažijte realistické závody!</p>
                     </div>
                     
-                    <div class="video-item">
+                    <div class="video-item lazy-element">
                         <div class="video-container">
                             <iframe data-src="https://www.youtube.com/embed/C4oJaAkDE4U" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
                             <div class="video-overlay">
@@ -197,7 +914,7 @@
                         <p class="video-description">Nostalgické momenty z WWF Smackdown 2! na PSX. Vzpomínky na staré dobré časy!</p>
                     </div>
 
-                    <div class="video-item">
+                    <div class="video-item lazy-element">
                         <div class="video-container">
                             <iframe data-src="https://www.youtube.com/embed/2l-ZlM1rixM" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
                             <div class="video-overlay">
@@ -209,7 +926,7 @@
                         <p class="video-description">Akční sestřihy z Rocket League. Góly, triky a spousta zábavy!</p>
                     </div>
 
-                    <div class="video-item">
+                    <div class="video-item lazy-element">
                         <div class="video-container">
                             <iframe data-src="https://www.youtube.com/embed/yQCLwKLRGWg" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
                             <div class="video-overlay">
@@ -221,7 +938,7 @@
                         <p class="video-description">Nejlepší momenty z League of Legends. Týmová spolupráce a epické souboje!</p>
                     </div>
 
-                    <div class="video-item">
+                    <div class="video-item lazy-element">
                         <div class="video-container">
                             <iframe data-src="https://www.youtube.com/embed/0k5VRyYhmvQ" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
                             <div class="video-overlay">
@@ -233,7 +950,7 @@
                         <p class="video-description">Realistické závody v Gran Turismo 7. Ponořte se do světa rychlosti!</p>
                     </div>
 
-                    <div class="video-item">
+                    <div class="video-item lazy-element">
                         <div class="video-container">
                             <iframe data-src="https://www.youtube.com/embed/danDl9fUwAM" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
                             <div class="video-overlay">
@@ -261,5 +978,192 @@
     
     <!-- JavaScript Files -->
     <script src="js/main.js"></script>
+    
+    <!-- Enhanced Video Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Intersection Observer for lazy loading animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('animate-in');
+                        }, index * 300); // Stagger animation
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all lazy elements
+            document.querySelectorAll('.lazy-element').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Create floating video particles
+            function createVideoParticles() {
+                const particlesContainer = document.getElementById('video-particles');
+                if (!particlesContainer) return;
+
+                // Reduce particle count and ensure they don't interfere
+                for (let i = 0; i < 15; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'video-particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 20 + 's';
+                    particle.style.animationDuration = (18 + Math.random() * 10) + 's';
+                    particle.style.pointerEvents = 'none'; // Explicitly disable pointer events
+
+                    // YouTube theme colors
+                    const colors = [
+                        'linear-gradient(45deg, #ff0000, #ffffff)',
+                        'linear-gradient(45deg, #ffffff, #ff0000)',
+                        'radial-gradient(circle, #ff0000, transparent)',
+                        'radial-gradient(circle, #ffffff, transparent)'
+                    ];
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+                    particlesContainer.appendChild(particle);
+                }
+            }
+
+            createVideoParticles();
+
+            // Debug function to check clickable areas
+            function debugClickableAreas() {
+                document.querySelectorAll('.video-overlay').forEach((overlay, index) => {
+                    console.log(`Video overlay ${index + 1}:`, {
+                        element: overlay,
+                        zIndex: window.getComputedStyle(overlay).zIndex,
+                        pointerEvents: window.getComputedStyle(overlay).pointerEvents,
+                        opacity: window.getComputedStyle(overlay).opacity,
+                        position: window.getComputedStyle(overlay).position
+                    });
+                });
+            }
+
+            // Call debug function (remove this in production)
+            debugClickableAreas();
+
+            // Video overlay interaction - enhanced for better reliability
+            document.querySelectorAll('.video-overlay').forEach(overlay => {
+                // Add click event
+                overlay.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    console.log('Video overlay clicked'); // Debug log
+                    
+                    const iframe = this.parentElement.querySelector('iframe');
+                    const dataSrc = iframe.getAttribute('data-src');
+                    
+                    if (dataSrc) {
+                        iframe.setAttribute('src', dataSrc + '?autoplay=1&rel=0');
+                        iframe.removeAttribute('data-src');
+                    }
+                    
+                    // Hide overlay with smooth transition
+                    this.style.opacity = '0';
+                    this.style.visibility = 'hidden';
+                    this.style.pointerEvents = 'none';
+                });
+
+                // Add touch event for mobile
+                overlay.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.click();
+                });
+
+                // Ensure overlay is always clickable
+                overlay.style.pointerEvents = 'auto';
+                overlay.style.cursor = 'pointer';
+            });
+
+            // Make video containers clickable as fallback
+            document.querySelectorAll('.video-container').forEach(container => {
+                container.addEventListener('click', function(e) {
+                    const overlay = this.querySelector('.video-overlay');
+                    if (overlay && overlay.style.opacity !== '0') {
+                        console.log('Video container clicked'); // Debug log
+                        overlay.click();
+                    }
+                });
+            });
+
+            // Enhanced hover effects for video items (desktop only)
+            if (window.innerWidth > 768) {
+                document.querySelectorAll('.video-item').forEach(item => {
+                    item.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateY(-15px) scale(1.02)';
+                    });
+
+                    item.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translateY(0) scale(1)';
+                    });
+                });
+            }
+
+            // Lazy load iframes when they come into view
+            const lazyIframes = document.querySelectorAll('iframe[data-src]');
+            const iframeObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const iframe = entry.target;
+                        iframe.setAttribute('src', iframe.getAttribute('data-src'));
+                        iframe.removeAttribute('data-src');
+                        iframeObserver.unobserve(iframe);
+                    }
+                });
+            });
+
+            lazyIframes.forEach(iframe => {
+                iframeObserver.observe(iframe);
+            });
+
+            // Add glitch effect to title occasionally (desktop only)
+            if (window.innerWidth > 768) {
+                const title = document.querySelector('.section-title');
+                setInterval(() => {
+                    if (Math.random() < 0.08) { // 8% chance every interval
+                        title.style.textShadow = `
+                            1px 0 0 #ff0000,
+                            -1px 0 0 #ffffff,
+                            0 0 20px rgba(255, 0, 0, 0.6),
+                            0 0 40px rgba(255, 255, 255, 0.2)
+                        `;
+                        setTimeout(() => {
+                            title.style.textShadow = `
+                                0 0 20px rgba(255, 0, 0, 0.6),
+                                0 0 40px rgba(255, 255, 255, 0.2)
+                            `;
+                        }, 120);
+                    }
+                }, 4000);
+            }
+
+            // Add subtle dynamic background pattern (desktop only)
+            if (window.innerWidth > 768) {
+                const youtubeSection = document.querySelector('.youtube-section');
+                let opacity = 0.08;
+                let direction = 1;
+                setInterval(() => {
+                    opacity += direction * 0.001;
+                    if (opacity >= 0.12 || opacity <= 0.04) {
+                        direction *= -1;
+                    }
+                    youtubeSection.style.background = `
+                        radial-gradient(ellipse at 25% 25%, rgba(255, 0, 0, ${opacity}) 0%, transparent 70%),
+                        radial-gradient(ellipse at 75% 75%, rgba(40, 40, 40, ${opacity * 0.75}) 0%, transparent 70%),
+                        linear-gradient(135deg, rgba(15, 15, 15, 0.98) 0%, rgba(24, 24, 24, 0.98) 50%, rgba(15, 15, 15, 0.98) 100%)
+                    `;
+                }, 200);
+            }
+        });
+    </script>
 </body>
 </html>
