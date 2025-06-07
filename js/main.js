@@ -1339,10 +1339,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const videoOverlay = item.querySelector('.video-overlay');
             const dataSrc = iframe.getAttribute('data-src');
 
-            // Set initial src for lazy loading (without autoplay)
-            // The IntersectionObserver will handle setting the actual src when in view
-            // For now, ensure it's empty or a placeholder to prevent immediate loading
-            iframe.src = ''; // Or a small placeholder video if desired
+            // Set initial src to show thumbnail immediately (without autoplay)
+            if (dataSrc) {
+                iframe.src = dataSrc; // Set the source to show thumbnail
+            }
 
             // Add click listener to the entire video item to trigger playback
             item.addEventListener('click', function() {
@@ -1364,17 +1364,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // Intersection Observer for lazy loading
+            // Intersection Observer for lazy loading (now just for animation purposes)
             const videoObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const lazyIframe = entry.target.querySelector('iframe');
                         const lazyDataSrc = lazyIframe.getAttribute('data-src');
-                        if (lazyDataSrc) {
-                            // Set the actual src when in view, but without autoplay
+                        if (lazyDataSrc && !lazyIframe.src) {
+                            // Set the actual src when in view if not already set
                             lazyIframe.src = lazyDataSrc;
-                            lazyIframe.removeAttribute('data-src'); // Remove data-src once loaded
                         }
+                        lazyIframe.removeAttribute('data-src'); // Remove data-src once processed
                         observer.unobserve(entry.target); // Stop observing once loaded
                     }
                 });

@@ -193,6 +193,7 @@
             margin: 50px 0;
             position: relative;
             z-index: 2;
+            contain: layout style; /* Performance optimization */
         }
 
         .video-item {
@@ -220,6 +221,7 @@
             opacity: 0;
             transform: translateY(40px) scale(0.95);
             backdrop-filter: blur(10px);
+            will-change: transform, box-shadow; /* Performance optimization */
         }
 
         .video-item.animate-in {
@@ -272,7 +274,7 @@
             100% { transform: translate(18px, 18px); }
         }
 
-        /* Hover effects for desktop only */
+        /* Hover effects for desktop only - optimized for performance */
         @media (min-width: 769px) {
             .video-item:hover {
                 transform: translateY(-15px) scale(1.02);
@@ -291,6 +293,12 @@
                         rgba(50, 50, 50, 1) 80%,
                         rgba(30, 30, 30, 1) 100%
                     );
+            }
+            
+            /* Ensure clickability is maintained during hover */
+            .video-item:hover .video-overlay {
+                pointer-events: auto;
+                z-index: 25;
             }
         }
 
@@ -1009,8 +1017,8 @@
                 const particlesContainer = document.getElementById('video-particles');
                 if (!particlesContainer) return;
 
-                // Reduce particle count and ensure they don't interfere
-                for (let i = 0; i < 15; i++) {
+                // Reduce particle count for better performance
+                for (let i = 0; i < 8; i++) {
                     const particle = document.createElement('div');
                     particle.className = 'video-particle';
                     particle.style.left = Math.random() * 100 + '%';
@@ -1059,11 +1067,10 @@
                     console.log('Video overlay clicked'); // Debug log
                     
                     const iframe = this.parentElement.querySelector('iframe');
-                    const dataSrc = iframe.getAttribute('data-src');
+                    const currentSrc = iframe.getAttribute('src');
                     
-                    if (dataSrc) {
-                        iframe.setAttribute('src', dataSrc + '?autoplay=1&rel=0');
-                        iframe.removeAttribute('data-src');
+                    if (currentSrc && !currentSrc.includes('autoplay=1')) {
+                        iframe.setAttribute('src', currentSrc + '?autoplay=1&rel=0');
                     }
                     
                     // Hide overlay with smooth transition
@@ -1095,34 +1102,40 @@
                 });
             });
 
-            // Enhanced hover effects for video items (desktop only)
-            if (window.innerWidth > 768) {
-                document.querySelectorAll('.video-item').forEach(item => {
-                    item.addEventListener('mouseenter', function() {
-                        this.style.transform = 'translateY(-15px) scale(1.02)';
-                    });
-
-                    item.addEventListener('mouseleave', function() {
-                        this.style.transform = 'translateY(0) scale(1)';
-                    });
-                });
-            }
-
-            // Lazy load iframes when they come into view
-            const lazyIframes = document.querySelectorAll('iframe[data-src]');
-            const iframeObserver = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const iframe = entry.target;
-                        iframe.setAttribute('src', iframe.getAttribute('data-src'));
-                        iframe.removeAttribute('data-src');
-                        iframeObserver.unobserve(iframe);
+            // Add debounced hover handling to prevent performance issues
+            let hoverTimeout;
+            document.querySelectorAll('.video-item').forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    clearTimeout(hoverTimeout);
+                    // Ensure overlay remains clickable
+                    const overlay = this.querySelector('.video-overlay');
+                    if (overlay) {
+                        overlay.style.pointerEvents = 'auto';
+                        overlay.style.zIndex = '25';
                     }
+                });
+
+                item.addEventListener('mouseleave', function() {
+                    clearTimeout(hoverTimeout);
+                    hoverTimeout = setTimeout(() => {
+                        // Reset overlay properties after a delay
+                        const overlay = this.querySelector('.video-overlay');
+                        if (overlay && overlay.style.opacity !== '0') {
+                            overlay.style.pointerEvents = 'auto';
+                            overlay.style.zIndex = '20';
+                        }
+                    }, 100);
                 });
             });
 
+            // Set iframe src immediately to show thumbnails
+            const lazyIframes = document.querySelectorAll('iframe[data-src]');
             lazyIframes.forEach(iframe => {
-                iframeObserver.observe(iframe);
+                const dataSrc = iframe.getAttribute('data-src');
+                if (dataSrc) {
+                    iframe.setAttribute('src', dataSrc);
+                    iframe.removeAttribute('data-src');
+                }
             });
 
             // Add glitch effect to title occasionally (desktop only)
@@ -1146,14 +1159,14 @@
                 }, 4000);
             }
 
-            // Add subtle dynamic background pattern (desktop only)
+            // Add subtle dynamic background pattern (desktop only) - reduced frequency for better performance
             if (window.innerWidth > 768) {
                 const youtubeSection = document.querySelector('.youtube-section');
                 let opacity = 0.08;
                 let direction = 1;
                 setInterval(() => {
-                    opacity += direction * 0.001;
-                    if (opacity >= 0.12 || opacity <= 0.04) {
+                    opacity += direction * 0.0005; // Reduced change rate
+                    if (opacity >= 0.10 || opacity <= 0.06) { // Reduced range
                         direction *= -1;
                     }
                     youtubeSection.style.background = `
@@ -1161,7 +1174,7 @@
                         radial-gradient(ellipse at 75% 75%, rgba(40, 40, 40, ${opacity * 0.75}) 0%, transparent 70%),
                         linear-gradient(135deg, rgba(15, 15, 15, 0.98) 0%, rgba(24, 24, 24, 0.98) 50%, rgba(15, 15, 15, 0.98) 100%)
                     `;
-                }, 200);
+                }, 1000); // Reduced from 200ms to 1000ms
             }
         });
     </script>
