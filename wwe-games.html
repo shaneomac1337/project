@@ -69,15 +69,53 @@
     </script>
  
     <style>
-        /* WWE SmackDown! 2 Industrial 2000s Style */
+        /* WWE SmackDown! 2 Industrial 2000s Style - Enhanced */
         body {
             background:
-                radial-gradient(circle at 30% 20%, rgba(70, 130, 180, 0.08) 0%, transparent 60%),
-                radial-gradient(circle at 70% 80%, rgba(100, 149, 237, 0.06) 0%, transparent 60%),
+                radial-gradient(circle at 30% 20%, rgba(70, 130, 180, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 70% 80%, rgba(100, 149, 237, 0.08) 0%, transparent 60%),
+                radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.03) 0%, transparent 80%),
                 linear-gradient(135deg, #0a0a0f 0%, #151520 25%, #1a1a2e 50%, #202040 75%, #0a0a0f 100%);
             background-attachment: fixed;
             font-family: 'Orbitron', 'Exo 2', monospace;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Arena Spotlight Effects */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse 800px 400px at 20% 30%, rgba(255, 215, 0, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 600px 300px at 80% 70%, rgba(255, 69, 0, 0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 400px 200px at 50% 10%, rgba(70, 130, 180, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            animation: arenaLighting 15s ease-in-out infinite;
+        }
+
+        @keyframes arenaLighting {
+            0%, 100% { 
+                opacity: 0.6;
+                transform: scale(1) rotate(0deg);
+            }
+            25% { 
+                opacity: 0.8;
+                transform: scale(1.1) rotate(1deg);
+            }
+            50% { 
+                opacity: 0.7;
+                transform: scale(0.95) rotate(-1deg);
+            }
+            75% { 
+                opacity: 0.9;
+                transform: scale(1.05) rotate(0.5deg);
+            }
         }
 
         /* Subtle Industrial Scanlines */
@@ -112,6 +150,7 @@
             background:
                 radial-gradient(ellipse at 25% 25%, rgba(70, 130, 180, 0.15) 0%, transparent 70%),
                 radial-gradient(ellipse at 75% 75%, rgba(100, 149, 237, 0.12) 0%, transparent 70%),
+                radial-gradient(ellipse at 50% 100%, rgba(255, 215, 0, 0.08) 0%, transparent 60%),
                 linear-gradient(135deg, rgba(10, 10, 15, 0.95), rgba(20, 25, 35, 0.9), rgba(15, 20, 30, 0.95)),
                 url('https://static.vecteezy.com/system/resources/previews/037/823/299/non_2x/ai-generated-spectacular-view-of-an-empty-professional-boxing-ring-in-a-grand-arena-with-empty-seats-photo.jpeg');
             background-size: cover;
@@ -126,6 +165,7 @@
             position: relative;
         }
 
+        /* Wrestling Ring Ropes Animation */
         .game-hero::before {
             content: '';
             position: absolute;
@@ -138,18 +178,23 @@
                     90deg,
                     transparent,
                     transparent 2px,
-                    rgba(70, 130, 180, 0.03) 2px,
-                    rgba(70, 130, 180, 0.03) 3px
+                    rgba(255, 215, 0, 0.04) 2px,
+                    rgba(255, 215, 0, 0.04) 3px
                 ),
                 repeating-linear-gradient(
                     0deg,
                     transparent,
                     transparent 2px,
-                    rgba(100, 149, 237, 0.02) 2px,
-                    rgba(100, 149, 237, 0.02) 3px
+                    rgba(70, 130, 180, 0.03) 2px,
+                    rgba(70, 130, 180, 0.03) 3px
                 );
             z-index: 1;
-            animation: industrialGrid 12s linear infinite;
+            animation: wrestlingRopes 8s linear infinite;
+        }
+
+        @keyframes wrestlingRopes {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(3px, 3px); }
         }
 
         .game-hero::after {
@@ -501,24 +546,27 @@
         }
 
         .game-card:hover {
-            transform: translateY(-25px) scale(1.08) rotateX(8deg) rotateY(2deg);
+            transform: translateY(-15px) scale(1.03);
             box-shadow:
-                0 40px 120px rgba(70, 130, 180, 0.4),
-                0 0 50px rgba(100, 149, 237, 0.3),
-                0 0 25px rgba(70, 130, 180, 0.5),
-                inset 0 0 30px rgba(70, 130, 180, 0.12),
-                inset 0 0 15px rgba(100, 149, 237, 0.08);
+                0 25px 60px rgba(70, 130, 180, 0.3),
+                0 0 30px rgba(100, 149, 237, 0.2),
+                0 0 15px rgba(70, 130, 180, 0.3),
+                0 0 40px rgba(255, 215, 0, 0.1),
+                inset 0 0 20px rgba(70, 130, 180, 0.08),
+                inset 0 0 10px rgba(100, 149, 237, 0.05);
             border-color: #4682b4;
             background:
                 linear-gradient(145deg,
-                    rgba(20, 30, 50, 0.98) 0%,
-                    rgba(35, 50, 75, 1) 20%,
-                    rgba(45, 60, 90, 0.98) 40%,
-                    rgba(55, 70, 105, 1) 60%,
-                    rgba(45, 60, 90, 0.98) 80%,
-                    rgba(20, 30, 50, 0.98) 100%
+                    rgba(18, 25, 40, 0.98) 0%,
+                    rgba(28, 38, 58, 1) 20%,
+                    rgba(38, 48, 70, 0.98) 40%,
+                    rgba(48, 58, 85, 1) 60%,
+                    rgba(38, 48, 70, 0.98) 80%,
+                    rgba(18, 25, 40, 0.98) 100%
                 );
         }
+
+
 
         .game-card:hover::before {
             left: 100%;
@@ -612,10 +660,34 @@
 
         .game-card:hover .game-cover::before {
             opacity: 1;
+            animation: holoBorderIntense 3s ease-in-out infinite;
         }
 
         .game-card:hover .game-cover::after {
             opacity: 1;
+            animation: holoSweepIntense 4s ease-in-out infinite;
+        }
+
+        @keyframes holoBorderIntense {
+            0%, 100% { 
+                background-position: 0% 50%;
+                filter: brightness(1.1) saturate(1.2);
+            }
+            50% { 
+                background-position: 100% 50%;
+                filter: brightness(1.2) saturate(1.3);
+            }
+        }
+
+        @keyframes holoSweepIntense {
+            0%, 100% { 
+                transform: translateX(-100%) rotate(-5deg);
+                opacity: 0.4;
+            }
+            50% { 
+                transform: translateX(100%) rotate(5deg);
+                opacity: 0.6;
+            }
         }
 
         .game-info {
@@ -970,13 +1042,284 @@
             z-index: 0;
         }
 
-        /* All eras use consistent SmackDown! 2 styling */
+        /* WWE Trax Widget Styling - SmackDown! 2 Theme */
+        .wwe-trax-widget {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 400px;
+            height: 160px;
+            background:
+                linear-gradient(145deg,
+                    rgba(139, 0, 0, 0.95) 0%,
+                    rgba(184, 134, 11, 0.98) 25%,
+                    rgba(255, 215, 0, 0.95) 50%,
+                    rgba(184, 134, 11, 0.98) 75%,
+                    rgba(139, 0, 0, 0.95) 100%
+                );
+            border-radius: 15px;
+            box-shadow: 
+                0 0 20px 3px rgba(255, 215, 0, 0.6),
+                0 0 40px rgba(139, 0, 0, 0.4),
+                inset 0 0 15px rgba(255, 215, 0, 0.3),
+                inset 0 2px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -2px 0 rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            z-index: 9998;
+            transition: all 0.3s ease;
+            overflow: visible;
+            opacity: 0;
+            transform: translateX(-20px);
+            pointer-events: none;
+            visibility: hidden;
+            border: 3px solid rgba(255, 215, 0, 0.8);
+        }
 
+        .wwe-trax-close-button {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 22px;
+            height: 22px;
+            background-color: rgba(139, 0, 0, 0.8);
+            border: 1px solid rgba(255, 215, 0, 0.6);
+            border-radius: 50%;
+            color: #FFD700;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10000;
+        }
 
+        .wwe-trax-close-button:hover {
+            background-color: rgba(255, 215, 0, 0.8);
+            color: #8B0000;
+            transform: scale(1.1);
+        }
 
+        .wwe-trax-title {
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 10px;
+            font-family: 'Orbitron', monospace;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #FFD700;
+            text-shadow: 
+                0 0 8px rgba(255, 215, 0, 0.8),
+                0 0 16px rgba(139, 0, 0, 0.6);
+        }
 
+        .wwe-trax-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
 
+        .wwe-trax-logo {
+            width: 50px;
+            height: 50px;
+            background: 
+                radial-gradient(circle, rgba(255, 215, 0, 0.9), rgba(139, 0, 0, 0.8));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid rgba(255, 215, 0, 0.8);
+            box-shadow: 
+                0 0 15px rgba(255, 215, 0, 0.6),
+                inset 0 0 10px rgba(139, 0, 0, 0.4);
+        }
 
+        .wwe-logo-text {
+            font-size: 0.9rem;
+            font-weight: 900;
+            color: #8B0000;
+            font-family: 'Orbitron', monospace;
+            text-shadow: 0 0 4px rgba(255, 215, 0, 0.8);
+        }
+
+        .wwe-trax-track-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .wwe-track-name {
+            font-size: 1.1rem;
+            color: #FFD700;
+            margin: 0 0 5px 0;
+            font-weight: 700;
+            font-family: 'Orbitron', monospace;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .wwe-track-artist {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 5px 0 0;
+            font-family: 'Exo 2', sans-serif;
+            text-shadow: 0 0 4px rgba(139, 0, 0, 0.6);
+        }
+
+        .wwe-trax-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wwe-trax-button {
+            background: 
+                linear-gradient(145deg, rgba(139, 0, 0, 0.9), rgba(184, 134, 11, 0.8));
+            border: 2px solid #FFD700;
+            border-radius: 50%;
+            color: #FFD700;
+            font-size: 1.1rem;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 0 12px rgba(255, 215, 0, 0.4),
+                inset 0 0 8px rgba(139, 0, 0, 0.3);
+        }
+
+        .wwe-trax-button:hover {
+            transform: scale(1.1);
+            background: linear-gradient(145deg, rgba(255, 215, 0, 0.9), rgba(184, 134, 11, 0.8));
+            color: #8B0000;
+            box-shadow: 
+                0 0 20px rgba(255, 215, 0, 0.8),
+                inset 0 0 12px rgba(139, 0, 0, 0.5);
+        }
+
+        .wwe-trax-button.playing {
+            background: linear-gradient(145deg, rgba(255, 215, 0, 0.9), rgba(184, 134, 11, 0.8));
+            color: #8B0000;
+            animation: wweButtonPulse 1.5s infinite alternate;
+        }
+
+        @keyframes wweButtonPulse {
+            0% {
+                box-shadow: 
+                    0 0 15px rgba(255, 215, 0, 0.6),
+                    inset 0 0 10px rgba(139, 0, 0, 0.4);
+            }
+            100% {
+                box-shadow: 
+                    0 0 25px rgba(255, 215, 0, 0.9),
+                    inset 0 0 15px rgba(139, 0, 0, 0.6);
+            }
+        }
+
+        .wwe-volume-control {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            color: #FFD700;
+            background: rgba(139, 0, 0, 0.6);
+            padding: 5px 10px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            margin-top: 8px;
+        }
+
+        #wwe-volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 70px;
+            height: 3px;
+            background: rgba(255, 215, 0, 0.3);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        #wwe-volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #FFD700;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 6px rgba(255, 215, 0, 0.8);
+        }
+
+        /* WWE Trax Mini Icon */
+        .wwe-trax-mini-icon {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background: 
+                radial-gradient(circle, rgba(255, 215, 0, 0.9), rgba(139, 0, 0, 0.8));
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 9997;
+            transition: all 0.3s ease;
+            border: 3px solid rgba(255, 215, 0, 0.8);
+            box-shadow: 
+                0 0 20px rgba(255, 215, 0, 0.6),
+                0 0 40px rgba(139, 0, 0, 0.4);
+            animation: wwePulse 2s infinite alternate;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .wwe-trax-mini-icon i {
+            font-size: 1.2rem;
+            color: #8B0000;
+            margin-bottom: 2px;
+        }
+
+        .wwe-mini-text {
+            font-size: 0.6rem;
+            color: #8B0000;
+            font-weight: 900;
+            font-family: 'Orbitron', monospace;
+            letter-spacing: 1px;
+        }
+
+        @keyframes wwePulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 
+                    0 0 20px rgba(255, 215, 0, 0.6),
+                    0 0 40px rgba(139, 0, 0, 0.4);
+            }
+            100% {
+                transform: scale(1.05);
+                box-shadow: 
+                    0 0 30px rgba(255, 215, 0, 0.8),
+                    0 0 60px rgba(139, 0, 0, 0.6);
+            }
+        }
+
+        .wwe-trax-mini-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 
+                0 0 35px rgba(255, 215, 0, 0.9),
+                0 0 70px rgba(139, 0, 0, 0.7);
+        }
 
         @media (max-width: 768px) {
             .games-grid {
@@ -1375,27 +1718,7 @@
                     </div>
                 </div>
 
-                <!-- WWE SmackDown vs. Raw 2008 (2007) -->
-                <div class="game-card lazy-element">
-                    <div class="era-badge">ECW Éra</div>
-                    <div class="game-cover-container">
-                        <img src="https://upload.wikimedia.org/wikipedia/en/b/b4/SmackDown%21vsRAW2008.jpg" alt="WWE SmackDown vs. Raw 2008" class="game-cover">
-                    </div>
-                    <div class="game-info">
-                        <h3 class="game-title">WWE SmackDown vs. Raw 2008</h3>
-                        <p class="game-year">2007</p>
-                        <div class="game-platform">PS2, PSP, Xbox 360, PS3</div>
-                        <p class="game-description">
-                            ECW brand byl přidán do hry! Featuring ECW Extreme Rules matches a nové fighting styles pro každého wrestlera.
-                        </p>
-                        <ul class="game-features">
-                            <li>ECW brand přidán</li>
-                            <li>Extreme Rules matches</li>
-                            <li>Fighting styles systém</li>
-                            <li>24/7 Mode</li>
-                        </ul>
-                    </div>
-                </div>
+
             </div>
 
             <!-- BRAND EXTENSION & PG TRANSITION ERA (2007-2011) -->
@@ -1502,6 +1825,41 @@
         </div>
     </section>
 
+    <!-- Audio element for WWE Trax -->
+    <audio id="wwe-music-player" preload="auto" muted>
+        <source src="audio/track14.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <!-- WWE Trax Widget (SmackDown! 2 Style) -->
+    <div class="wwe-trax-widget">
+        <button class="wwe-trax-close-button" id="wwe-trax-close"><i class="fas fa-times"></i></button>
+        <div class="wwe-trax-title">WWE Trax</div>
+        <div class="wwe-trax-content">
+            <div class="wwe-trax-logo">
+                <span class="wwe-logo-text">WWE</span>
+            </div>
+            <div class="wwe-trax-track-info">
+                <h4 class="wwe-track-name">WWF SmackDown! 2 Theme</h4>
+                <p class="wwe-track-debug" style="font-size: 0.75rem; color: #ffcc00; margin: 2px 0;">Track: 1/1</p>
+                <p class="wwe-track-artist">WWF SmackDown! 2 OST</p>
+            </div>
+            <div class="wwe-trax-buttons">
+                <button class="wwe-trax-button" id="wwe-play-pause"><i class="fas fa-play"></i></button>
+            </div>
+        </div>
+        <div class="wwe-volume-control">
+            <i class="fas fa-volume-up" id="wwe-volume-icon"></i>
+            <input type="range" id="wwe-volume-slider" min="0" max="1" step="0.1" value="0.5">
+        </div>
+    </div>
+    
+    <!-- WWE Trax Mini Icon -->
+    <div class="wwe-trax-mini-icon" id="wwe-trax-mini-icon">
+        <i class="fas fa-music"></i>
+        <span class="wwe-mini-text">WWE</span>
+    </div>
+
     <footer class="footer">
         <div class="container">
             <p>&copy; 2025 Komplexáci | Všechna práva vyhrazena</p>
@@ -1540,43 +1898,189 @@
                 observer.observe(el);
             });
 
-            // Create futuristic floating particles
-            function createCyberpunkParticles() {
-                const particlesContainer = document.getElementById('particles');
-                if (!particlesContainer) return;
+            // Create enhanced wrestling-themed particles
+            function createWrestlingParticles() {
+                // Create main particles container if it doesn't exist
+                let particlesContainer = document.getElementById('particles');
+                if (!particlesContainer) {
+                    particlesContainer = document.createElement('div');
+                    particlesContainer.id = 'particles';
+                    particlesContainer.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        pointer-events: none;
+                        z-index: 2;
+                        overflow: hidden;
+                    `;
+                    document.body.appendChild(particlesContainer);
+                }
 
-                for (let i = 0; i < 25; i++) {
+                // Create floating particles with wrestling theme
+                for (let i = 0; i < 30; i++) {
                     const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.animationDelay = Math.random() * 12 + 's';
-                    particle.style.animationDuration = (10 + Math.random() * 8) + 's';
+                    particle.className = 'wrestling-particle';
+                    particle.style.cssText = `
+                        position: absolute;
+                        width: ${2 + Math.random() * 4}px;
+                        height: ${2 + Math.random() * 4}px;
+                        border-radius: 50%;
+                        left: ${Math.random() * 100}%;
+                        top: ${100 + Math.random() * 20}%;
+                        animation: wrestlingFloat ${15 + Math.random() * 10}s linear infinite;
+                        animation-delay: ${Math.random() * 12}s;
+                        opacity: ${0.3 + Math.random() * 0.4};
+                    `;
 
-                    // Add random cyberpunk colors
+                    // Wrestling-themed colors (gold, blue, red)
                     const colors = [
-                        'linear-gradient(45deg, #00ffff, #ff00ff)',
-                        'linear-gradient(45deg, #ff00ff, #00ffff)',
-                        'radial-gradient(circle, #00ffff, transparent)',
-                        'radial-gradient(circle, #ff00ff, transparent)'
+                        'radial-gradient(circle, #FFD700, transparent)',
+                        'radial-gradient(circle, #4682B4, transparent)',
+                        'radial-gradient(circle, #FF4500, transparent)',
+                        'radial-gradient(circle, #00FFFF, transparent)',
+                        'radial-gradient(circle, #FF00FF, transparent)'
                     ];
                     particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.boxShadow = `0 0 ${5 + Math.random() * 10}px currentColor`;
 
                     particlesContainer.appendChild(particle);
                 }
+
+                // Create arena spotlight effects
+                for (let i = 0; i < 3; i++) {
+                    const spotlight = document.createElement('div');
+                    spotlight.className = 'arena-spotlight';
+                    spotlight.style.cssText = `
+                        position: absolute;
+                        width: ${200 + Math.random() * 300}px;
+                        height: ${200 + Math.random() * 300}px;
+                        border-radius: 50%;
+                        left: ${Math.random() * 100}%;
+                        top: ${Math.random() * 100}%;
+                        background: radial-gradient(circle, rgba(255, 215, 0, 0.1), transparent);
+                        animation: spotlightMove ${20 + Math.random() * 15}s ease-in-out infinite;
+                        animation-delay: ${Math.random() * 10}s;
+                        pointer-events: none;
+                    `;
+                    particlesContainer.appendChild(spotlight);
+                }
+
+                // Add CSS animations for particles
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes wrestlingFloat {
+                        0% {
+                            transform: translateY(0) translateX(0) rotate(0deg);
+                            opacity: 0;
+                        }
+                        10% {
+                            opacity: 1;
+                        }
+                        90% {
+                            opacity: 1;
+                        }
+                        100% {
+                            transform: translateY(-100vh) translateX(${-50 + Math.random() * 100}px) rotate(360deg);
+                            opacity: 0;
+                        }
+                    }
+                    
+                    @keyframes spotlightMove {
+                        0%, 100% {
+                            transform: translate(0, 0) scale(1);
+                            opacity: 0.3;
+                        }
+                        25% {
+                            transform: translate(50px, -30px) scale(1.2);
+                            opacity: 0.6;
+                        }
+                        50% {
+                            transform: translate(-30px, 50px) scale(0.8);
+                            opacity: 0.4;
+                        }
+                        75% {
+                            transform: translate(30px, -20px) scale(1.1);
+                            opacity: 0.5;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
             }
 
-            createCyberpunkParticles();
+            createWrestlingParticles();
 
-            // Add hover sound effect simulation (visual feedback)
-            document.querySelectorAll('.game-card').forEach(card => {
+            // Subtle wrestling-themed hover effects
+            document.querySelectorAll('.game-card').forEach((card, index) => {
                 card.addEventListener('mouseenter', function() {
+                    // Subtle lift effect
                     this.style.transform = 'translateY(-15px) scale(1.03)';
+                    this.style.filter = 'brightness(1.1) saturate(1.1)';
+                    
+                    // Subtle sparkle effect (fewer particles)
+                    createSubtleSparkles(this);
                 });
 
                 card.addEventListener('mouseleave', function() {
                     this.style.transform = 'translateY(0) scale(1)';
+                    this.style.filter = 'brightness(1) saturate(1)';
                 });
             });
+
+            // Create subtle sparkle effect
+            function createSubtleSparkles(card) {
+                // Only create sparkles occasionally to avoid spam
+                if (Math.random() > 0.7) {
+                    for (let i = 0; i < 3; i++) {
+                        const sparkle = document.createElement('div');
+                        sparkle.style.cssText = `
+                            position: absolute;
+                            width: 2px;
+                            height: 2px;
+                            background: radial-gradient(circle, #FFD700, transparent);
+                            border-radius: 50%;
+                            top: ${20 + Math.random() * 60}%;
+                            left: ${20 + Math.random() * 60}%;
+                            pointer-events: none;
+                            z-index: 10;
+                            animation: subtleSparkle 1.5s ease-out forwards;
+                        `;
+                        card.appendChild(sparkle);
+                        
+                        // Remove sparkle after animation
+                        setTimeout(() => {
+                            if (sparkle.parentNode) {
+                                sparkle.parentNode.removeChild(sparkle);
+                            }
+                        }, 1500);
+                    }
+                }
+            }
+
+            // Add subtle sparkle animation styles
+            const sparkleStyle = document.createElement('style');
+            sparkleStyle.textContent = `
+                @keyframes subtleSparkle {
+                    0% {
+                        transform: scale(0);
+                        opacity: 0;
+                    }
+                    20% {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+                    80% {
+                        transform: scale(1);
+                        opacity: 0.8;
+                    }
+                    100% {
+                        transform: scale(0);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(sparkleStyle);
 
             // Dynamic background change for hero section
             const heroSection = document.querySelector('.game-hero');
@@ -1591,7 +2095,348 @@
                 currentBg = (currentBg + 1) % backgrounds.length;
                 heroSection.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('${backgrounds[currentBg]}')`;
             }, 10000);
+
+            // WWE Trax Player Functionality
+            initWWETraxPlayer();
         });
+
+        // Cross-page music control system
+        function stopMainKompgTrax() {
+            // Signal to main Kompg Trax to stop via localStorage
+            localStorage.setItem('wwe_trax_playing', 'true');
+            localStorage.setItem('wwe_trax_command', 'stop_main_trax');
+            localStorage.setItem('wwe_trax_timestamp', Date.now().toString());
+            
+            console.log('WWE Trax: Signaling main Kompg Trax to stop (Firefox compatible)');
+            
+            // Firefox-specific: Use multiple methods to ensure cross-page communication
+            // Method 1: Standard storage event
+            window.dispatchEvent(new StorageEvent('storage', {
+                key: 'wwe_trax_command',
+                newValue: 'stop_main_trax',
+                oldValue: null,
+                storageArea: localStorage
+            }));
+            
+            // Method 2: Firefox fallback - use a different key to trigger event
+            setTimeout(() => {
+                localStorage.setItem('wwe_trax_firefox_trigger', Date.now().toString());
+            }, 50);
+            
+            // Method 3: Direct attempt to find and stop main player if on same page
+            try {
+                const mainMusicPlayer = document.getElementById('music-player');
+                if (mainMusicPlayer && !mainMusicPlayer.paused) {
+                    console.log('WWE Trax: Found main player on same page, stopping directly');
+                    mainMusicPlayer.pause();
+                    mainMusicPlayer.currentTime = 0;
+                }
+            } catch (e) {
+                console.log('WWE Trax: Could not access main player directly:', e);
+            }
+        }
+
+        function releaseMainKompgTraxControl() {
+            // Signal that WWE Trax stopped, main Kompg can resume control
+            localStorage.removeItem('wwe_trax_playing');
+            localStorage.setItem('wwe_trax_command', 'release_control');
+            localStorage.setItem('wwe_trax_timestamp', Date.now().toString());
+            
+            console.log('WWE Trax: Releasing control, main Kompg Trax can resume (Firefox compatible)');
+            
+            // Firefox-specific: Use multiple methods to ensure cross-page communication
+            // Method 1: Standard storage event
+            window.dispatchEvent(new StorageEvent('storage', {
+                key: 'wwe_trax_command',
+                newValue: 'release_control',
+                oldValue: 'stop_main_trax',
+                storageArea: localStorage
+            }));
+            
+            // Method 2: Firefox fallback - use a different key to trigger event
+            setTimeout(() => {
+                localStorage.setItem('wwe_trax_firefox_trigger', Date.now().toString());
+            }, 100);
+        }
+
+        // WWE Trax Player Implementation
+        function initWWETraxPlayer() {
+            const wweTraxWidget = document.querySelector('.wwe-trax-widget');
+            const wweTraxMiniIcon = document.getElementById('wwe-trax-mini-icon');
+            const wweMusicPlayer = document.getElementById('wwe-music-player');
+            const wwePlayButton = document.getElementById('wwe-play-pause');
+            const wweVolumeSlider = document.getElementById('wwe-volume-slider');
+            const wweVolumeIcon = document.getElementById('wwe-volume-icon');
+            const wweCloseButton = document.getElementById('wwe-trax-close');
+
+            let isWWEPlaying = false;
+            let isWWEWidgetVisible = false;
+            let hasWWEFirstInteractionOccurred = false;
+
+            // WWE Trax session storage key
+            const WWE_MUSIC_EVER_STARTED_KEY = 'wwe_trax_ever_started_session';
+
+            // Set initial volume
+            if (wweMusicPlayer && wweVolumeSlider) {
+                wweMusicPlayer.volume = wweVolumeSlider.value;
+            }
+
+            // Show WWE Trax widget
+            function showWWETraxWidget() {
+                if (wweTraxWidget && wweTraxMiniIcon) {
+                    wweTraxWidget.style.opacity = '1';
+                    wweTraxWidget.style.transform = 'translateX(0)';
+                    wweTraxWidget.style.pointerEvents = 'auto';
+                    wweTraxWidget.style.visibility = 'visible';
+                    isWWEWidgetVisible = true;
+
+                    wweTraxMiniIcon.style.opacity = '0';
+                    wweTraxMiniIcon.style.pointerEvents = 'none';
+                }
+            }
+
+            // Hide WWE Trax widget
+            function hideWWETraxWidget() {
+                if (wweTraxWidget && wweTraxMiniIcon) {
+                    wweTraxWidget.style.opacity = '0';
+                    wweTraxWidget.style.transform = 'translateX(-20px)';
+                    wweTraxWidget.style.pointerEvents = 'none';
+                    setTimeout(() => {
+                        wweTraxWidget.style.visibility = 'hidden';
+                    }, 300);
+                    isWWEWidgetVisible = false;
+
+                    wweTraxMiniIcon.style.opacity = '1';
+                    wweTraxMiniIcon.style.pointerEvents = 'auto';
+                }
+            }
+
+            // Toggle play/pause
+            function toggleWWEPlay() {
+                if (!wweMusicPlayer) return;
+
+                isWWEPlaying = !isWWEPlaying;
+
+                if (isWWEPlaying) {
+                    // Stop main Kompg Trax when WWE Trax starts
+                    stopMainKompgTrax();
+                    
+                    wweMusicPlayer.muted = true;
+                    wweMusicPlayer.play()
+                        .then(() => {
+                            setTimeout(() => {
+                                wweMusicPlayer.muted = false;
+                            }, 500);
+                        })
+                        .catch(e => {
+                            console.error('WWE Trax playback failed:', e);
+                            isWWEPlaying = false;
+                            updateWWEPlayButton();
+                        });
+                } else {
+                    wweMusicPlayer.pause();
+                    // Release control when WWE Trax stops
+                    releaseMainKompgTraxControl();
+                }
+
+                updateWWEPlayButton();
+                showWWETraxWidget();
+            }
+
+            // Update play button appearance
+            function updateWWEPlayButton() {
+                if (wwePlayButton) {
+                    if (isWWEPlaying) {
+                        wwePlayButton.innerHTML = '<i class="fas fa-pause"></i>';
+                        wwePlayButton.classList.add('playing');
+                        
+                        // Make mini icon pulse faster when playing
+                        if (wweTraxMiniIcon) {
+                            wweTraxMiniIcon.style.animation = 'wwePulse 0.8s infinite alternate';
+                        }
+                    } else {
+                        wwePlayButton.innerHTML = '<i class="fas fa-play"></i>';
+                        wwePlayButton.classList.remove('playing');
+                        
+                        // Return mini icon to normal pulse
+                        if (wweTraxMiniIcon) {
+                            wweTraxMiniIcon.style.animation = 'wwePulse 2s infinite alternate';
+                        }
+                    }
+                }
+            }
+
+            // Update volume icon
+            function updateWWEVolumeIcon(volume) {
+                if (!wweVolumeIcon) return;
+
+                if (volume === 0) {
+                    wweVolumeIcon.className = 'fas fa-volume-mute';
+                } else if (volume < 0.5) {
+                    wweVolumeIcon.className = 'fas fa-volume-down';
+                } else {
+                    wweVolumeIcon.className = 'fas fa-volume-up';
+                }
+            }
+
+            // Event listeners
+            if (wwePlayButton) {
+                wwePlayButton.addEventListener('click', toggleWWEPlay);
+            }
+
+            if (wweTraxMiniIcon) {
+                wweTraxMiniIcon.addEventListener('click', function() {
+                    if (!isWWEWidgetVisible) {
+                        showWWETraxWidget();
+                    }
+                    if (!isWWEPlaying) {
+                        toggleWWEPlay();
+                    }
+                });
+            }
+
+            if (wweCloseButton) {
+                wweCloseButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    hideWWETraxWidget();
+                });
+            }
+
+            if (wweVolumeSlider) {
+                wweVolumeSlider.addEventListener('input', function() {
+                    const volume = this.value;
+                    if (wweMusicPlayer) {
+                        wweMusicPlayer.volume = volume;
+                    }
+                    updateWWEVolumeIcon(volume);
+                });
+            }
+
+            // When track ends, stop playing
+            if (wweMusicPlayer) {
+                wweMusicPlayer.addEventListener('ended', function() {
+                    isWWEPlaying = false;
+                    updateWWEPlayButton();
+                    // Release control when WWE Trax ends
+                    releaseMainKompgTraxControl();
+                });
+
+                wweMusicPlayer.addEventListener('error', function() {
+                    console.log("WWE Trax audio error occurred");
+                    isWWEPlaying = false;
+                    updateWWEPlayButton();
+                    // Release control when WWE Trax has error
+                    releaseMainKompgTraxControl();
+                });
+            }
+
+            // Auto-play functionality on user interaction - works on every visit
+            const unlockWWEAudio = function(e) {
+                // Don't trigger if already processed this page load
+                if (hasWWEFirstInteractionOccurred) return;
+                
+                console.log('WWE Trax: User interaction detected, enabling audio', e.type);
+
+                // Set first interaction flag for this page load
+                hasWWEFirstInteractionOccurred = true;
+
+                const wweMusicEverStarted = sessionStorage.getItem(WWE_MUSIC_EVER_STARTED_KEY);
+
+                if (wweMusicEverStarted !== 'true') {
+                    // This is the first time WWE music is being started in this session
+                    console.log('WWE Trax: First time music is being started in this session - auto-starting');
+                    
+                    // Mark that WWE music has been started in this session IMMEDIATELY
+                    sessionStorage.setItem(WWE_MUSIC_EVER_STARTED_KEY, 'true');
+
+                    // Show the widget briefly
+                    showWWETraxWidget();
+                    
+                    // Auto-hide after 5 seconds
+                    setTimeout(() => {
+                        if (!isWWEWidgetVisible) return; // Don't hide if user is interacting
+                        hideWWETraxWidget();
+                    }, 5000);
+
+                    // Try to play automatically
+                    if (!isWWEPlaying) {
+                        // Stop main Kompg Trax when WWE Trax auto-starts
+                        stopMainKompgTrax();
+                        
+                        isWWEPlaying = true;
+                        updateWWEPlayButton();
+                        
+                        // Start with muted for better autoplay chances
+                        wweMusicPlayer.muted = true;
+                        wweMusicPlayer.play()
+                            .then(() => {
+                                console.log('WWE Trax: Playback started successfully (muted)');
+                                // Unmute after a short delay
+                                setTimeout(() => {
+                                    wweMusicPlayer.muted = false;
+                                    console.log('WWE Trax: Audio unmuted');
+                                }, 500);
+                            })
+                            .catch(e => {
+                                console.error('WWE Trax: Playback failed:', e);
+                                isWWEPlaying = false;
+                                updateWWEPlayButton();
+                            });
+                    }
+                } else {
+                    // WWE music has been started before in this session, but this is a new page visit
+                    console.log('WWE Trax: Music has been started in this session before - auto-starting on new visit');
+                    
+                    // Show the widget briefly
+                    showWWETraxWidget();
+                    
+                    // Auto-hide after 5 seconds
+                    setTimeout(() => {
+                        if (!isWWEWidgetVisible) return; // Don't hide if user is interacting
+                        hideWWETraxWidget();
+                    }, 5000);
+
+                    // Auto-start WWE Trax on every visit to stop main Kompg Trax
+                    if (!isWWEPlaying) {
+                        // Stop main Kompg Trax when WWE Trax auto-starts
+                        stopMainKompgTrax();
+                        
+                        isWWEPlaying = true;
+                        updateWWEPlayButton();
+                        
+                        // Start with muted for better autoplay chances
+                        wweMusicPlayer.muted = true;
+                        wweMusicPlayer.play()
+                            .then(() => {
+                                console.log('WWE Trax: Playback started successfully on repeat visit (muted)');
+                                // Unmute after a short delay
+                                setTimeout(() => {
+                                    wweMusicPlayer.muted = false;
+                                    console.log('WWE Trax: Audio unmuted');
+                                }, 500);
+                            })
+                            .catch(e => {
+                                console.error('WWE Trax: Playback failed:', e);
+                                isWWEPlaying = false;
+                                updateWWEPlayButton();
+                            });
+                    }
+                }
+
+                // Don't remove event listeners - keep them for subsequent page visits
+                // The hasWWEFirstInteractionOccurred flag prevents multiple triggers per page load
+            };
+
+            // Add event listeners for user interaction - these stay active
+            document.addEventListener('click', unlockWWEAudio);
+            document.addEventListener('touchstart', unlockWWEAudio);
+            document.addEventListener('keydown', unlockWWEAudio);
+
+            // Initialize
+            updateWWEPlayButton();
+            updateWWEVolumeIcon(wweVolumeSlider ? wweVolumeSlider.value : 0.5);
+            hideWWETraxWidget(); // Start with widget hidden
+        }
     </script>
 </body>
 </html>

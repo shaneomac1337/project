@@ -486,7 +486,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let isInstanceActive = false;
     const INSTANCE_KEY = 'komplexaci_trax_active_instance';
     const INSTANCE_TIMESTAMP_KEY = 'komplexaci_trax_timestamp';
-    const MUSIC_EVER_STARTED_KEY = 'komplexaci_trax_ever_started';
+    const MUSIC_EVER_STARTED_KEY = 'komplexaci_trax_ever_started_session'; // Changed to session-based
     const instanceId = Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 
     // Check if this instance should be the active one
@@ -583,10 +583,130 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
+        
+        // Listen for WWE Trax commands
+        if (e.key === 'wwe_trax_command') {
+            const command = e.newValue;
+            console.log(`[${instanceId}] WWE Trax command received: ${command}`);
+            
+            if (command === 'stop_main_trax' && isPlaying) {
+                console.log(`[${instanceId}] WWE Trax requested stop - stopping main Kompg Trax`);
+                // Stop main Kompg Trax when WWE Trax starts
+                isPlaying = false;
+                musicPlayer.pause();
+                musicPlayer.currentTime = 0; // Reset to beginning
+                updatePlayButton();
+                releaseInstanceControl();
+                
+                // Hide main trax widget
+                hideTraxWidget();
+                
+                // Show notification in track name
+                if (trackName) {
+                    const originalText = trackName.textContent;
+                    trackName.textContent = "WWE Trax playing";
+                    setTimeout(() => {
+                        trackName.textContent = originalText;
+                    }, 3000);
+                }
+            } else if (command === 'release_control') {
+                console.log(`[${instanceId}] WWE Trax released control - main Kompg Trax can resume`);
+                // WWE Trax stopped, main Kompg can resume if needed
+                // Just show a brief notification
+                if (trackName) {
+                    const originalText = trackName.textContent;
+                    trackName.textContent = "Click to resume music";
+                    setTimeout(() => {
+                        trackName.textContent = originalText;
+                    }, 2000);
+                }
+            }
+        }
+        
+        // Firefox fallback - listen for the trigger key
+        if (e.key === 'wwe_trax_firefox_trigger') {
+            console.log(`[${instanceId}] Firefox fallback trigger detected`);
+            // Check the actual command
+            const command = localStorage.getItem('wwe_trax_command');
+            const timestamp = localStorage.getItem('wwe_trax_timestamp');
+            const now = Date.now();
+            
+            // Only process recent commands (within 5 seconds)
+            if (timestamp && (now - parseInt(timestamp)) < 5000) {
+                console.log(`[${instanceId}] Processing Firefox fallback command: ${command}`);
+                
+                if (command === 'stop_main_trax' && isPlaying) {
+                    console.log(`[${instanceId}] Firefox fallback: WWE Trax requested stop - stopping main Kompg Trax`);
+                    // Stop main Kompg Trax when WWE Trax starts
+                    isPlaying = false;
+                    musicPlayer.pause();
+                    musicPlayer.currentTime = 0; // Reset to beginning
+                    updatePlayButton();
+                    releaseInstanceControl();
+                    
+                    // Hide main trax widget
+                    hideTraxWidget();
+                    
+                    // Show notification in track name
+                    if (trackName) {
+                        const originalText = trackName.textContent;
+                        trackName.textContent = "WWE Trax playing (Firefox)";
+                        setTimeout(() => {
+                            trackName.textContent = originalText;
+                        }, 3000);
+                    }
+                } else if (command === 'release_control') {
+                    console.log(`[${instanceId}] Firefox fallback: WWE Trax released control - main Kompg Trax can resume`);
+                    // WWE Trax stopped, main Kompg can resume if needed
+                    if (trackName) {
+                        const originalText = trackName.textContent;
+                        trackName.textContent = "Click to resume music";
+                        setTimeout(() => {
+                            trackName.textContent = originalText;
+                        }, 2000);
+                    }
+                }
+            }
+        }
     });
 
     // Heartbeat interval to maintain control
-    setInterval(updateHeartbeat, 1000); // Update every 1 second for more responsive control
+    setInterval(updateHeartbeat, 1000);
+
+    // Firefox fallback: Periodic check for WWE Trax commands
+    let lastWWECommandCheck = 0;
+    setInterval(() => {
+        const wweCommand = localStorage.getItem('wwe_trax_command');
+        const wweTimestamp = localStorage.getItem('wwe_trax_timestamp');
+        
+        if (wweTimestamp && parseInt(wweTimestamp) > lastWWECommandCheck) {
+            lastWWECommandCheck = parseInt(wweTimestamp);
+            const now = Date.now();
+            
+            // Only process recent commands (within 10 seconds)
+            if ((now - parseInt(wweTimestamp)) < 10000) {
+                console.log(`[${instanceId}] Periodic check found WWE command: ${wweCommand}`);
+                
+                if (wweCommand === 'stop_main_trax' && isPlaying) {
+                    console.log(`[${instanceId}] Periodic check: Stopping main Kompg Trax for WWE`);
+                    isPlaying = false;
+                    musicPlayer.pause();
+                    musicPlayer.currentTime = 0;
+                    updatePlayButton();
+                    releaseInstanceControl();
+                    hideTraxWidget();
+                    
+                    if (trackName) {
+                        const originalText = trackName.textContent;
+                        trackName.textContent = "WWE Trax playing (periodic check)";
+                        setTimeout(() => {
+                            trackName.textContent = originalText;
+                        }, 3000);
+                    }
+                }
+            }
+        }
+    }, 500); // Check every 500ms for Firefox compatibility // Update every 1 second for more responsive control
 
     // Function to show the Trax widget with optional auto-hide after 5 seconds
     function showTraxWidget(autoHide = false) {
@@ -840,8 +960,8 @@ document.addEventListener('DOMContentLoaded', function() {
         isPlaying = !isPlaying;
 
         if (isPlaying) {
-            // Mark that music has been started at least once globally
-            localStorage.setItem(MUSIC_EVER_STARTED_KEY, 'true');
+            // Mark that music has been started at least once in this session
+            sessionStorage.setItem(MUSIC_EVER_STARTED_KEY, 'true');
             // Claim control when starting to play
             claimInstanceControl();
         } else {
@@ -1169,9 +1289,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function initPlayer() {
         console.log('Initializing EA Trax player');
 
-        // Check if music has ever been started globally
-        const musicEverStarted = localStorage.getItem(MUSIC_EVER_STARTED_KEY);
-        console.log('During init - Music ever started globally:', musicEverStarted);
+        // Check if music has ever been started in this session
+        const musicEverStarted = sessionStorage.getItem(MUSIC_EVER_STARTED_KEY);
+        console.log('During init - Music ever started in this session:', musicEverStarted);
 
         // Set initial volume from slider
         musicPlayer.volume = volumeSlider.value; // Use slider value (0.2 = 20%)
@@ -1239,14 +1359,14 @@ document.addEventListener('DOMContentLoaded', function() {
             // Set first interaction flag
             hasFirstInteractionOccurred = true;
 
-            const musicEverStarted = localStorage.getItem(MUSIC_EVER_STARTED_KEY);
+            const musicEverStarted = sessionStorage.getItem(MUSIC_EVER_STARTED_KEY);
 
             if (musicEverStarted !== 'true') {
-                // This is the very first time music is being started globally
-                console.log('First time music is being started globally - auto-starting');
+                // This is the first time music is being started in this session
+                console.log('First time music is being started in this session - auto-starting');
                 
-                // Mark that music has been started globally IMMEDIATELY
-                localStorage.setItem(MUSIC_EVER_STARTED_KEY, 'true');
+                // Mark that music has been started in this session IMMEDIATELY
+                sessionStorage.setItem(MUSIC_EVER_STARTED_KEY, 'true');
 
                 // Show the widget
                 showTraxWidget(true); // Auto-hide after 5 seconds
@@ -1261,8 +1381,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     tryToPlayAudio();
                 }
             } else {
-                // Music has been started before globally, do not auto-start in this new tab
-                console.log('Music has been started in another tab before - not auto-starting here');
+                // Music has been started before in this session, do not auto-start in this new tab
+                console.log('Music has been started in another tab in this session - not auto-starting here');
                 
                 if (!checkInstanceControl()) {
                     // Another instance is currently active
@@ -1275,8 +1395,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         }, 3000);
                     }
                 } else {
-                    // No other active instance, but music has played before. Allow manual play.
-                    console.log('No active instance, but music played before. Click to play here.');
+                    // No other active instance, but music has played before in this session. Allow manual play.
+                    console.log('No active instance, but music played before in this session. Click to play here.');
                     if (trackName) {
                         const originalText = trackName.textContent;
                         trackName.textContent = "Click to play music here";
