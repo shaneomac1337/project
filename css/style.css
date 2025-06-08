@@ -2142,6 +2142,209 @@ a:hover {
     color: var(--light-text);
 }
 
+/* Music Dashboard Section */
+.music-dashboard-section {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d3c 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.music-dashboard-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(110, 79, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 210, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.music-dashboard-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.music-dashboard-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(110, 79, 246, 0.1);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 30px;
+    align-items: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.music-dashboard-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(110, 79, 246, 0.1),
+        transparent
+    );
+    transition: left 0.6s ease;
+}
+
+.music-dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(110, 79, 246, 0.2);
+    border-color: rgba(110, 79, 246, 0.3);
+}
+
+.music-dashboard-card:hover::before {
+    left: 100%;
+}
+
+.music-dashboard-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    box-shadow: 0 10px 20px rgba(110, 79, 246, 0.4);
+    animation: musicIconPulse 3s ease-in-out infinite;
+}
+
+@keyframes musicIconPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 10px 20px rgba(110, 79, 246, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 15px 30px rgba(110, 79, 246, 0.6);
+    }
+}
+
+.music-dashboard-info h3 {
+    font-size: 1.8rem;
+    color: var(--light-text);
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.music-dashboard-info p {
+    font-size: 1.1rem;
+    color: var(--medium-text);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.music-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.feature-tag {
+    background: rgba(110, 79, 246, 0.2);
+    color: var(--light-text);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(110, 79, 246, 0.3);
+    transition: all 0.3s ease;
+}
+
+.feature-tag:hover {
+    background: rgba(110, 79, 246, 0.3);
+    transform: translateY(-2px);
+}
+
+.feature-tag i {
+    margin-right: 5px;
+    color: var(--primary-color);
+}
+
+.music-dashboard-action {
+    text-align: center;
+}
+
+.btn-music {
+    background: linear-gradient(135deg, #ff4655, #ff6b7a);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 70, 85, 0.4);
+    position: relative;
+    overflow: hidden;
+    animation: musicButtonPulse 3s ease-in-out infinite;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.btn-music::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: left 0.6s ease;
+}
+
+.btn-music:hover::before {
+    left: 100%;
+}
+
+.btn-music:hover {
+    background: linear-gradient(135deg, #ff6b7a, #ff4655);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow:
+        0 12px 35px rgba(255, 70, 85, 0.6),
+        0 0 30px rgba(255, 70, 85, 0.4);
+    color: white;
+}
+
+@keyframes musicButtonPulse {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(255, 70, 85, 0.4);
+    }
+    50% {
+        box-shadow: 0 6px 20px rgba(255, 70, 85, 0.6);
+    }
+}
+
+.btn-music i {
+    margin-right: 8px;
+}
+
+.music-note {
+    font-size: 0.85rem;
+    color: var(--medium-text);
+    margin-top: 8px;
+    font-style: italic;
+}
+
 /* Contact Section */
 .contact-content {
     max-width: 700px;
@@ -2726,6 +2929,38 @@ a:hover {
 
     .members-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* Music Dashboard Mobile */
+    .music-dashboard-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 20px;
+        padding: 30px 20px;
+    }
+
+    .music-dashboard-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+        margin: 0 auto;
+    }
+
+    .music-dashboard-info h3 {
+        font-size: 1.5rem;
+    }
+
+    .music-dashboard-info p {
+        font-size: 1rem;
+    }
+
+    .music-features {
+        justify-content: center;
+    }
+
+    .feature-tag {
+        font-size: 0.8rem;
+        padding: 5px 10px;
     }
 
     .member-card {
