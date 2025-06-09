@@ -69,6 +69,16 @@
     </script>
  
     <style>
+        /* CSS Variables */
+        :root {
+            --accent-color: #6e4ff6;
+            --accent-hover: #5a3fd4;
+            --bg-color: #0a0a0f;
+            --text-color: #e0e0e0;
+            --medium-text: #bababa;
+            --light-text: #ffffff;
+        }
+
         /* WWE SmackDown! 2 Industrial 2000s Style - Enhanced */
         body {
             background:
@@ -152,7 +162,7 @@
                 radial-gradient(ellipse at 75% 75%, rgba(100, 149, 237, 0.12) 0%, transparent 70%),
                 radial-gradient(ellipse at 50% 100%, rgba(255, 215, 0, 0.08) 0%, transparent 60%),
                 linear-gradient(135deg, rgba(10, 10, 15, 0.95), rgba(20, 25, 35, 0.9), rgba(15, 20, 30, 0.95)),
-                url('https://static.vecteezy.com/system/resources/previews/037/823/299/non_2x/ai-generated-spectacular-view-of-an-empty-professional-boxing-ring-in-a-grand-arena-with-empty-seats-photo.jpeg');
+                url('https://www.thesmackdownhotel.com/igallery/wwe-2k24-265/wwe-2k24-rhea-ripley-111-1080.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -447,6 +457,156 @@
         @keyframes gridMove {
             0% { transform: translate(0, 0); }
             100% { transform: translate(50px, 50px); }
+        }
+
+        /* Game Filters Styles */
+        .game-filters {
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(110, 79, 246, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .filter-title {
+            color: #6e4ff6;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .filter-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            align-items: end;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            color: #e0e0e0;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .filter-select {
+            background: linear-gradient(145deg, #0f1419 0%, #1a1a2e 100%);
+            border: 1px solid rgba(110, 79, 246, 0.3);
+            border-radius: 8px;
+            padding: 12px 15px;
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236e4ff6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        .filter-select:hover, .filter-select:focus {
+            border-color: #6e4ff6;
+            box-shadow: 0 0 10px rgba(110, 79, 246, 0.3);
+            outline: none;
+            background-color: #1a1a2e;
+        }
+
+        .filter-select option {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            padding: 8px 12px;
+            border: none;
+        }
+
+        .filter-select option:hover {
+            background-color: #6e4ff6;
+            color: white;
+        }
+
+        .filter-select option:checked {
+            background-color: #6e4ff6;
+            color: white;
+        }
+
+        .filter-reset-btn {
+            background: linear-gradient(145deg, #ff4757 0%, #ff3742 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-self: center;
+        }
+
+        .filter-reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+        }
+
+        .game-card.hidden {
+            display: none;
+        }
+
+        /* Smooth transitions for era sections */
+        .era-divider {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .era-divider[style*="display: none"] {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        /* Improved filter results styling */
+        .no-results {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed var(--accent-color);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .no-results button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Filter status indicator animation */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .no-results {
+            text-align: center;
+            color: #bababa;
+            font-size: 1.2rem;
+            margin: 50px 0;
+            padding: 40px;
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 15px;
+            border: 1px solid rgba(110, 79, 246, 0.2);
         }
 
         .games-grid {
@@ -1510,14 +1670,234 @@
         <div class="floating-particles" id="particles"></div>
         <div class="container">
             <h2 class="section-title">Legendární Kolekce WWE/WWF Her</h2>
-            <p style="text-align: center; color: var(--medium-text); font-size: 1.2rem; margin-bottom: 60px; max-width: 800px; margin-left: auto; margin-right: auto;">
-                Objevte kompletní historii wrestlingových klasik - od prvního WWF SmackDown! na PlayStation až po finální SmackDown vs. Raw 2011
+            <p style="text-align: center; color: var(--medium-text); font-size: 1.2rem; margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Objevte kompletní historii wrestlingových klasik - od prvních arkádových her až po moderní 2K série
             </p>
+
+            <!-- Game Filters -->
+            <div class="game-filters">
+                <div class="filter-section">
+                    <h3 class="filter-title">Filtrovat hry</h3>
+                    <div class="filter-controls">
+                        <div class="filter-group">
+                            <label for="era-filter">Éra:</label>
+                            <select id="era-filter" class="filter-select">
+                                <option value="all">Všechny éry</option>
+                                <option value="golden">Golden Era (1984-1993)</option>
+                                <option value="new-generation">New Generation Era (1993-1997)</option>
+                                <option value="attitude">Attitude Era (1997-2002)</option>
+                                <option value="ruthless">Ruthless Aggression Era (2002-2008)</option>
+                                <option value="pg">PG Era (2008-2014)</option>
+                                <option value="reality">Reality Era (2014-2016)</option>
+                                <option value="new">New Era (2016-2021)</option>
+                                <option value="post-covid">Post-COVID Era (2021-2023)</option>
+                                <option value="renaissance">Renaissance Era (2023-present)</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="platform-filter">Platforma:</label>
+                            <select id="platform-filter" class="filter-select">
+                                <option value="all">Všechny platformy</option>
+                                <option value="arcade">Arcade</option>
+                                <option value="nes">NES</option>
+                                <option value="snes">SNES/Genesis</option>
+                                <option value="n64">Nintendo 64</option>
+                                <option value="playstation">PlayStation</option>
+                                <option value="ps2">PlayStation 2</option>
+                                <option value="gamecube">GameCube</option>
+                                <option value="xbox">Xbox</option>
+                                <option value="modern">Modern (PS3/Xbox 360+)</option>
+                                <option value="mobile">Mobile</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="series-filter">Série:</label>
+                            <select id="series-filter" class="filter-select">
+                                <option value="all">Všechny série</option>
+                                <option value="smackdown">SmackDown!</option>
+                                <option value="svr">SmackDown vs. Raw</option>
+                                <option value="2k">WWE 2K</option>
+                                <option value="wrestlemania">WrestleMania</option>
+                                <option value="arcade">Arcade Games</option>
+                                <option value="n64">N64 Classics</option>
+                                <option value="gamecube">GameCube Era</option>
+                                <option value="standalone">Standalone</option>
+                            </select>
+                        </div>
+
+                        <button id="reset-filters" class="filter-reset-btn">
+                            <i class="fas fa-undo"></i> Reset filtrů
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GOLDEN ERA (1984-1993) -->
+            <div class="era-divider golden-era">
+                <div class="era-title">
+                    <h2>Golden Era (1984-1993)</h2>
+                    <p class="era-subtitle">1984 - 1993</p>
+                </div>
+                <p class="era-description">
+                    Éra Hulkamanie! Doba Hulk Hogana, Ultimate Warriora a prvních WWF her. Období, které položilo základy pro všechny budoucí wrestling hry a definovalo populární kulturu 80. a začátku 90. let.
+                </p>
+            </div>
+
+            <div class="games-grid">
+                <!-- MicroLeague Wrestling (1987) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/microleague-wrestling-1987.jpg" alt="MicroLeague Wrestling" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">MicroLeague Wrestling</h3>
+                        <p class="game-year">1987</p>
+                        <div class="game-platform">Commodore 64, Atari ST</div>
+                        <p class="game-description">
+                            Historicky první oficiální WWF licencovaná hra! Vyvinutá MicroLeague jako součást jejich sportovní série, tato průkopnická simulace nabízela strategický gameplay založený na výběru tahů. Obsahovala legendární souboje Hulk Hogan vs. "Macho Man" Randy Savage a Hulk Hogan vs. "Mr. Wonderful" Paul Orndorff. Přestože jednoduchá, položila základy pro celý žánr wrestling her.
+                        </p>
+                        <ul class="game-features">
+                            <li>První oficiální WWF hra</li>
+                            <li>Golden Era debut</li>
+                            <li>Historický význam</li>
+                            <li>Retro klasika</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWF Superstars (1989) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwf-superstars-1989.jpg" alt="WWF Superstars" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWF Superstars</h3>
+                        <p class="game-year">1989</p>
+                        <div class="game-platform">Arcade</div>
+                        <p class="game-description">
+                            První arkádová WWF hra od Technōs Japan (tvůrci Double Dragon)! Postavená na upraveném Double Dragon II enginu, nabízela tag-team akční gameplay s šesti wrestlery včetně Hulk Hogana, Ultimate Warriora, Big Boss Mana a Hacksaw Jim Duggana. Hra kombinovala wrestling s beat-em-up mechanikami a stala se základem pro budoucí arkádové wrestling hry.
+                        </p>
+                        <ul class="game-features">
+                            <li>První arkádová WWF hra</li>
+                            <li>Hulk Hogan, Ultimate Warrior</li>
+                            <li>Rychlý akční gameplay</li>
+                            <li>Golden Era roster</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWF WrestleFest (1991) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwf-wrestlefest-1991.jpg" alt="WWF WrestleFest" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWF WrestleFest</h3>
+                        <p class="game-year">1991</p>
+                        <div class="game-platform">Arcade</div>
+                        <p class="game-description">
+                            Absolutní arkádová legenda od Technōs Japan! Pokračování WWF Superstars s revolučními herními módy: "Saturday Night's Main Event" (tag-team turnaj) a "Royal Rumble" (battle royal). Obsahovala 10 wrestlerů včetně Hulk Hogana, Ultimate Warriora, Earthquake a Legion of Doom. Dodnes považovaná za jednu z nejlepších wrestling her všech dob díky dokonalému arkádovému gameplay a nezapomenutelné atmosféře.
+                        </p>
+                        <ul class="game-features">
+                            <li>Arkádová legenda</li>
+                            <li>Royal Rumble mód</li>
+                            <li>Tag Team Championship</li>
+                            <li>Ikonický soundtrack</li>
+                            <li>Legion of Doom, Big Boss Man</li>
+                            <li>Dokonalý arkádový gameplay</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWF Royal Rumble (1993) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwf-royal-rumble-1993.jpg" alt="WWF Royal Rumble" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWF Royal Rumble</h3>
+                        <p class="game-year">1993</p>
+                        <div class="game-platform">SNES, Genesis</div>
+                        <p class="game-description">
+                            Průkopnická konzolová hra na přelomu ér! První domácí hra s plnohodnotným Royal Rumble módem pro až 4 hráče. Obsahovala 12 wrestlerů z přechodného období včetně Yokozuny, Bret Harta, Razor Ramona a Lex Lugera. Nabízela tři herní módy: One-on-One, Tag Team a legendární Royal Rumble. Vynikající 16-bit grafika a autentické WWF prostředí z roku 1993.
+                        </p>
+                        <ul class="game-features">
+                            <li>První konzolový Royal Rumble</li>
+                            <li>Yokozuna, Bret Hart</li>
+                            <li>16-bit grafika</li>
+                            <li>Multiplayer podpora</li>
+                            <li>Authentic WWF experience</li>
+                            <li>Golden Era finale</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW GENERATION ERA (1993-1997) -->
+            <div class="era-divider new-generation-era">
+                <div class="era-title">
+                    <h2>New Generation Era (1993-1997)</h2>
+                    <p class="era-subtitle">1993 - 1997</p>
+                </div>
+                <p class="era-description">
+                    Éra nové generace! Doba Bret Harta, Shawn Michaelse a Undertakera. Přechod od Hulkamanie k mladším, atletičtějším wrestlerům, který připravil půdu pro nadcházející Attitude Era.
+                </p>
+            </div>
+
+            <div class="games-grid">
+                <!-- WWF Raw (1994) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwf-raw-1994.jpg" alt="WWF Raw" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWF Raw</h3>
+                        <p class="game-year">1994</p>
+                        <div class="game-platform">SNES, Genesis, 32X, Game Boy</div>
+                        <p class="game-description">
+                            První hra pojmenovaná podle Monday Night Raw! Vydaná během vrcholu New Generation Era s Bret Hartem, Yokozunou a Undertakerem. Přinesla realistický wrestling gameplay s authentic WWF atmosférou a roster z přechodného období mezi Golden Era a Attitude Era.
+                        </p>
+                        <ul class="game-features">
+                            <li>První Raw branded hra</li>
+                            <li>New Generation Era roster</li>
+                            <li>Bret Hart, Yokozuna, Undertaker</li>
+                            <li>Multi-platform release</li>
+                            <li>16-bit wrestling action</li>
+                            <li>Authentic WWF experience</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWF In Your House (1996) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwf-in-your-house-1996.jpg" alt="WWF In Your House" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWF In Your House</h3>
+                        <p class="game-year">1996</p>
+                        <div class="game-platform">PlayStation, Sega Saturn, PC</div>
+                        <p class="game-description">
+                            Pojmenovaná podle populárních In Your House Pay-Per-View eventů! Vydaná na konci New Generation Era s Shawn Michaelsem, Bret Hartem a začínajícím Stone Cold Stevem Austinem. První WWF hra na 32-bit konzolích s vylepšenou grafikou a gameplay mechanikami.
+                        </p>
+                        <ul class="game-features">
+                            <li>In Your House PPV theme</li>
+                            <li>První 32-bit WWF hra</li>
+                            <li>Shawn Michaels, Bret Hart</li>
+                            <li>Stone Cold debut</li>
+                            <li>Enhanced graphics</li>
+                            <li>New Generation finale</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
             <!-- ATTITUDE ERA (1997-2002) -->
             <div class="era-divider attitude-era">
                 <div class="era-title">
-                    <h2>Attitude Era</h2>
+                    <h2>Attitude Era (1997-2002)</h2>
                     <p class="era-subtitle">November 1997 - May 2002</p>
                 </div>
                 <p class="era-description">
@@ -1527,9 +1907,99 @@
             </div>
 
             <div class="games-grid">
+                <!-- WWF War Zone (1998) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwf-war-zone-1998.jpg" alt="WWF War Zone" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWF War Zone</h3>
+                        <p class="game-year">1998</p>
+                        <div class="game-platform">Nintendo 64, PlayStation</div>
+                        <p class="game-description">
+                            Herní debut Attitude Era! Vyvinutá Acclaim Entertainment, tato hra představila Stone Cold Steve Austina jako hlavní hvězdu a přinesla realistický wrestling gameplay s motion capture technologií. Obsahovala 18 wrestlerů z vrcholu Attitude Era včetně The Rocka, Mankinda a DX. Průkopnická hra v oblasti create-a-wrestler módu a hardcore zápasů.
+                        </p>
+                        <ul class="game-features">
+                            <li>Attitude Era debut</li>
+                            <li>Stone Cold Steve Austin</li>
+                            <li>Realistický wrestling</li>
+                            <li>Create-a-Wrestler</li>
+                            <li>Hardcore matches</li>
+                            <li>Multiplayer battles</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWF Attitude (1999) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwf-attitude-1999.jpg" alt="WWF Attitude" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWF Attitude</h3>
+                        <p class="game-year">1999</p>
+                        <div class="game-platform">Nintendo 64, PlayStation</div>
+                        <p class="game-description">
+                            Vylepšené pokračování War Zone s rozšířeným rosterem 40 wrestlerů! Přineslo vylepšený engine, lepší animace a autentickou Attitude Era atmosféru s The Rockem, Mankinem a Stone Cold Stevem Austinem. Obsahovalo Career Mode, kde jste mohli projít storylinami z WWF TV show, a rozšířené možnosti customizace. Jedna z posledních her od Acclaim Entertainment.
+                        </p>
+                        <ul class="game-features">
+                            <li>Vylepšený War Zone engine</li>
+                            <li>The Rock, Mankind</li>
+                            <li>Expanded roster</li>
+                            <li>Better animations</li>
+                            <li>Hardcore Championship</li>
+                            <li>Attitude Era storylines</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWF WrestleMania 2000 (1999) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwf-wrestlemania-2000-1999.jpg" alt="WWF WrestleMania 2000" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWF WrestleMania 2000</h3>
+                        <p class="game-year">1999</p>
+                        <div class="game-platform">Nintendo 64</div>
+                        <p class="game-description">
+                            První hra od AKI Corporation! Přinesla revoluční AKI engine, který se stal standardem pro wrestling hry. Začátek legendy.
+                        </p>
+                        <ul class="game-features">
+                            <li>Revoluční AKI engine</li>
+                            <li>Triple H, The Rock</li>
+                            <li>4-player multiplayer</li>
+                            <li>Road to WrestleMania</li>
+                            <li>Create-a-Wrestler</li>
+                            <li>Smooth gameplay</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWF No Mercy (2000) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwf-no-mercy-2000.jpg" alt="WWF No Mercy" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWF No Mercy</h3>
+                        <p class="game-year">2000</p>
+                        <div class="game-platform">Nintendo 64</div>
+                        <p class="game-description">
+                            Absolutní král wrestling her! Vyvinutá AKI Corporation jako vrchol jejich legendárního enginu, tato hra je dodnes považována za nejlepší wrestling hru všech dob. Obsahovala 65+ wrestlerů z vrcholu Attitude Era, včetně Chris Jericha, Kurt Angla a The Rocka. Perfektní gameplay balance, nekonečné možnosti customizace a Championship Mode vytvořily nezapomenutelný zážitek.
+                        </p>
+                        <ul class="game-features">
+                            <li>Nejlepší wrestling hra ever</li>
+                            <li>Dokonalý AKI engine</li>
+                            <li>Chris Jericho, Kurt Angle</li>
+                            <li>Championship mode</li>
+                            <li>Ladder matches</li>
+                            <li>Nekonečná zábava</li>
+                        </ul>
+                    </div>
+                </div>
                 <!-- WWF SmackDown! (1999) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">Začátek Legendy</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwf-smackdown-1999.jpg" alt="WWF SmackDown!" class="game-cover">
                     </div>
@@ -1538,20 +2008,21 @@
                         <p class="game-year">1999</p>
                         <div class="game-platform">PlayStation</div>
                         <p class="game-description">
-                            Hra, která začala legendu! První WWF SmackDown! přinesla revoluci do wrestlingových her s intuitivním ovládáním a autentickou atmosférou WWE.
+                            Hra, která začala legendu! Vydaná v době vrcholu Attitude Ery, kdy WWE dominovali Stone Cold Steve Austin, The Rock a DX. První WWF SmackDown! přinesla revoluci do wrestlingových her s intuitivním ovládáním a autentickou atmosférou WWE.
                         </p>
                         <ul class="game-features">
                             <li>První hra série SmackDown!</li>
-                            <li>Revoluční ovládání</li>
-                            <li>Autentičtí WWE wrestleři</li>
-                            <li>Různé herní módy</li>
+                            <li>Revoluční ovládání pro PlayStation</li>
+                            <li>Roster z vrcholu Attitude Ery</li>
+                            <li>Stone Cold, The Rock, Mankind</li>
+                            <li>Season Mode s storylinami</li>
+                            <li>Create-a-Wrestler mód</li>
                         </ul>
                     </div>
                 </div>
 
                 <!-- WWF SmackDown! 2: Know Your Role (2000) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">Zlatá Éra</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwf-smackdown-2-kyr-2000.jpg" alt="WWF SmackDown! 2: Know Your Role" class="game-cover">
                     </div>
@@ -1560,20 +2031,21 @@
                         <p class="game-year">2000</p>
                         <div class="game-platform">PlayStation</div>
                         <p class="game-description">
-                            Pokračování, které zdokonalilo originál. Přidalo více wrestlerů, vylepšené animace a hlubší herní módy včetně Season Mode.
+                            Pokračování v době vrcholu Attitude Ery s Triple H jako šampionem a vzestupem The Rock. Zdokonalilo originál s více wrestlery, vylepšenými animacemi a hlubším Season Mode.
                         </p>
                         <ul class="game-features">
-                            <li>Rozšířený roster wrestlerů</li>
+                            <li>Rozšířený roster z Attitude Ery</li>
+                            <li>Triple H, The Rock, Undertaker</li>
                             <li>Vylepšený Season Mode</li>
                             <li>Nové zápasové typy</li>
                             <li>Lepší grafika a animace</li>
+                            <li>Hardcore Championship</li>
                         </ul>
                     </div>
                 </div>
 
                 <!-- WWF SmackDown! Just Bring It (2001) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">PS2 Debut</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwf-smackdown-jbi-2001.jpg" alt="WWF SmackDown! Just Bring It" class="game-cover">
                     </div>
@@ -1582,20 +2054,44 @@
                         <p class="game-year">2001</p>
                         <div class="game-platform">PlayStation 2</div>
                         <p class="game-description">
-                            První SmackDown! na PlayStation 2! Přechod na novou generaci konzolí přinesl dramatické vylepšení grafiky a nové možnosti.
+                            První SmackDown! na PlayStation 2 během WCW/ECW Invasion! Přechod na novou generaci konzolí přinesl dramatické vylepšení grafiky a nové možnosti během jednoho z nejdůležitějších období WWE.
                         </p>
                         <ul class="game-features">
                             <li>První SmackDown! na PS2</li>
+                            <li>WCW/ECW Invasion era</li>
                             <li>Výrazně vylepšená grafika</li>
                             <li>Nové arény a prostředí</li>
                             <li>Rozšířené customizace</li>
+                            <li>Alliance vs. WWE storylines</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWF Raw (2002) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwf-raw-2002.jpg" alt="WWF Raw" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWF Raw</h3>
+                        <p class="game-year">2002</p>
+                        <div class="game-platform">Xbox, PC</div>
+                        <p class="game-description">
+                            Konec Attitude Era s posledním WWF brandingem! Vydaná těsně před přechodem na WWE branding, tato hra zachycuje závěr legendární éry s Stone Cold Stevem Austinem, The Rockem a Undertakerem. První wrestling hra exkluzivně pro Xbox s vylepšenou grafikou a realistickými animacemi.
+                        </p>
+                        <ul class="game-features">
+                            <li>Poslední WWF branded hra</li>
+                            <li>Attitude Era finale</li>
+                            <li>Xbox exclusive debut</li>
+                            <li>Stone Cold, The Rock</li>
+                            <li>Enhanced graphics</li>
+                            <li>Realistic animations</li>
                         </ul>
                     </div>
                 </div>
 
                 <!-- WWE SmackDown! Shut Your Mouth (2002) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">WWE Éra</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-smackdown-sym-2002.jpg" alt="WWE SmackDown! Shut Your Mouth" class="game-cover">
                     </div>
@@ -1604,13 +2100,38 @@
                         <p class="game-year">2002</p>
                         <div class="game-platform">PlayStation 2</div>
                         <p class="game-description">
-                            První hra pod značkou WWE! Přinesla kompletně přepracovaný Season Mode s branching storylines a více než 50 wrestlerů.
+                            První hra pod značkou WWE během začátku Ruthless Aggression Ery! Přinesla kompletně přepracovaný Season Mode s branching storylines a více než 50 wrestlerů v době, kdy WWE představilo nové hvězdy.
                         </p>
                         <ul class="game-features">
                             <li>První hra pod značkou WWE</li>
+                            <li>Ruthless Aggression Era debut</li>
                             <li>Revoluční Season Mode</li>
                             <li>Více než 50 wrestlerů</li>
                             <li>Branching storylines</li>
+                            <li>Brand Extension začátky</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWE WrestleMania X8 (2002) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwe-wrestlemania-x8-2002.jpg" alt="WWE WrestleMania X8" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE WrestleMania X8</h3>
+                        <p class="game-year">2002</p>
+                        <div class="game-platform">GameCube</div>
+                        <p class="game-description">
+                            První WWE hra na GameCube! Oslava WrestleMania X8 s The Rock vs. Hulk Hogan a začátkem Ruthless Aggression Era.
+                        </p>
+                        <ul class="game-features">
+                            <li>První WWE na GameCube</li>
+                            <li>WrestleMania X8 theme</li>
+                            <li>The Rock vs. Hulk Hogan</li>
+                            <li>Ruthless Aggression debut</li>
+                            <li>Unique GameCube features</li>
+                            <li>Enhanced graphics</li>
                         </ul>
                     </div>
                 </div>
@@ -1619,7 +2140,7 @@
             <!-- RUTHLESS AGGRESSION ERA (2002-2008) -->
             <div class="era-divider ruthless-era">
                 <div class="era-title">
-                    <h2>Ruthless Aggression Era</h2>
+                    <h2>Ruthless Aggression Era (2002-2008)</h2>
                     <p class="era-subtitle">June 2002 - July 2008</p>
                 </div>
                 <p class="era-description">
@@ -1632,7 +2153,6 @@
 
                 <!-- WWE SmackDown! Here Comes the Pain (2003) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">Absolutní Klasika</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-smackdown-hctp-2003.jpg" alt="WWE SmackDown! Here Comes the Pain" class="game-cover">
                     </div>
@@ -1641,20 +2161,90 @@
                         <p class="game-year">2003</p>
                         <div class="game-platform">PlayStation 2</div>
                         <p class="game-description">
-                            Považovaná za nejlepší hru série! Here Comes the Pain přinesla perfektní kombinaci gameplay, rosteru a funkcí. Absolutní klasika!
+                            Považovaná za nejlepší hru SmackDown! série! První WWE hra s novým brandingem, vydaná během zlatého období Ruthless Aggression Era s Brockem Lesnarem, Kurtem Anglem a Eddie Guerrerem. Přinesla revoluční location-specific damage systém, backstage brawling areas a dokonale vyvážený gameplay. Obsahovala 65+ wrestlerů a ikonický Season Mode s branching storylines.
                         </p>
                         <ul class="game-features">
-                            <li>Nejlepší hra série</li>
+                            <li>Nejlepší hra série všech dob</li>
+                            <li>Brock Lesnar, Kurt Angle, Eddie Guerrero</li>
                             <li>Perfektní gameplay balance</li>
-                            <li>Legendární roster</li>
+                            <li>Legendární roster z RA Era</li>
                             <li>Ikonický Season Mode</li>
+                            <li>Backstage brawling areas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWE Raw 2 (2003) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwe-raw-2-2003.jpg" alt="WWE Raw 2" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE Raw 2</h3>
+                        <p class="game-year">2003</p>
+                        <div class="game-platform">Xbox</div>
+                        <p class="game-description">
+                            Pokračování Xbox exkluzivní Raw série během vrcholu Ruthless Aggression Era! Vydaná v roce Brock Lesnar vs. Kurt Angle rivalit a Eddie Guerrero's rise to prominence. Přinesla vylepšený gameplay engine, rozšířený roster a enhanced Season Mode zachycující atmosféru Brand Extension éry s Raw a SmackDown jako samostatnými značkami.
+                        </p>
+                        <ul class="game-features">
+                            <li>Xbox exclusive sequel</li>
+                            <li>Ruthless Aggression Era peak</li>
+                            <li>Brock Lesnar, Kurt Angle era</li>
+                            <li>Enhanced Season Mode</li>
+                            <li>Brand Extension gameplay</li>
+                            <li>Improved graphics engine</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWE WrestleMania XIX (2003) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwe-wrestlemania-xix-2003.jpg" alt="WWE WrestleMania XIX" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE WrestleMania XIX</h3>
+                        <p class="game-year">2003</p>
+                        <div class="game-platform">GameCube</div>
+                        <p class="game-description">
+                            Pokračování GameCube série s vylepšeným gameplay! Doba Stone Cold vs. The Rock a Kurt Angle jako šampiona.
+                        </p>
+                        <ul class="game-features">
+                            <li>Vylepšený GameCube engine</li>
+                            <li>Stone Cold vs. The Rock</li>
+                            <li>Kurt Angle era</li>
+                            <li>Enhanced career mode</li>
+                            <li>Better animations</li>
+                            <li>Exclusive GameCube content</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWE Crush Hour (2003) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwe-crush-hour-2003.jpg" alt="WWE Crush Hour" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE Crush Hour</h3>
+                        <p class="game-year">2003</p>
+                        <div class="game-platform">PS2, Xbox, GameCube</div>
+                        <p class="game-description">
+                            Nejbizarnější WWE hra! Twisted Metal styl s WWE wrestlery v autech. Experimentální titul, který se odvážil být jiný.
+                        </p>
+                        <ul class="game-features">
+                            <li>Vehicular combat</li>
+                            <li>Twisted Metal style</li>
+                            <li>WWE wrestlers in cars</li>
+                            <li>Experimentální gameplay</li>
+                            <li>Unique concept</li>
+                            <li>Cult classic status</li>
                         </ul>
                     </div>
                 </div>
 
                 <!-- WWE SmackDown vs. Raw (2004) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">Nová Éra</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-smackdown-vs-raw-2004.jpg" alt="WWE SmackDown vs. Raw" class="game-cover">
                     </div>
@@ -1663,20 +2253,67 @@
                         <p class="game-year">2004</p>
                         <div class="game-platform">PlayStation 2</div>
                         <p class="game-description">
-                            Začátek nové éry! První hra pod názvem "vs. Raw" přinesla brand split a možnost hrát za obě značky WWE.
+                            Začátek nové éry her! První hra pod názvem "vs. Raw" přinesla brand split během vrcholu Ruthless Aggression Ery s JBL jako WWE Championem a možnost hrát za obě značky WWE.
                         </p>
                         <ul class="game-features">
                             <li>První hra "vs. Raw" série</li>
-                            <li>WWE Brand Split</li>
-                            <li>Dual storylines</li>
+                            <li>WWE Brand Split implementation</li>
+                            <li>JBL, John Cena, Batista era</li>
+                            <li>Dual storylines pro obě brandy</li>
                             <li>Vylepšené grafické engine</li>
+                            <li>Voice acting debut</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWE Day of Reckoning (2004) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwe-day-of-reckoning-2004.jpg" alt="WWE Day of Reckoning" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE Day of Reckoning</h3>
+                        <p class="game-year">2004</p>
+                        <div class="game-platform">GameCube</div>
+                        <p class="game-description">
+                            Návrat AKI Corporation! Duchovní nástupce No Mercy s moderní grafikou a klasickým AKI gameplay na GameCube.
+                        </p>
+                        <ul class="game-features">
+                            <li>AKI Corporation návrat</li>
+                            <li>No Mercy spiritual successor</li>
+                            <li>Classic AKI gameplay</li>
+                            <li>Modern graphics</li>
+                            <li>Story mode</li>
+                            <li>GameCube exclusive</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- WWE Day of Reckoning 2 (2005) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwe-day-of-reckoning-2-2005.jpg" alt="WWE Day of Reckoning 2" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE Day of Reckoning 2</h3>
+                        <p class="game-year">2005</p>
+                        <div class="game-platform">GameCube</div>
+                        <p class="game-description">
+                            Poslední AKI wrestling hra! Zdokonalila originál s lepším story módem a rozšířeným rosterem. Konec legendární éry.
+                        </p>
+                        <ul class="game-features">
+                            <li>Poslední AKI hra</li>
+                            <li>Vylepšený story mode</li>
+                            <li>Rozšířený roster</li>
+                            <li>Enhanced AKI engine</li>
+                            <li>GameCube swan song</li>
+                            <li>Konec legendy</li>
                         </ul>
                     </div>
                 </div>
 
                 <!-- WWE SmackDown vs. Raw 2006 (2005) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">GM Mode</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-smackdown-vs-raw-2006.jpg" alt="WWE SmackDown vs. Raw 2006" class="game-cover">
                     </div>
@@ -1698,7 +2335,6 @@
 
                 <!-- WWE SmackDown vs. Raw 2007 (2006) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">HD Debut</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-smackdown-vs-raw-2007.jpg" alt="WWE SmackDown vs. Raw 2007" class="game-cover">
                     </div>
@@ -1721,11 +2357,11 @@
 
             </div>
 
-            <!-- BRAND EXTENSION & PG TRANSITION ERA (2007-2011) -->
+            <!-- PG ERA (2008-2014) -->
             <div class="era-divider brand-split-era">
                 <div class="era-title">
-                    <h2>Brand Extension & PG Era</h2>
-                    <p class="era-subtitle">2007 - 2011</p>
+                    <h2>PG Era (2008-2014)</h2>
+                    <p class="era-subtitle">2008 - 2014</p>
                 </div>
                 <p class="era-description">
                     Období přechodu na family-friendly obsah, zavedení ECW jako třetí značky a revoluce s WWE Universe Mode.
@@ -1736,7 +2372,6 @@
             <div class="games-grid">
                 <!-- WWE SmackDown vs. Raw 2008 (2007) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">ECW Debut</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-smackdown-vs-raw-2008.jpg" alt="WWE SmackDown vs. Raw 2008" class="game-cover">
                     </div>
@@ -1758,7 +2393,6 @@
 
                 <!-- WWE SmackDown vs. Raw 2009 (2008) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">PG Transition</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-smackdown-vs-raw-2009.jpg" alt="WWE SmackDown vs. Raw 2009" class="game-cover">
                     </div>
@@ -1780,7 +2414,6 @@
 
                 <!-- WWE SmackDown vs. Raw 2010 (2009) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">Universe Mode</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-smackdown-vs-raw-2010.jpg" alt="WWE SmackDown vs. Raw 2010" class="game-cover">
                     </div>
@@ -1802,7 +2435,6 @@
 
                 <!-- WWE SmackDown vs. Raw 2011 (2010) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">Finále Série</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-smackdown-vs-raw-2011.jpg" alt="WWE SmackDown vs. Raw 2011" class="game-cover">
                     </div>
@@ -1824,7 +2456,6 @@
 
                 <!-- WWE '12 (2011) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">THQ Final</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-12-2011.jpg" alt="WWE '12" class="game-cover">
                     </div>
@@ -1846,7 +2477,6 @@
 
                 <!-- WWE '13 (2012) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">Attitude Era</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-13-2012.jpg" alt="WWE '13" class="game-cover">
                     </div>
@@ -1865,25 +2495,31 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-        </div>
-
-            <!-- MODERN ERA (2013-Present) -->
-            <div class="era-divider modern-era">
-                <div class="era-title">
-                    <h2>Modern Era</h2>
-                    <p class="era-subtitle">2013 - Present</p>
+                <!-- WWE All Stars (2011) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwe-all-stars-2011.jpg" alt="WWE All Stars" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE All Stars</h3>
+                        <p class="game-year">2011</p>
+                        <div class="game-platform">Multi-Platform</div>
+                        <p class="game-description">
+                            Arkádový comeback! Over-the-top akční gameplay s legendami vs. současnými hvězdami. Návrat k arkádovým kořenům wrestling her.
+                        </p>
+                        <ul class="game-features">
+                            <li>Arkádový gameplay</li>
+                            <li>Legends vs. Superstars</li>
+                            <li>Over-the-top action</li>
+                            <li>Stylized graphics</li>
+                            <li>Fast-paced matches</li>
+                            <li>Arcade revival</li>
+                        </ul>
+                    </div>
                 </div>
-                <p class="era-description">
-                    Nová generace WWE her pod značkou 2K Sports. Přechod na pokročilé herní enginy, realistickou grafiku a inovativní herní módy.
-                    Éra, která přinesla MyCareer, WWE Universe 3.0 a nejrealističtější wrestling gameplay v historii.
-                </p>
-            </div>
 
-            <div class="games-grid">
                 <!-- WWE 2K14 (2013) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">2K Debut</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-2k14-2013.jpg" alt="WWE 2K14" class="game-cover">
                     </div>
@@ -1892,20 +2528,34 @@
                         <p class="game-year">2013</p>
                         <div class="game-platform">Multi-Platform</div>
                         <p class="game-description">
-                            První hra pod značkou 2K Sports! Oslavuje 30 let WrestleManie s "30 Years of WrestleMania" módem a legendárními zápasy.
+                            První hra pod značkou 2K Sports s CM Punkem na obalu! Obsahuje revoluční "30 Years of WrestleMania" mód, který revisituje klíčové momenty ze všech WrestleManii od roku 1985. Speciální "The Streak" mód umožňuje hrát jako nebo proti Undertakerovi v jeho legendárních WrestleMania zápasech. Kombinuje moderní hvězdy jako John Cena a CM Punk s legendami jako Hulk Hogan a Ultimate Warrior.
                         </p>
                         <ul class="game-features">
                             <li>První hra od 2K Sports</li>
-                            <li>30 Years of WrestleMania</li>
+                            <li>30 Years of WrestleMania Mode</li>
+                            <li>Hulk Hogan, Ultimate Warrior</li>
                             <li>Vylepšená grafika</li>
-                            <li>Legendární roster</li>
+                            <li>Legendární roster z historie</li>
+                            <li>Konec PG Era</li>
                         </ul>
                     </div>
                 </div>
+            </div>
 
+            <!-- REALITY ERA (2014-2016) -->
+            <div class="era-divider reality-era">
+                <div class="era-title">
+                    <h2>Reality Era (2014-2016)</h2>
+                    <p class="era-subtitle">2014 - 2016</p>
+                </div>
+                <p class="era-description">
+                    Začátek Reality Era s Daniel Bryan Yes Movement! Přechod na next-gen konzole s WWE 2K15 a 2K16, které přinesly revoluční MyCareer mód a nejrealističtější wrestling gameplay.
+                </p>
+            </div>
+
+            <div class="games-grid">
                 <!-- WWE 2K15 (2014) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">Next-Gen</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-2k15-2014.jpg" alt="WWE 2K15" class="game-cover">
                     </div>
@@ -1914,20 +2564,21 @@
                         <p class="game-year">2014</p>
                         <div class="game-platform">PS4, Xbox One, PC</div>
                         <p class="game-description">
-                            Přechod na next-gen konzole s kompletně novým herním enginem. MyCareer mód a nejrealističtější wrestling gameplay.
+                            Začátek Reality Era s Johnem Cenou na obalu! První hra na next-gen konzolích (PS4, Xbox One) s kompletně novým herním enginem a motion capture technologií. Představuje revoluční MyCareer mód, kde vytvoříte vlastního wrestlera a projdete cestu od NXT tryouts až po WWE Pay-Per-View zápasy. Obsahuje dva showcase módy: John Cena vs. CM Punk a Triple H vs. Shawn Michaels rivalries.
                         </p>
                         <ul class="game-features">
-                            <li>Next-gen debut</li>
+                            <li>Reality Era debut</li>
+                            <li>Next-gen konzole debut</li>
                             <li>MyCareer mód</li>
                             <li>Nový herní engine</li>
                             <li>Realistické animace</li>
+                            <li>Daniel Bryan era</li>
                         </ul>
                     </div>
                 </div>
 
                 <!-- WWE 2K16 (2015) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">Stone Cold</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-2k16-2015.jpg" alt="WWE 2K16" class="game-cover">
                     </div>
@@ -1936,20 +2587,34 @@
                         <p class="game-year">2015</p>
                         <div class="game-platform">Multi-Platform</div>
                         <p class="game-description">
-                            Stone Cold Steve Austin na obalu! Největší roster v historii série s více než 120 unikátními wrestlery a divami.
+                            Stone Cold Steve Austin na obalu s největším rosterem v historii série! Obsahuje více než 120 unikátních wrestlerů a "Steve Austin 3:16" 2K Showcase mód, který pokrývá celou Austinovu kariéru od WCW přes ECW až po WWF/WWE. Showcase zahrnuje ikonické zápasy jako Austin vs. Jake Roberts (King of the Ring 1996) a Austin vs. The Rock. Vylepšený Creation Suite a MyCareer mód během Seth Rollins éry jako šampiona.
                         </p>
                         <ul class="game-features">
-                            <li>Největší roster ever</li>
-                            <li>120+ wrestlerů</li>
+                            <li>Největší roster ever (120+)</li>
                             <li>Stone Cold showcase</li>
+                            <li>Seth Rollins jako šampion</li>
                             <li>Vylepšený Creation Suite</li>
+                            <li>2K Showcase mode</li>
+                            <li>MyCareer improvements</li>
                         </ul>
                     </div>
                 </div>
+            </div>
 
+            <!-- NEW ERA (2016-2021) -->
+            <div class="era-divider new-era">
+                <div class="era-title">
+                    <h2>New Era (2016-2021)</h2>
+                    <p class="era-subtitle">2016 - 2021</p>
+                </div>
+                <p class="era-description">
+                    New Era s Brand Split návratem! Doba WWE 2K17-2K20 s vylepšenými funkcemi, Nintendo Switch debutem a Women's Evolution.
+                </p>
+            </div>
+
+            <div class="games-grid">
                 <!-- WWE 2K17 (2016) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">Brock Lesnar</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-2k17-2016.jpg" alt="WWE 2K17" class="game-cover">
                     </div>
@@ -1958,10 +2623,12 @@
                         <p class="game-year">2016</p>
                         <div class="game-platform">Multi-Platform</div>
                         <p class="game-description">
-                            Brock Lesnar na obalu! Vylepšený gameplay s novými submission systémy a promo engine pro realistické rozhovory.
+                            Brock Lesnar na obalu během začátku New Era a návratu Brand Split! Hra vyšla v době Goldberg vs. Brock Lesnar rivality a jejich historického Survivor Series 2016 zápasu. Obsahuje vylepšený gameplay s novými submission systémy, promo engine pro realistické rozhovory a backstage brawling areas. První hra, která zachytila atmosféru nového Brand Split s Raw a SmackDown jako samostatnými značkami.
                         </p>
                         <ul class="game-features">
+                            <li>New Era debut</li>
                             <li>Brock Lesnar cover</li>
+                            <li>Brand Split návrat</li>
                             <li>Nový submission systém</li>
                             <li>Promo Engine</li>
                             <li>Backstage brawling</li>
@@ -1971,7 +2638,6 @@
 
                 <!-- WWE 2K18 (2017) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">Seth Rollins</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-2k18-2017.jpg" alt="WWE 2K18" class="game-cover">
                     </div>
@@ -1980,20 +2646,21 @@
                         <p class="game-year">2017</p>
                         <div class="game-platform">Multi-Platform</div>
                         <p class="game-description">
-                            Seth Rollins na obalu! Debut na Nintendo Switch a vylepšený MyCareer s Road to Glory módem.
+                            Seth Rollins na obalu s historickým debutem na Nintendo Switch! První WWE hra na Switch konzoli přinesla portabilní wrestling gaming. Obsahuje vylepšený MyCareer mód s hlubším storytelling a nový Road to Glory online mód, kde soutěžíte s hráči po celém světě. Hra vyšla během AJ Styles éry jako WWE Champion a zachycuje atmosféru New Era s Mixed Match Challenge a dalšími inovacemi.
                         </p>
                         <ul class="game-features">
                             <li>Nintendo Switch debut</li>
                             <li>Seth Rollins cover</li>
+                            <li>AJ Styles jako šampion</li>
                             <li>Road to Glory</li>
                             <li>Vylepšený MyCareer</li>
+                            <li>Mixed Match Challenge</li>
                         </ul>
                     </div>
                 </div>
 
                 <!-- WWE 2K19 (2018) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">AJ Styles</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-2k19-2018.jpg" alt="WWE 2K19" class="game-cover">
                     </div>
@@ -2002,20 +2669,21 @@
                         <p class="game-year">2018</p>
                         <div class="game-platform">Multi-Platform</div>
                         <p class="game-description">
-                            AJ Styles na obalu! Daniel Bryan showcase a nejlepší gameplay v sérii s vylepšenými animacemi.
+                            AJ Styles na obalu s nejlepším gameplay v sérii! Obsahuje "The Return of Daniel Bryan" 2K Showcase mód, který sleduje neuvěřitelnou cestu Daniela Bryana od jeho career-defining momentu na WrestleManii 30 až po jeho comeback po zranění. Hra vyšla během Bryanovy emocionální návrat story a obsahuje vylepšené animace, Towers mód a Million Dollar Challenge. Považovaná za vrchol WWE 2K série před problémy 2K20.
                         </p>
                         <ul class="game-features">
                             <li>AJ Styles cover</li>
                             <li>Daniel Bryan showcase</li>
+                            <li>Daniel Bryan comeback</li>
                             <li>Nejlepší gameplay</li>
                             <li>Towers mode</li>
+                            <li>Million Dollar Challenge</li>
                         </ul>
                     </div>
                 </div>
 
                 <!-- WWE 2K20 (2019) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">Women's Evolution</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-2k20-2019.jpg" alt="WWE 2K20" class="game-cover">
                     </div>
@@ -2024,7 +2692,7 @@
                         <p class="game-year">2019</p>
                         <div class="game-platform">Multi-Platform</div>
                         <p class="game-description">
-                            Becky Lynch a Roman Reigns na obalu! První hra s ženským MyCareer módem a Women's Evolution showcase.
+                            Historická hra s dvojitými cover stars - Becky Lynch a Roman Reigns! První WWE hra s plnohodnotným ženským MyCareer módem a "Women's Evolution" 2K Showcase oslavujícím Four Horsewomen (Becky Lynch, Charlotte Flair, Sasha Banks, Bayley). Obsahuje diversifikovaný MyCareer s možností hrát jako muž nebo žena, streamlined controls a debut WWE 2K20 Originals. Bohužel známá pro technické problémy při vydání.
                         </p>
                         <ul class="game-features">
                             <li>Dual cover stars</li>
@@ -2035,9 +2703,44 @@
                     </div>
                 </div>
 
+                <!-- WWE 2K Battlegrounds (2020) -->
+                <div class="game-card lazy-element">
+                    <div class="game-cover-container">
+                        <img src="img/wwe-covers/wwe-2k-battlegrounds-2020.jpg" alt="WWE 2K Battlegrounds" class="game-cover">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">WWE 2K Battlegrounds</h3>
+                        <p class="game-year">2020</p>
+                        <div class="game-platform">Multi-Platform</div>
+                        <p class="game-description">
+                            Moderní arkádový revival! Cartoon styl s over-the-top akcí a zábavným gameplay. Odpověď na problémy WWE 2K20.
+                        </p>
+                        <ul class="game-features">
+                            <li>Cartoon art style</li>
+                            <li>Arkádový gameplay</li>
+                            <li>Over-the-top moves</li>
+                            <li>Environmental hazards</li>
+                            <li>Power-ups system</li>
+                            <li>Fun alternative</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST-COVID ERA (2021-2023) -->
+            <div class="era-divider post-covid-era">
+                <div class="era-title">
+                    <h2>Post-COVID Era (2021-2023)</h2>
+                    <p class="era-subtitle">2021 - 2023</p>
+                </div>
+                <p class="era-description">
+                    Post-COVID Era s návratem plných arén! WWE 2K22 "It Hits Different" a začátek Renaissance Era s WWE 2K23.
+                </p>
+            </div>
+
+            <div class="games-grid">
                 <!-- WWE 2K22 (2022) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">Rey Mysterio</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-2k22-2022.jpg" alt="WWE 2K22" class="game-cover">
                     </div>
@@ -2046,20 +2749,21 @@
                         <p class="game-year">2022</p>
                         <div class="game-platform">Multi-Platform</div>
                         <p class="game-description">
-                            Rey Mysterio na obalu! Návrat po pauze s "It Hits Different" sloganem a kompletně přepracovaným gameplay.
+                            Rey Mysterio na obalu oslavující jeho 20. výročí v WWE! Návrat série po dvouletém přerušení s "It Hits Different" sloganem a kompletně přepracovaným gameplay enginem. Obsahuje Rey Mysterio 2K Showcase sledující jeho legendární kariéru, návrat MyGM módu po 14 letech a MyRise s dvěma originálními storylines. Hra vyšla během Post-COVID Era s návratem plných arén a představuje fresh start pro sérii.
                         </p>
                         <ul class="game-features">
                             <li>Návrat po 2K21 skip</li>
                             <li>Rey Mysterio cover</li>
+                            <li>Post-COVID Era debut</li>
                             <li>Nový gameplay engine</li>
                             <li>MyGM mode návrat</li>
+                            <li>Plné arény návrat</li>
                         </ul>
                     </div>
                 </div>
 
                 <!-- WWE 2K23 (2023) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">John Cena</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-2k23-2023.jpg" alt="WWE 2K23" class="game-cover">
                     </div>
@@ -2068,20 +2772,36 @@
                         <p class="game-year">2023</p>
                         <div class="game-platform">Multi-Platform</div>
                         <p class="game-description">
-                            John Cena na obalu! Oslava jeho kariéry s John Cena showcase módem a největším rosterem v historii.
+                            John Cena na obalu během začátku Renaissance Era s Triple H jako Head of Creative! Obsahuje revoluční "John Cena Showcase" zaměřený na jeho 14 největších porážek, kde hrajete jako jeho soupeři a snažíte se ho porazit. Přinesla WarGames match type po letech, vylepšený MyGM mód, dva nové MyRise storylines a největší roster v historii série. Hra zachycuje atmosféru nové WWE éry pod vedením Triple H s důrazem na in-ring kvalitu.
                         </p>
                         <ul class="game-features">
-                            <li>John Cena showcase</li>
-                            <li>Největší roster ever</li>
-                            <li>WarGames match</li>
-                            <li>Vylepšený MyRise</li>
+                            <li>Renaissance Era debut</li>
+                            <li>John Cena "Biggest Losses" showcase</li>
+                            <li>Triple H creative control era</li>
+                            <li>WarGames match type návrat</li>
+                            <li>Největší roster v historii</li>
+                            <li>Vylepšený MyGM mód</li>
+                            <li>Dva nové MyRise storylines</li>
+                            <li>Enhanced Create-A-Wrestler</li>
                         </ul>
                     </div>
                 </div>
+            </div>
 
+            <!-- RENAISSANCE ERA (2023-present) -->
+            <div class="era-divider renaissance-era">
+                <div class="era-title">
+                    <h2>Renaissance Era (2023-present)</h2>
+                    <p class="era-subtitle">2023 - present</p>
+                </div>
+                <p class="era-description">
+                    Renaissance Era s Triple H jako Head of Creative! WWE 2K23-2K25 s nejpokročilejšími funkcemi a návratem k in-ring kvalitě.
+                </p>
+            </div>
+
+            <div class="games-grid">
                 <!-- WWE 2K24 (2024) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">Cody Rhodes</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-2k24-2024.jpg" alt="WWE 2K24" class="game-cover">
                     </div>
@@ -2090,20 +2810,21 @@
                         <p class="game-year">2024</p>
                         <div class="game-platform">Multi-Platform</div>
                         <p class="game-description">
-                            Cody Rhodes na obalu! Oslava 40 let WrestleManie s "Finish Your Story" tématem a nejnovějšími funkcemi.
+                            Oslava 40 let WrestleManie s Cody Rhodes na obalu! Obsahuje "Showcase of the Immortals" mód oslavující čtyři dekády WrestleManie, dva nové MyRise storylines a vylepšený MyFaction mód. Přinesla Ambulance Match, Guest Referee mód a nejrozsáhlejší roster v historii série s více než 200 wrestlery. "Finish Your Story" téma dokonale zachycuje Cody Rhodes' cestu k titulu.
                         </p>
                         <ul class="game-features">
                             <li>40 Years of WrestleMania</li>
                             <li>Cody Rhodes cover</li>
+                            <li>"Finish Your Story" theme</li>
                             <li>Ambulance Match</li>
                             <li>Guest Referee mode</li>
+                            <li>WrestleMania XL showcase</li>
                         </ul>
                     </div>
                 </div>
 
                 <!-- WWE 2K25 (2025) -->
                 <div class="game-card lazy-element">
-                    <div class="era-badge">Roman Reigns</div>
                     <div class="game-cover-container">
                         <img src="img/wwe-covers/wwe-2k25-2025.jpg" alt="WWE 2K25" class="game-cover">
                     </div>
@@ -2112,16 +2833,27 @@
                         <p class="game-year">2025</p>
                         <div class="game-platform">Multi-Platform</div>
                         <p class="game-description">
-                            Roman Reigns na obalu! Nejnovější hra s Bloodline tématem a nejpokročilejšími funkcemi v historii série.
+                            Roman Reigns na obalu s revolučním "The Island" open-world zážitkem! Obsahuje "The Bloodline's Dynasty" showcase hostovaný Paulem Heymanem, který oslavuje legendární Anoa'i wrestling dynastii včetně Roman Reigns, The Rock, Yokozuna a Jacob Fatu. Přinesla nové match types, vylepšené Faction Wars, interaktivní open-world prostředí a nejpokročilejší storytelling v historii série. Hra představuje budoucnost WWE gaming s důrazem na rodinné dědictví a moderní technologie.
                         </p>
                         <ul class="game-features">
-                            <li>Roman Reigns cover</li>
-                            <li>Bloodline storyline</li>
-                            <li>Nejnovější technologie</li>
-                            <li>Cross-platform play</li>
+                            <li>Roman Reigns cover star</li>
+                            <li>"The Island" open-world experience</li>
+                            <li>Bloodline Dynasty showcase</li>
+                            <li>Paul Heyman hosted storytelling</li>
+                            <li>Anoa'i family celebration</li>
+                            <li>Enhanced Faction Wars</li>
+                            <li>New match types</li>
+                            <li>Interactive documentary style</li>
                         </ul>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audio element for WWE Trax -->
+
+
             </div>
         </div>
     </section>
@@ -2383,19 +3115,18 @@
             `;
             document.head.appendChild(sparkleStyle);
 
-            // Dynamic background change for hero section
+            // Fixed background - Rhea Ripley WWE 2K24 image
             const heroSection = document.querySelector('.game-hero');
-            const backgrounds = [
-                'https://static.vecteezy.com/system/resources/previews/037/823/299/non_2x/ai-generated-spectacular-view-of-an-empty-professional-boxing-ring-in-a-grand-arena-with-empty-seats-photo.jpeg',
-                'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1920&h=1080&fit=crop',
-                'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1920&h=1080&fit=crop'
-            ];
-
-            let currentBg = 0;
-            setInterval(() => {
-                currentBg = (currentBg + 1) % backgrounds.length;
-                heroSection.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('${backgrounds[currentBg]}')`;
-            }, 10000);
+            if (heroSection) {
+                // Set the fixed background image with proper overlay
+                heroSection.style.backgroundImage = `
+                    radial-gradient(ellipse at 25% 25%, rgba(70, 130, 180, 0.15) 0%, transparent 70%),
+                    radial-gradient(ellipse at 75% 75%, rgba(100, 149, 237, 0.12) 0%, transparent 70%),
+                    radial-gradient(ellipse at 50% 100%, rgba(255, 215, 0, 0.08) 0%, transparent 60%),
+                    linear-gradient(135deg, rgba(10, 10, 15, 0.95), rgba(20, 25, 35, 0.9), rgba(15, 20, 30, 0.95)),
+                    url('https://www.thesmackdownhotel.com/igallery/wwe-2k24-265/wwe-2k24-rhea-ripley-111-1080.jpg')
+                `;
+            }
 
             // WWE Trax Player Functionality
             initWWETraxPlayer();
@@ -2738,6 +3469,306 @@
             updateWWEVolumeIcon(wweVolumeSlider ? wweVolumeSlider.value : 0.5);
             hideWWETraxWidget(); // Start with widget hidden
         }
+
+        // Game Filtering Functionality
+        function initializeGameFilters() {
+            const eraFilter = document.getElementById('era-filter');
+            const platformFilter = document.getElementById('platform-filter');
+            const seriesFilter = document.getElementById('series-filter');
+            const resetButton = document.getElementById('reset-filters');
+            const gameCards = document.querySelectorAll('.game-card');
+            const gamesGrid = document.querySelector('.games-grid');
+
+            // Add data attributes to game cards for filtering
+            function addGameAttributes() {
+                gameCards.forEach(card => {
+                    const title = card.querySelector('.game-title').textContent;
+                    const year = parseInt(card.querySelector('.game-year').textContent);
+                    const platform = card.querySelector('.game-platform').textContent;
+
+                    // Set era attribute based on year and title (correct WWE eras)
+                    let era = 'golden'; // Default for very old games
+                    if (year >= 1984 && year <= 1993) era = 'golden';
+                    else if (year >= 1994 && year <= 1997) era = 'new-generation';
+                    else if (year >= 1998 && year <= 2002) era = 'attitude';
+                    else if (year >= 2003 && year <= 2008) era = 'ruthless';
+                    else if (year >= 2009 && year <= 2014) era = 'pg';
+                    else if (year >= 2015 && year <= 2016) era = 'reality';
+                    else if (year >= 2017 && year <= 2021) era = 'new';
+                    else if (year >= 2022 && year <= 2023) era = 'post-covid';
+                    else if (year >= 2024) era = 'renaissance';
+
+                    // Set platform attribute - improved logic to handle multiple platforms
+                    let platformType = 'modern'; // Default for modern multi-platform games
+
+                    // Check for specific platforms in order of priority
+                    if (platform.includes('Arcade')) {
+                        platformType = 'arcade';
+                    } else if (platform.includes('NES') && !platform.includes('SNES')) {
+                        platformType = 'nes';
+                    } else if (platform.includes('SNES') || platform.includes('Genesis')) {
+                        platformType = 'snes';
+                    } else if (platform.includes('Nintendo 64') || platform.includes('N64')) {
+                        platformType = 'n64';
+                    } else if (platform.includes('GameCube')) {
+                        platformType = 'gamecube';
+                    } else if (platform.includes('PlayStation 2') || platform.includes('PS2')) {
+                        platformType = 'ps2';
+                    } else if (platform.includes('PlayStation') && !platform.includes('2') && !platform.includes('3') && !platform.includes('4') && !platform.includes('5')) {
+                        platformType = 'playstation';
+                    } else if (platform.includes('Xbox') && !platform.includes('360') && !platform.includes('One')) {
+                        platformType = 'xbox';
+                    } else if (platform.includes('Mobile')) {
+                        platformType = 'mobile';
+                    } else if (platform.includes('Commodore') || platform.includes('Atari')) {
+                        platformType = 'nes'; // Group old computer platforms with NES era
+                    } else if (platform.includes('32X') || platform.includes('Game Boy') || platform.includes('Sega Saturn')) {
+                        platformType = 'snes'; // Group with 16-bit era
+                    } else if (platform.includes('PC') && (year <= 1996)) {
+                        platformType = 'playstation'; // Early PC games grouped with PlayStation era
+                    } else if (platform.includes('PSP')) {
+                        platformType = 'ps2'; // PSP grouped with PS2 era
+                    } else if (platform.includes('Multi-Platform') || platform.includes('PS3') || platform.includes('Xbox 360') || platform.includes('PS4') || platform.includes('Xbox One') || platform.includes('PS5') || platform.includes('Xbox Series') || platform.includes('Switch')) {
+                        platformType = 'modern';
+                    }
+
+                    // Set series attribute - improved logic to handle more game titles
+                    let series = 'standalone';
+
+                    // Check for series in order of specificity
+                    if (title.includes('vs. Raw') || title.includes('SmackDown vs. Raw')) {
+                        series = 'svr';
+                    } else if (title.includes('SmackDown!') && !title.includes('vs.')) {
+                        series = 'smackdown';
+                    } else if (title.includes('2K')) {
+                        series = '2k';
+                    } else if (title.includes('WrestleMania')) {
+                        series = 'wrestlemania';
+                    } else if (title.includes('War Zone') || title.includes('Attitude') || title.includes('No Mercy') || title.includes('WrestleMania 2000')) {
+                        series = 'n64';
+                    } else if (title.includes('Day of Reckoning')) {
+                        series = 'gamecube';
+                    } else if (platformType === 'arcade' || title.includes('Superstars') || title.includes('WrestleFest')) {
+                        series = 'arcade';
+                    } else if (title.includes('Raw') && !title.includes('vs.') && !title.includes('SmackDown')) {
+                        // Raw series games (WWE Raw, WWE Raw 2, etc.)
+                        series = 'standalone';
+                    } else if (title.includes('Royal Rumble') || title.includes('In Your House') || title.includes('Crush Hour') || title.includes('All Stars') || title.includes('Battlegrounds')) {
+                        series = 'standalone';
+                    } else if (title.includes('MicroLeague') || title.includes('WWF') || title.includes('WWE')) {
+                        // Other WWE/WWF games not in main series
+                        series = 'standalone';
+                    }
+
+                    card.setAttribute('data-era', era);
+                    card.setAttribute('data-platform', platformType);
+                    card.setAttribute('data-series', series);
+                });
+            }
+
+            // Filter games based on selected criteria
+            function filterGames() {
+                const selectedEra = eraFilter.value;
+                const selectedPlatform = platformFilter.value;
+                const selectedSeries = seriesFilter.value;
+
+                let visibleCount = 0;
+                const eraVisibility = {}; // Track which eras have visible games
+
+                gameCards.forEach(card => {
+                    const cardEra = card.getAttribute('data-era');
+                    const cardPlatform = card.getAttribute('data-platform');
+                    const cardSeries = card.getAttribute('data-series');
+
+                    const eraMatch = selectedEra === 'all' || cardEra === selectedEra;
+                    const platformMatch = selectedPlatform === 'all' || cardPlatform === selectedPlatform;
+                    const seriesMatch = selectedSeries === 'all' || cardSeries === selectedSeries;
+
+                    if (eraMatch && platformMatch && seriesMatch) {
+                        card.classList.remove('hidden');
+                        visibleCount++;
+
+                        // Mark this era as having visible games
+                        if (!eraVisibility[cardEra]) {
+                            eraVisibility[cardEra] = true;
+                        }
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+
+                // Hide/show era sections based on whether they have visible games
+                const eraDividers = document.querySelectorAll('.era-divider');
+                eraDividers.forEach(divider => {
+                    let hasVisibleGames = false;
+
+                    // Check if this era section has any visible games
+                    if (divider.classList.contains('golden-era')) {
+                        hasVisibleGames = eraVisibility['golden'];
+                    } else if (divider.classList.contains('new-generation-era')) {
+                        hasVisibleGames = eraVisibility['new-generation'];
+                    } else if (divider.classList.contains('attitude-era')) {
+                        hasVisibleGames = eraVisibility['attitude'];
+                    } else if (divider.classList.contains('ruthless-era')) {
+                        hasVisibleGames = eraVisibility['ruthless'];
+                    } else if (divider.classList.contains('brand-split-era')) {
+                        hasVisibleGames = eraVisibility['pg'];
+                    } else if (divider.classList.contains('reality-era')) {
+                        hasVisibleGames = eraVisibility['reality'];
+                    } else if (divider.classList.contains('new-era')) {
+                        hasVisibleGames = eraVisibility['new'];
+                    } else if (divider.classList.contains('post-covid-era')) {
+                        hasVisibleGames = eraVisibility['post-covid'];
+                    } else if (divider.classList.contains('renaissance-era')) {
+                        hasVisibleGames = eraVisibility['renaissance'];
+                    }
+
+                    // Show/hide the era section based on whether it has visible games
+                    // Hide era headers when no games in that era match the current filters
+                    if (hasVisibleGames) {
+                        divider.style.display = 'block';
+                    } else {
+                        divider.style.display = 'none';
+                    }
+                });
+
+                // Hide/show games grids based on whether they have visible games
+                const gamesGrids = document.querySelectorAll('.games-grid');
+                gamesGrids.forEach(grid => {
+                    const visibleCardsInGrid = grid.querySelectorAll('.game-card:not(.hidden)').length;
+                    if (visibleCardsInGrid === 0) {
+                        grid.style.display = 'none';
+                    } else {
+                        grid.style.display = 'grid';
+                    }
+                });
+
+                // Update filter status indicator
+                updateFilterStatus(selectedEra, selectedPlatform, selectedSeries, visibleCount);
+
+                // Show/hide no results message
+                let noResultsMsg = document.querySelector('.no-results');
+                if (visibleCount === 0) {
+                    if (!noResultsMsg) {
+                        noResultsMsg = document.createElement('div');
+                        noResultsMsg.className = 'no-results';
+                        noResultsMsg.style.cssText = `
+                            text-align: center;
+                            padding: 60px 20px;
+                            color: var(--medium-text);
+                            grid-column: 1 / -1;
+                            margin: 40px 0;
+                        `;
+                        noResultsMsg.innerHTML = `
+                            <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5; color: var(--accent-color);"></i>
+                            <h3 style="margin-bottom: 15px; color: var(--text-color);">Žádné hry neodpovídají vybraným filtrům</h3>
+                            <p style="font-size: 1.1rem; opacity: 0.8; margin-bottom: 20px;">Zkuste změnit kritéria filtru nebo resetovat filtry.</p>
+                            <button onclick="resetFilters()" style="
+                                background: var(--accent-color);
+                                color: white;
+                                border: none;
+                                padding: 12px 24px;
+                                border-radius: 8px;
+                                font-size: 1rem;
+                                cursor: pointer;
+                                transition: all 0.3s ease;
+                            " onmouseover="this.style.background='var(--accent-hover)'" onmouseout="this.style.background='var(--accent-color)'">
+                                <i class="fas fa-undo"></i> Resetovat filtry
+                            </button>
+                        `;
+                        // Add to the first games grid
+                        const firstGrid = document.querySelector('.games-grid');
+                        if (firstGrid) {
+                            firstGrid.appendChild(noResultsMsg);
+                        }
+                    }
+                    noResultsMsg.style.display = 'block';
+                } else {
+                    if (noResultsMsg) {
+                        noResultsMsg.style.display = 'none';
+                    }
+                }
+            }
+
+            // Reset all filters
+            function resetFilters() {
+                eraFilter.value = 'all';
+                platformFilter.value = 'all';
+                seriesFilter.value = 'all';
+
+                // Show all era sections and games grids
+                const eraDividers = document.querySelectorAll('.era-divider');
+                eraDividers.forEach(divider => {
+                    divider.style.display = 'block';
+                });
+
+                const gamesGrids = document.querySelectorAll('.games-grid');
+                gamesGrids.forEach(grid => {
+                    grid.style.display = 'grid';
+                });
+
+                filterGames();
+            }
+
+            // Update filter status indicator
+            function updateFilterStatus(selectedEra, selectedPlatform, selectedSeries, visibleCount) {
+                const filtersContainer = document.querySelector('.game-filters');
+                let statusIndicator = document.querySelector('.filter-status');
+
+                const isFiltered = selectedEra !== 'all' || selectedPlatform !== 'all' || selectedSeries !== 'all';
+
+                if (isFiltered) {
+                    if (!statusIndicator) {
+                        statusIndicator = document.createElement('div');
+                        statusIndicator.className = 'filter-status';
+                        statusIndicator.style.cssText = `
+                            background: var(--accent-color);
+                            color: var(--bg-color);
+                            padding: 8px 16px;
+                            border-radius: 20px;
+                            font-size: 0.9rem;
+                            font-weight: 600;
+                            margin-top: 15px;
+                            text-align: center;
+                            animation: slideIn 0.3s ease;
+                        `;
+                        filtersContainer.appendChild(statusIndicator);
+                    }
+
+                    const activeFilters = [];
+                    if (selectedEra !== 'all') activeFilters.push(`Éra: ${eraFilter.options[eraFilter.selectedIndex].text}`);
+                    if (selectedPlatform !== 'all') activeFilters.push(`Platforma: ${platformFilter.options[platformFilter.selectedIndex].text}`);
+                    if (selectedSeries !== 'all') activeFilters.push(`Série: ${seriesFilter.options[seriesFilter.selectedIndex].text}`);
+
+                    statusIndicator.innerHTML = `
+                        <i class="fas fa-filter"></i>
+                        Zobrazeno ${visibleCount} her | ${activeFilters.join(' • ')}
+                    `;
+                    statusIndicator.style.display = 'block';
+                } else {
+                    if (statusIndicator) {
+                        statusIndicator.style.display = 'none';
+                    }
+                }
+            }
+
+            // Make resetFilters globally accessible
+            window.resetFilters = resetFilters;
+
+            // Add event listeners
+            eraFilter.addEventListener('change', filterGames);
+            platformFilter.addEventListener('change', filterGames);
+            seriesFilter.addEventListener('change', filterGames);
+            resetButton.addEventListener('click', resetFilters);
+
+            // Initialize
+            addGameAttributes();
+        }
+
+        // Initialize filters when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeGameFilters();
+        });
     </script>
 </body>
 </html>
