@@ -1695,22 +1695,7 @@
                             </select>
                         </div>
 
-                        <div class="filter-group">
-                            <label for="platform-filter">Platforma:</label>
-                            <select id="platform-filter" class="filter-select">
-                                <option value="all">Všechny platformy</option>
-                                <option value="arcade">Arcade</option>
-                                <option value="nes">NES</option>
-                                <option value="snes">SNES/Genesis</option>
-                                <option value="n64">Nintendo 64</option>
-                                <option value="playstation">PlayStation</option>
-                                <option value="ps2">PlayStation 2</option>
-                                <option value="gamecube">GameCube</option>
-                                <option value="xbox">Xbox</option>
-                                <option value="modern">Modern (PS3/Xbox 360+)</option>
-                                <option value="mobile">Mobile</option>
-                            </select>
-                        </div>
+
 
                         <div class="filter-group">
                             <label for="series-filter">Série:</label>
@@ -2358,7 +2343,7 @@
             </div>
 
             <!-- PG ERA (2008-2014) -->
-            <div class="era-divider brand-split-era">
+            <div class="era-divider pg-era">
                 <div class="era-title">
                     <h2>PG Era (2008-2014)</h2>
                     <p class="era-subtitle">2008 - 2014</p>
@@ -3473,7 +3458,6 @@
         // Game Filtering Functionality
         function initializeGameFilters() {
             const eraFilter = document.getElementById('era-filter');
-            const platformFilter = document.getElementById('platform-filter');
             const seriesFilter = document.getElementById('series-filter');
             const resetButton = document.getElementById('reset-filters');
             const gameCards = document.querySelectorAll('.game-card');
@@ -3498,39 +3482,7 @@
                     else if (year >= 2022 && year <= 2023) era = 'post-covid';
                     else if (year >= 2024) era = 'renaissance';
 
-                    // Set platform attribute - improved logic to handle multiple platforms
-                    let platformType = 'modern'; // Default for modern multi-platform games
 
-                    // Check for specific platforms in order of priority
-                    if (platform.includes('Arcade')) {
-                        platformType = 'arcade';
-                    } else if (platform.includes('NES') && !platform.includes('SNES')) {
-                        platformType = 'nes';
-                    } else if (platform.includes('SNES') || platform.includes('Genesis')) {
-                        platformType = 'snes';
-                    } else if (platform.includes('Nintendo 64') || platform.includes('N64')) {
-                        platformType = 'n64';
-                    } else if (platform.includes('GameCube')) {
-                        platformType = 'gamecube';
-                    } else if (platform.includes('PlayStation 2') || platform.includes('PS2')) {
-                        platformType = 'ps2';
-                    } else if (platform.includes('PlayStation') && !platform.includes('2') && !platform.includes('3') && !platform.includes('4') && !platform.includes('5')) {
-                        platformType = 'playstation';
-                    } else if (platform.includes('Xbox') && !platform.includes('360') && !platform.includes('One')) {
-                        platformType = 'xbox';
-                    } else if (platform.includes('Mobile')) {
-                        platformType = 'mobile';
-                    } else if (platform.includes('Commodore') || platform.includes('Atari')) {
-                        platformType = 'nes'; // Group old computer platforms with NES era
-                    } else if (platform.includes('32X') || platform.includes('Game Boy') || platform.includes('Sega Saturn')) {
-                        platformType = 'snes'; // Group with 16-bit era
-                    } else if (platform.includes('PC') && (year <= 1996)) {
-                        platformType = 'playstation'; // Early PC games grouped with PlayStation era
-                    } else if (platform.includes('PSP')) {
-                        platformType = 'ps2'; // PSP grouped with PS2 era
-                    } else if (platform.includes('Multi-Platform') || platform.includes('PS3') || platform.includes('Xbox 360') || platform.includes('PS4') || platform.includes('Xbox One') || platform.includes('PS5') || platform.includes('Xbox Series') || platform.includes('Switch')) {
-                        platformType = 'modern';
-                    }
 
                     // Set series attribute - improved logic to handle more game titles
                     let series = 'standalone';
@@ -3548,7 +3500,7 @@
                         series = 'n64';
                     } else if (title.includes('Day of Reckoning')) {
                         series = 'gamecube';
-                    } else if (platformType === 'arcade' || title.includes('Superstars') || title.includes('WrestleFest')) {
+                    } else if (title.includes('Superstars') || title.includes('WrestleFest')) {
                         series = 'arcade';
                     } else if (title.includes('Raw') && !title.includes('vs.') && !title.includes('SmackDown')) {
                         // Raw series games (WWE Raw, WWE Raw 2, etc.)
@@ -3561,7 +3513,6 @@
                     }
 
                     card.setAttribute('data-era', era);
-                    card.setAttribute('data-platform', platformType);
                     card.setAttribute('data-series', series);
                 });
             }
@@ -3569,7 +3520,6 @@
             // Filter games based on selected criteria
             function filterGames() {
                 const selectedEra = eraFilter.value;
-                const selectedPlatform = platformFilter.value;
                 const selectedSeries = seriesFilter.value;
 
                 let visibleCount = 0;
@@ -3577,14 +3527,12 @@
 
                 gameCards.forEach(card => {
                     const cardEra = card.getAttribute('data-era');
-                    const cardPlatform = card.getAttribute('data-platform');
                     const cardSeries = card.getAttribute('data-series');
 
                     const eraMatch = selectedEra === 'all' || cardEra === selectedEra;
-                    const platformMatch = selectedPlatform === 'all' || cardPlatform === selectedPlatform;
                     const seriesMatch = selectedSeries === 'all' || cardSeries === selectedSeries;
 
-                    if (eraMatch && platformMatch && seriesMatch) {
+                    if (eraMatch && seriesMatch) {
                         card.classList.remove('hidden');
                         visibleCount++;
 
@@ -3611,7 +3559,7 @@
                         hasVisibleGames = eraVisibility['attitude'];
                     } else if (divider.classList.contains('ruthless-era')) {
                         hasVisibleGames = eraVisibility['ruthless'];
-                    } else if (divider.classList.contains('brand-split-era')) {
+                    } else if (divider.classList.contains('pg-era')) {
                         hasVisibleGames = eraVisibility['pg'];
                     } else if (divider.classList.contains('reality-era')) {
                         hasVisibleGames = eraVisibility['reality'];
@@ -3644,7 +3592,7 @@
                 });
 
                 // Update filter status indicator
-                updateFilterStatus(selectedEra, selectedPlatform, selectedSeries, visibleCount);
+                updateFilterStatus(selectedEra, selectedSeries, visibleCount);
 
                 // Show/hide no results message
                 let noResultsMsg = document.querySelector('.no-results');
@@ -3693,7 +3641,6 @@
             // Reset all filters
             function resetFilters() {
                 eraFilter.value = 'all';
-                platformFilter.value = 'all';
                 seriesFilter.value = 'all';
 
                 // Show all era sections and games grids
@@ -3711,11 +3658,11 @@
             }
 
             // Update filter status indicator
-            function updateFilterStatus(selectedEra, selectedPlatform, selectedSeries, visibleCount) {
+            function updateFilterStatus(selectedEra, selectedSeries, visibleCount) {
                 const filtersContainer = document.querySelector('.game-filters');
                 let statusIndicator = document.querySelector('.filter-status');
 
-                const isFiltered = selectedEra !== 'all' || selectedPlatform !== 'all' || selectedSeries !== 'all';
+                const isFiltered = selectedEra !== 'all' || selectedSeries !== 'all';
 
                 if (isFiltered) {
                     if (!statusIndicator) {
@@ -3737,7 +3684,6 @@
 
                     const activeFilters = [];
                     if (selectedEra !== 'all') activeFilters.push(`Éra: ${eraFilter.options[eraFilter.selectedIndex].text}`);
-                    if (selectedPlatform !== 'all') activeFilters.push(`Platforma: ${platformFilter.options[platformFilter.selectedIndex].text}`);
                     if (selectedSeries !== 'all') activeFilters.push(`Série: ${seriesFilter.options[seriesFilter.selectedIndex].text}`);
 
                     statusIndicator.innerHTML = `
@@ -3757,7 +3703,6 @@
 
             // Add event listeners
             eraFilter.addEventListener('change', filterGames);
-            platformFilter.addEventListener('change', filterGames);
             seriesFilter.addEventListener('change', filterGames);
             resetButton.addEventListener('click', resetFilters);
 
